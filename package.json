@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build  --base=/project-headliner-frontend-2025/",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
