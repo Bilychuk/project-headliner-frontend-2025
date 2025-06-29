@@ -1,14 +1,14 @@
 import { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout/Layout';
-import PrivateRoute from './routes/PrivateRoute';
-import RestrictedRoute from './routes/RestrictedRoute';
+import Layout from '../Layout/Layout';
+import PrivateRoute from '../Routes/PrivateRoute';
+import RestrictedRoute from '../Routes/RestrictedRoute';
 
-const MainPage       = lazy(() => import('./pages/MainPage/MainPage'));
-const RecipeViewPage = lazy(() => import('./pages/RecipeViewPage/RecipeViewPage'));
-const AddRecipePage  = lazy(() => import('./pages/AddRecipePage/AddRecipePage'));
-const ProfilePage    = lazy(() => import('./pages/ProfilePage/ProfilePage'));
-const AuthPage       = lazy(() => import('./pages/AuthPage/AuthPage'));
+const MainPage       = lazy(() => import('../../pages/MainPage/MainPage'));
+const RecipeViewPage = lazy(() => import('../../pages/RecipeViewPage/RecipeViewPage'));
+const AddRecipePage  = lazy(() => import('../../pages/AddRecipePage/AddRecipePage'));
+const ProfilePage    = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
+const AuthPage       = lazy(() => import('../../pages/AuthPage/AuthPage'));
 
 export default function App() {
   return (
