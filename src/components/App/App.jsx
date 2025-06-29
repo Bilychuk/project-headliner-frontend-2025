@@ -1,8 +1,8 @@
-import { lazy } from 'react';
+import { lazy, Suspense  } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
-import PrivateRoute from '../Routes/PrivateRoute';
-import RestrictedRoute from '../Routes/RestrictedRoute';
+import PrivateRoute from '../PrivateRoute';
+import RestrictedRoute from '../RestrictedRoute';
 
 const MainPage       = lazy(() => import('../../pages/MainPage/MainPage'));
 const RecipeViewPage = lazy(() => import('../../pages/RecipeViewPage/RecipeViewPage'));
@@ -13,6 +13,7 @@ const AuthPage       = lazy(() => import('../../pages/AuthPage/AuthPage'));
 export default function App() {
   return (
     <Layout>
+      <Suspense fallback={<p><b>Loading...</b></p>}></Suspense>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/recipes/:id" element={<RecipeViewPage />} />
