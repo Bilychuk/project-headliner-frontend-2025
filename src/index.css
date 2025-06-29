@@ -6,6 +6,16 @@
   font-display: swap;
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   color: black;
