@@ -8,26 +8,39 @@ const MainPage       = lazy(() => import('../../pages/MainPage/MainPage'));
 const RecipeViewPage = lazy(() => import('../../pages/RecipeViewPage/RecipeViewPage'));
 const AddRecipePage  = lazy(() => import('../../pages/AddRecipePage/AddRecipePage'));
 const ProfilePage    = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
-const AuthPage       = lazy(() => import('../../pages/AuthPage/AuthPage'));
+const LoginPage       = lazy(() => import('../../pages/AuthPage/LoginPage'));
+const RegisterPage    = lazy(() => import('../../pages/AuthPage/RegisterPage'));
 
 export default function App() {
   return (
     <Layout>
       <Suspense fallback={<p><b>Loading...</b></p>}></Suspense>
+      {/* Публічні маршрути */}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/recipes/:id" element={<RecipeViewPage />} />
+        
+        {/* Auth для  юзера */}
+         <Route
+            path="/auth/login"
+            element={
+              <RestrictedRoute
+                component={<LoginPage />}
+                redirectTo="/"
+              />
+            }
+          />
+          <Route
+            path="/auth/register"
+            element={
+              <RestrictedRoute
+                component={<RegisterPage />}
+                redirectTo="/"
+              />
+            }
+          />
 
-        <Route
-          path="/auth/:authType"
-          element={
-            <RestrictedRoute
-              component={<AuthPage />}
-              redirectTo="/"
-            />
-          }
-        />
-
+        {/* Приватні маршрути */}
         <Route
           path="/add-recipe"
           element={
@@ -50,7 +63,8 @@ export default function App() {
             />
           }
         />
-
+        
+        {/*маршрут-за-замовчуванням*/}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>
