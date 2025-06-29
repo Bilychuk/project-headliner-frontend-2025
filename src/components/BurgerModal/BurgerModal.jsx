@@ -1,6 +1,7 @@
+import { NavLink } from 'react-router-dom';
 import s from './BurgerModal.module.css';
-import logo from '../../assets/icons//header-icons/header-logo.svg';
-import logoutIcon from '../../assets/icons//header-icons/logout-icon.svg';
+import logo from '../../assets/icons/header-icons/header-logo.svg';
+import logoutIcon from '../../assets/icons/header-icons/logout-icon.svg';
 import close from '../../assets/icons/header-icons/burger-close.svg';
 
 export default function BurgerModal({ onClose, isLoggedIn }) {
@@ -13,28 +14,39 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
             <p className={s.title}>Tasteorama</p>
           </div>
           <button className={s.closeBtn} onClick={onClose}>
-            <img src={close} alt="Burger" className={s.closeIcon} />
+            <img src={close} alt="Close" className={s.closeIcon} />
           </button>
         </div>
 
         <ul className={s.list}>
           <li>
-            <a className={s.link}>Recipes</a>
+            <NavLink to="/recipes" className={s.link}>
+              Recipes
+            </NavLink>
           </li>
 
           {!isLoggedIn ? (
             <>
               <li>
-                <a className={s.link}>Log in</a>
+                <NavLink to="/login" className={s.link}>
+                  Log in
+                </NavLink>
               </li>
               <li>
-                <a className={s.link + ' ' + s.registerBtn}>Register</a>
+                <NavLink
+                  to="/register"
+                  className={`${s.link} ${s.registerBtn}`}
+                >
+                  Register
+                </NavLink>
               </li>
             </>
           ) : (
             <>
               <li>
-                <a className={s.link}>My Profile</a>
+                <NavLink to="/profile" className={s.link}>
+                  My Profile
+                </NavLink>
               </li>
               <li className={s.userSection}>
                 <span className={s.avatar}>M</span>
@@ -44,7 +56,12 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                 </button>
               </li>
               <li>
-                <a className={s.link + ' ' + s.registerBtn}>Add Recepy</a>
+                <NavLink
+                  to="/add-recipe"
+                  className={`${s.link} ${s.registerBtn}`}
+                >
+                  Add Recipe
+                </NavLink>
               </li>
             </>
           )}
