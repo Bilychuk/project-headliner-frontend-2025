@@ -1,3 +1,7 @@
+h2,
+p {
+  margin: 0;
+}
 /* 320-368 */
 .overlay {
   background-color: rgba(0, 0, 0, 0.8);
@@ -12,6 +16,10 @@
 }
 
 .container {
+  box-sizing: border-box;
+  width: 362px;
+  height: 316px;
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,14 +35,12 @@
   background-color: #faf3e0;
   padding: 56px 24px 32px 24px;
 }
-/* width: 362;
-    height: 316; */
 
 .btnx {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: transparent;
+  background-color: transparent;
   border: none;
   width: 24px;
   height: 24px;
@@ -62,11 +68,13 @@
 .btncontainer {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   gap: 16px;
 }
 
 .btnlogout {
+  width: 314px;
+  height: 54px;
+
   background-color: #c80000;
   border: none;
   padding: 16px auto;
@@ -81,6 +89,9 @@
 }
 
 .btncancel {
+  width: 314px;
+  height: 54px;
+
   border: 1px solid #000000;
   border-radius: 8px;
   padding: 16px auto;
@@ -93,21 +104,13 @@
   color: #000000;
 }
 
-/* width: 314;
-    height: 54; */
-
-/* ================================ */
 /* 793 - 1440*/
 @media screen and (min-width: 768px) {
   .container {
+    width: 420px;
+    height: 236px;
     padding: 56px 32px 32px 32px;
   }
-  /* width: 362;
-      height: 316; */
-  /* .modalContent {
-      position: relative;
-      text-align: center;
-    } */
 
   .btnx {
     right: 32px;
@@ -121,17 +124,16 @@
   }
 
   .btnlogout {
+    width: 164.5px;
+    height: 44px;
     padding: 12px 16px;
     font-size: 16px;
   }
-
-  /* width: 164.5;
-    height: 44; */
 
   .btncancel {
+    width: 164.5px;
+    height: 44px;
     padding: 12px 16px;
     font-size: 16px;
   }
-  /* width: 164.5;
-    height: 44; */
 }

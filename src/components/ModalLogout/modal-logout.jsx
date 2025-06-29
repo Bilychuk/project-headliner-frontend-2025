@@ -18,14 +18,14 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
             <use href="./close24px.svg"></use>
           </svg>
         </button>
-        <h2 className={css.h2}>Are you shure?</h2>
-        <p className={css.p}>We will miss you?</p>
-        <div lassName={css.btncontainer}>
-          <button className={css.btnlogout} onClick={onConfirm}>
-            Log out
-          </button>
+        <h2 className={css.h2}>Are you sure?</h2>
+        <p className={css.p}>We will miss you!</p>
+        <div className={css.btncontainer}>
           <button className={css.btncancel} onClick={onClose}>
             Cancel
+          </button>
+          <button className={css.btnlogout} onClick={onConfirm}>
+            Log out
           </button>
         </div>
       </div>
