@@ -2,29 +2,50 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 import css from './LogoutModal.module.css';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { closeLogoutModal } from '../../redux/auth/slice.js';
+import { logout } from '../../redux/auth/operations.js';
+
 const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
-  if (!isOpen) return null;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isOpen = useSelector(state => state.modal.isLogoutModalOpen);
+
+  const handleClose = () => {
+    dispatch(closeLogoutModal());
+  };
+
+  const handleConfirm = async () => {
+    await dispatch(logout());
+    dispatch(closeLogoutModal());
+    navigate('/');
+  };
 
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onClose}
+      onRequestClose={handleClose}
       className={css.container}
       overlayClassName={css.overlay}
     >
       <div>
-        <button className={css.btnx} onClick={onClose}>
-          <svg width="24" height="24">
-            <use href="./close24px.svg"></use>
-          </svg>
+        <button type="button" className={css.btnx} onClick={handleClose}>
+          <img src="./close24px-1x.jpg" alt="close" />
         </button>
         <h2 className={css.h2}>Are you sure?</h2>
         <p className={css.p}>We will miss you!</p>
         <div className={css.btncontainer}>
-          <button className={css.btncancel} onClick={onClose}>
+          <button type="button" className={css.btncancel} onClick={handleClose}>
             Cancel
           </button>
-          <button className={css.btnlogout} onClick={onConfirm}>
+          <button
+            type="button"
+            className={css.btnlogout}
+            onClick={handleConfirm}
+          >
             Log out
           </button>
         </div>
