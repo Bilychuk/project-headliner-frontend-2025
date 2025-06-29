@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../../redux/auth/operations';
+import { register } from '../../redux/auth/operations.js';
 import { validateRegister } from '../../validation.js';
 import styles from './RegisterPage.module.css';
 

@@ -10,6 +10,8 @@ const AddRecipePage  = lazy(() => import('../../pages/AddRecipePage/AddRecipePag
 const ProfilePage    = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
 const LoginPage       = lazy(() => import('../../pages/AuthPage/LoginPage'));
 const RegisterPage    = lazy(() => import('../../pages/AuthPage/RegisterPage'));
+const OwnRecipes      = lazy(() => import('../OwnRecipes/OwnRecipes'));
+const FavoriteRecipes = lazy(() => import('../FavoriteRecipes/FavoriteRecipes'));
 
 export default function App() {
   return (
@@ -21,7 +23,7 @@ export default function App() {
         <Route path="/recipes/:id" element={<RecipeViewPage />} />
         
         {/* Auth для  юзера */}
-         <Route
+        <Route
             path="/auth/login"
             element={
               <RestrictedRoute
@@ -50,18 +52,11 @@ export default function App() {
             />
           }
         />
-        <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login" />}>
-            {/* Редірект на власні рецепти */}
-            <Route index element={<Navigate to="own" replace />} />
-            <Route
-              path="own"
-              element={<ProfilePage recipeType="own" />}
-            />
-            <Route
-              path="favorites"
-              element={<ProfilePage recipeType="favorites" />}
-            />
-        </Route>
+      <Route path="/profile/:recipeType" element={<ProfilePage />}>
+        {/* Вкладені маршрути */}
+        <Route path="own" element={<OwnRecipes />} />
+        <Route path="favorites" element={<FavoriteRecipes />} />
+      </Route>
         
         {/*маршрут-за-замовчуванням*/}
         <Route path="*" element={<Navigate to="/" replace />} />
