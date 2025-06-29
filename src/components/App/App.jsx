@@ -52,7 +52,10 @@ export default function App() {
             />
           }
         />
-      <Route path="/profile/:recipeType" element={<ProfilePage />}>
+      <Route
+            path="/profile"
+            element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login" />}
+          >
         {/* Вкладені маршрути */}
         <Route path="own" element={<OwnRecipes />} />
         <Route path="favorites" element={<FavoriteRecipes />} />
