@@ -7,7 +7,7 @@ import Navigation from '../Navigation/Navigation';
 
 export default function AppBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   const toggleModal = () => {
     setIsModalOpen(prev => !prev);
