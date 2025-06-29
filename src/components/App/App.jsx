@@ -1,45 +1,57 @@
-import { Suspense } from 'react';
 import { lazy } from 'react';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import PrivateRoute from './routes/PrivateRoute';
+import RestrictedRoute from './routes/RestrictedRoute';
 
-const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
-const RecipeViewPage = lazy(() => import('../../pages/RecipeViewPage/RecipeViewPage'));
-const AddRecipePage = lazy(() => import('../../pages/AddRecipePage/AddRecipePage'));
-const ProfilePage = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
-const AuthPage = lazy(() => import('../../pages/AuthPage/AuthPage'));
-
-function PrivateRoute() {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <Outlet /> : <Navigate to="/auth/login" replace />;
-}
+const MainPage       = lazy(() => import('./pages/MainPage/MainPage'));
+const RecipeViewPage = lazy(() => import('./pages/RecipeViewPage/RecipeViewPage'));
+const AddRecipePage  = lazy(() => import('./pages/AddRecipePage/AddRecipePage'));
+const ProfilePage    = lazy(() => import('./pages/ProfilePage/ProfilePage'));
+const AuthPage       = lazy(() => import('./pages/AuthPage/AuthPage'));
 
 export default function App() {
   return (
-    <Router>
-      {/* Загальний лейаут з навігацією */}
-      <Layout />
+    <Layout>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/recipes/:id" element={<RecipeViewPage />} />
 
-      <Suspense fallback={<p><b>Loading...</b></p>}>
-        <Routes>
-          {/* Публічні маршрути */}
-          <Route path="/" element={<MainPage />} />
-          <Route path="/recipes/:id" element={<RecipeViewPage />} />
-          <Route path="/auth/:authType" element={<AuthPage />} />
+        <Route
+          path="/auth/:authType"
+          element={
+            <RestrictedRoute
+              component={<AuthPage />}
+              redirectTo="/"
+            />
+          }
+        />
 
-          {/* Приватні маршрути */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/add-recipe" element={<AddRecipePage />} />
-            <Route path="/profile">
-              {/* За замовчуванням редірект на власні рецепти */}
-              <Route index element={<Navigate to="own" replace />} />
-              <Route path=":recipeType" element={<ProfilePage />} />
-            </Route>
-          </Route>
+        <Route
+          path="/add-recipe"
+          element={
+            <PrivateRoute
+              component={<AddRecipePage />}
+              redirectTo="/auth/login"
+            />
+          }
+        />
+        <Route
+          path="/profile"
+          element={<Navigate to="/profile/own" replace />}
+        />
+        <Route
+          path="/profile/:recipeType"
+          element={
+            <PrivateRoute
+              component={<ProfilePage />}
+              redirectTo="/auth/login"
+            />
+          }
+        />
 
-          {/* Обробка невідомих маршрутів */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </Router>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Layout>
   );
 }
