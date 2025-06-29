@@ -50,19 +50,18 @@ export default function App() {
             />
           }
         />
-        <Route
-          path="/profile"
-          element={<Navigate to="/profile/own" replace />}
-        />
-        <Route
-          path="/profile/:recipeType"
-          element={
-            <PrivateRoute
-              component={<ProfilePage />}
-              redirectTo="/auth/login"
+        <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login" />}>
+            {/* Редірект на власні рецепти */}
+            <Route index element={<Navigate to="own" replace />} />
+            <Route
+              path="own"
+              element={<ProfilePage recipeType="own" />}
             />
-          }
-        />
+            <Route
+              path="favorites"
+              element={<ProfilePage recipeType="favorites" />}
+            />
+        </Route>
         
         {/*маршрут-за-замовчуванням*/}
         <Route path="*" element={<Navigate to="/" replace />} />
