@@ -1,0 +1,67 @@
+header {
+  background: #3d2218;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 393px;
+  padding: 14px 16px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  padding-left: 4px;
+}
+
+.burgerBtn {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  z-index: 1100;
+}
+
+.burger {
+  display: block;
+  height: 32px;
+  width: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 14px 32px;
+    justify-content: space-between;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+
+  .desktopMenu {
+    display: flex;
+  }
+
+  .link {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 14px 108px;
+  }
+}

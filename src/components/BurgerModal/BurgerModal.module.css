@@ -1,0 +1,89 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.modal {
+  background: #3d2218;
+  width: 100%;
+  max-width: 393px;
+  border-radius: 16px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  padding-left: 4px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+}
+
+.closeBtn {
+  margin-left: auto;
+  border: none;
+  background: none;
+}
+
+.close {
+  width: 32px;
+  height: 32px;
+}
+
+.link {
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  margin-top: 36px;
+}
+
+li:last-child {
+  width: 100%;
+  background: #9b6c43;
+  padding: 16px 0;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .backdrop {
+    display: none;
+  }
+}
