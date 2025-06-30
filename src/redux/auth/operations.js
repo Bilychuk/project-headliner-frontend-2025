@@ -10,9 +10,8 @@ export const login = createAsyncThunk(
       const { data } = await api.post('/api/auth/login', formData);
       if (data.data?.accessToken) localStorage.setItem('accessToken', data.data.accessToken);
       if (data.data?.refreshToken) localStorage.setItem('refreshToken', data.data.refreshToken);
-      const user = await thunkAPI.dispatch(fetchCurrentUser()).unwrap();
       return {
-        user,
+        user: data.data?.user || data.data,
         token: data.data?.accessToken || null,
         refreshToken: data.data?.refreshToken || null,
       };
@@ -30,8 +29,11 @@ export const register = createAsyncThunk(
       const { data } = await api.post('/api/auth/register', formData);
       if (data.data?.accessToken) localStorage.setItem('accessToken', data.data.accessToken);
       if (data.data?.refreshToken) localStorage.setItem('refreshToken', data.data.refreshToken);
-      const user = await thunkAPI.dispatch(fetchCurrentUser()).unwrap();
-      return { user };
+      return {
+        user: data.data?.user || data.data,
+        token: data.data?.accessToken || null,
+        refreshToken: data.data?.refreshToken || null,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || 'Registration failed');
     }
