@@ -39,6 +39,11 @@ header {
   width: 32px;
 }
 
+.logo {
+  width: 32px;
+  height: 30px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 768px;
