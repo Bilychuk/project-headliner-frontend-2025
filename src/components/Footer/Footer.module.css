@@ -4,8 +4,7 @@ footer {
 
 .container {
   max-width: 393px;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -45,9 +44,15 @@ footer {
   cursor: pointer;
 }
 
+.logoIcon {
+  width: 32px;
+  height: 30px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 768px;
+    padding: 24px 32px;
   }
 
   .navigation {
