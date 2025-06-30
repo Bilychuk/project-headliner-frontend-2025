@@ -24,7 +24,7 @@ export default function Navigation({ isLoggedIn }) {
             My Profile
           </NavLink>
           <NavLink to="/add-recipe" className={s.registerBtn}>
-            Add Recepy
+            Add Recipe
           </NavLink>
           <div className={s.userSection}>
             <span className={s.avatar}>M</span>
