@@ -1,0 +1,21 @@
+.logout {
+  position: relative;
+  margin-left: 16px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  background: none;
+  border: none;
+}
+
+.logout::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 39px;
+  background-color: #ffffff;
+}

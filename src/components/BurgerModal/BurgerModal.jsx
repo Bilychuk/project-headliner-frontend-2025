@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import s from './BurgerModal.module.css';
 import logo from '../../assets/icons/header-icons/header-logo.svg';
-import logoutIcon from '../../assets/icons/header-icons/logout-icon.svg';
 import close from '../../assets/icons/header-icons/burger-close.svg';
+import UserInfo from '../UserInfo/UserInfo';
+import LogoutBtn from '../LogoutBtn/LogoutBtn';
 
 export default function BurgerModal({ onClose, isLoggedIn }) {
   return (
@@ -49,11 +50,8 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                 </NavLink>
               </li>
               <li className={s.userSection}>
-                <span className={s.avatar}>M</span>
-                <span className={s.username}>Max</span>
-                <button className={s.logout}>
-                  <img src={logoutIcon} alt="Logout" />
-                </button>
+                <UserInfo />
+                <LogoutBtn />
               </li>
               <li>
                 <NavLink

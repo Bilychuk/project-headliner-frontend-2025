@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import logoutIcon from '../../assets/icons//header-icons/logout-icon.svg';
+import LogoutBtn from '../LogoutBtn/LogoutBtn';
 import s from './Navigation.module.css';
+import UserInfo from '../UserInfo/UserInfo';
 
 export default function Navigation({ isLoggedIn }) {
   return (
@@ -27,11 +28,8 @@ export default function Navigation({ isLoggedIn }) {
             Add Recipe
           </NavLink>
           <div className={s.userSection}>
-            <span className={s.avatar}>M</span>
-            <span className={s.username}>Max</span>
-            <button className={s.logout}>
-              <img src={logoutIcon} alt="Logout" />
-            </button>
+            <UserInfo />
+            <LogoutBtn />
           </div>
         </>
       )}
