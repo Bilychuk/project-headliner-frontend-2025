@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { closeLogoutModal } from '../../redux/auth/slice.js';
 import { logout } from '../../redux/auth/operations.js';
 
-const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
+const LogoutModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

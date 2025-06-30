@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import sprite from '../../assets/icon/sprite.svg';
 import s from './AppBar.module.css';
-import logo from '../../assets/icons/header-icons/header-logo.svg';
+import logo from '../Footer/header-logo.svg';
 import BurgerModal from '../BurgerModal/BurgerModal';
 import Navigation from '../Navigation/Navigation';
 
