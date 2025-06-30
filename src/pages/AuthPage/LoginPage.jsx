@@ -7,6 +7,7 @@ import { LoginSchema } from '../../validation.js';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React, { useRef, useState } from 'react';
+import { validateLogin } from '../../validation.js';
 import styles from './LoginPage.module.css';
 
 const LoginPage = () => {
