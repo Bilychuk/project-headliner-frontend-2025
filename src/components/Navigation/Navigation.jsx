@@ -20,10 +20,10 @@ export default function Navigation({ isLoggedIn }) {
         </>
       ) : (
         <>
-          <NavLink to="/profile" className={s.link}>
+          <NavLink to="/profile/:recipeType" className={s.link}>
             My Profile
           </NavLink>
-          <NavLink to="/add" className={s.registerBtn}>
+          <NavLink to="/add-recipe" className={s.registerBtn}>
             Add Recepy
           </NavLink>
           <div className={s.userSection}>
