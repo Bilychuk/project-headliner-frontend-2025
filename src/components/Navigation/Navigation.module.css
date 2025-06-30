@@ -17,7 +17,7 @@
 }
 
 .registerBtn {
-  background-color: #b87745;
+  background-color: #9b6c43;
   border: none;
   color: white;
   font-weight: 600;
@@ -25,6 +25,11 @@
   padding: 12px 16px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.registerBtn:hover,
+.registerBtn:focus {
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #ffffff;
 }
 
 .userSection {
