@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { closeLogoutModal } from '../../redux/modal/slice.js';
 import { logout } from '../../redux/auth/operations.js';
+import { logoutAction } from '../../redux/auth/slice.js';
 
 const LogoutModal = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const LogoutModal = () => {
 
   const onConfirm = async () => {
     await dispatch(logout());
+    dispatch(logoutAction());
     dispatch(closeLogoutModal());
     navigate('/');
   };
