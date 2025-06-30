@@ -33,7 +33,9 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
     >
       <div>
         <button type="button" className={css.btnx} onClick={onClose}>
-          <img src="./close24px-1x.jpg" alt="close" />
+          <svg>
+            <use href="../../assets/icons/header-icons/burger-close.svg"></use>
+          </svg>
         </button>
         <h2 className={css.h2}>Are you sure?</h2>
         <p className={css.p}>We will miss you!</p>
