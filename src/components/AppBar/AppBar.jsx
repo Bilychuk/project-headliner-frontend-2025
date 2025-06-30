@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import sprite from '../../assets/icon/sprite.svg';
 import s from './AppBar.module.css';
-import logo from '../Footer/header-logo.svg';
 import BurgerModal from '../BurgerModal/BurgerModal';
 import Navigation from '../Navigation/Navigation';
 
@@ -18,7 +17,9 @@ export default function AppBar() {
   return (
     <header className={s.header}>
       <div className={s.container}>
-        <img src={logo} width={32} height={30} alt="Logo" />
+        <svg className={s.logo}>
+          <use href={`${sprite}#icon-logo`} />
+        </svg>
         <span className={s.title}>Tasteorama</span>
         <Navigation isLoggedIn={isLoggedIn} />
         <button className={s.burgerBtn} onClick={toggleModal}>

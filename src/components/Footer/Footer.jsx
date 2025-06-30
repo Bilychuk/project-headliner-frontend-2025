@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import s from './Footer.module.css';
-import footerLogo from './header-logo.svg';
+import sprite from '../../assets/icon/sprite.svg';
 
 export default function Footer() {
   const location = useLocation();
@@ -11,7 +11,9 @@ export default function Footer() {
     <footer>
       <div className={s.container}>
         <div className={s.logo}>
-          <img src={footerLogo} alt="Logo" />
+          <svg className={s.logoIcon}>
+            <use href={`${sprite}#icon-logo`} />
+          </svg>
           <p className={s.title}>Tasteorama</p>
         </div>
 
