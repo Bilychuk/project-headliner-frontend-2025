@@ -20,7 +20,7 @@ export default function AppBar() {
         <span className={s.title}>Tasteorama</span>
         <Navigation isLoggedIn={isLoggedIn} />
         <button className={s.burgerBtn} onClick={toggleModal}>
-          <img src={burger} alt="Burger" className={s.burger} />
+          <img src={burger} alt="Menu toggle" className={s.burger} />
         </button>
       </div>
 
