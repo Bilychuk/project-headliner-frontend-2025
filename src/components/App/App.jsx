@@ -1,89 +1,24 @@
-import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
-import PrivateRoute from '../PrivateRoute';
-import RestrictedRoute from '../RestrictedRoute';
-import { useDispatch } from 'react-redux';
-import { getCurrentUser } from '../../redux/auth/operations';
-
-const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
-const RecipeViewPage = lazy(() =>
-  import('../../pages/RecipeViewPage/RecipeViewPage')
-);
-const AddRecipePage = lazy(() =>
-  import('../../pages/AddRecipePage/AddRecipePage')
-);
-const ProfilePage = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
-const LoginPage = lazy(() => import('../../pages/AuthPage/LoginPage'));
-const RegisterPage = lazy(() => import('../../pages/AuthPage/RegisterPage'));
-const OwnRecipes = lazy(() => import('../OwnRecipes/OwnRecipes'));
-const FavoriteRecipes = lazy(() =>
-  import('../FavoriteRecipes/FavoriteRecipes')
-);
+import MainPage from '../../pages/MainPage/MainPage';
+import RecipeViewPage from '../../pages/RecipeViewPage/RecipeViewPage';
+import AddRecipePage from '../../pages/AddRecipePage/AddRecipePage';
+import ProfilePage from '../../pages/ProfilePage/ProfilePage';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 
 export default function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
-
   return (
-    <Layout>
-      <Suspense
-        fallback={
-          <p>
-            <b>Loading...</b>
-          </p>
-        }
-      >
-        {/* Публічні маршрути */}
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/recipes/:id" element={<RecipeViewPage />} />
-
-          {/* Auth для  юзера */}
-          <Route
-            path="/auth/login"
-            element={
-              <RestrictedRoute component={<LoginPage />} redirectTo="/" />
-            }
-          />
-          <Route
-            path="/auth/register"
-            element={
-              <RestrictedRoute component={<RegisterPage />} redirectTo="/" />
-            }
-          />
-
-          {/* Приватні маршрути */}
-          <Route
-            path="/add-recipe"
-            element={
-              <PrivateRoute
-                component={<AddRecipePage />}
-                redirectTo="/auth/login"
-              />
-            }
-          />
-          <Route
-            path="/profile/:recipeType"
-            element={
-              <PrivateRoute
-                component={<ProfilePage />}
-                redirectTo="/auth/login"
-              />
-            }
-          >
-            {/* Вкладені маршрути */}
-            <Route path="own" element={<OwnRecipes />} />
-            <Route path="favorites" element={<FavoriteRecipes />} />
-          </Route>
-
-          {/*маршрут-за-замовчуванням*/}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPage />} />
+        <Route path="recipes/:id" element={<RecipeViewPage />} />
+        <Route path="auth/login" element={<LoginPage />} />
+        <Route path="auth/register" element={<RegisterPage />} />
+        <Route path="add-recipe" element={<AddRecipePage />} />
+        <Route path="profile/:recipeType" element={<ProfilePage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 }
