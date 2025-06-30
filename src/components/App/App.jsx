@@ -36,51 +36,54 @@ export default function App() {
             <b>Loading...</b>
           </p>
         }
-      ></Suspense>
-      {/* Публічні маршрути */}
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/recipes/:id" element={<RecipeViewPage />} />
+      >
+        {/* Публічні маршрути */}
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/recipes/:id" element={<RecipeViewPage />} />
 
-        {/* Auth для  юзера */}
-        <Route
-          path="/auth/login"
-          element={<RestrictedRoute component={<LoginPage />} redirectTo="/" />}
-        />
-        <Route
-          path="/auth/register"
-          element={
-            <RestrictedRoute component={<RegisterPage />} redirectTo="/" />
-          }
-        />
+          {/* Auth для  юзера */}
+          <Route
+            path="/auth/login"
+            element={
+              <RestrictedRoute component={<LoginPage />} redirectTo="/" />
+            }
+          />
+          <Route
+            path="/auth/register"
+            element={
+              <RestrictedRoute component={<RegisterPage />} redirectTo="/" />
+            }
+          />
 
-        {/* Приватні маршрути */}
-        <Route
-          path="/add-recipe"
-          element={
-            <PrivateRoute
-              component={<AddRecipePage />}
-              redirectTo="/auth/login"
-            />
-          }
-        />
-        <Route
-          path="/profile/:recipeType"
-          element={
-            <PrivateRoute
-              component={<ProfilePage />}
-              redirectTo="/auth/login"
-            />
-          }
-        >
-          {/* Вкладені маршрути */}
-          <Route path="own" element={<OwnRecipes />} />
-          <Route path="favorites" element={<FavoriteRecipes />} />
-        </Route>
+          {/* Приватні маршрути */}
+          <Route
+            path="/add-recipe"
+            element={
+              <PrivateRoute
+                component={<AddRecipePage />}
+                redirectTo="/auth/login"
+              />
+            }
+          />
+          <Route
+            path="/profile/:recipeType"
+            element={
+              <PrivateRoute
+                component={<ProfilePage />}
+                redirectTo="/auth/login"
+              />
+            }
+          >
+            {/* Вкладені маршрути */}
+            <Route path="own" element={<OwnRecipes />} />
+            <Route path="favorites" element={<FavoriteRecipes />} />
+          </Route>
 
-        {/*маршрут-за-замовчуванням*/}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/*маршрут-за-замовчуванням*/}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </Layout>
   );
 }
