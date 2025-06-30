@@ -97,6 +97,11 @@ li:last-child:focus {
   justify-content: center;
 }
 
+.logoImg {
+  width: 32px;
+  height: 30px;
+}
+
 @media screen and (min-width: 768px) {
   .backdrop {
     display: none;
