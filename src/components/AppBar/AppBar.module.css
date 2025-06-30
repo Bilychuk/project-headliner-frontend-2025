@@ -35,8 +35,8 @@ header {
 
 .burger {
   display: block;
-  height: 20px;
-  width: 20px;
+  height: 32px;
+  width: 32px;
 }
 
 @media screen and (min-width: 768px) {

@@ -4,7 +4,6 @@ import { selectAuthUser } from '../../redux/auth/selectors.js';
 
 export default function UserInfo() {
   const user = useSelector(selectAuthUser);
-
   const name = user?.name || 'Guest';
   const avatarLetter = name[0]?.toUpperCase() || '?';
 

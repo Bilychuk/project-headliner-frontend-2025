@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import sprite from '../../assets/icon/sprite.svg';
 import s from './AppBar.module.css';
 import logo from '../../assets/icons/header-icons/header-logo.svg';
-import burger from '../../assets/icons/header-icons/burger-icon.svg';
 import BurgerModal from '../BurgerModal/BurgerModal';
 import Navigation from '../Navigation/Navigation';
 
 export default function AppBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const toggleModal = () => {
     setIsModalOpen(prev => !prev);
@@ -20,7 +22,9 @@ export default function AppBar() {
         <span className={s.title}>Tasteorama</span>
         <Navigation isLoggedIn={isLoggedIn} />
         <button className={s.burgerBtn} onClick={toggleModal}>
-          <img src={burger} alt="Menu toggle" className={s.burger} />
+          <svg className={s.burger}>
+            <use href={`${sprite}#icon-burger`} />
+          </svg>
         </button>
       </div>
 

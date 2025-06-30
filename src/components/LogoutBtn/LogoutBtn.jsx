@@ -1,11 +1,13 @@
-import logoutIcon from '../../assets/icons/header-icons/logout-icon.svg';
 import s from './LogoutBtn.module.css';
+import sprite from '../../assets/icon/sprite.svg';
 
 export default function LogoutBtn() {
   return (
     <>
       <button className={s.logout}>
-        <img src={logoutIcon} alt="Logout" />
+        <svg className={s.logoutBtn}>
+          <use href={`${sprite}#icon-logout`} />
+        </svg>
       </button>
     </>
   );

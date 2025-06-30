@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
+import sprite from '../../assets/icon/sprite.svg';
 import s from './BurgerModal.module.css';
 import logo from '../../assets/icons/header-icons/header-logo.svg';
-import close from '../../assets/icons/header-icons/burger-close.svg';
 import UserInfo from '../UserInfo/UserInfo';
 import LogoutBtn from '../LogoutBtn/LogoutBtn';
 
@@ -15,7 +15,9 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
             <p className={s.title}>Tasteorama</p>
           </div>
           <button className={s.closeBtn} onClick={onClose}>
-            <img src={close} alt="Close" className={s.closeIcon} />
+            <svg className={s.close}>
+              <use href={`${sprite}#icon-close-with-circle`} />
+            </svg>
           </button>
         </div>
 
