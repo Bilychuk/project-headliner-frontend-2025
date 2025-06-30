@@ -17,7 +17,7 @@ export default function AppBar() {
 
   return (
     <header className={s.header}>
-      <div className={`${s.container} ${isModalOpen ? s.hidden : ''}`}>
+      <div className={s.container}>
         <img src={logo} width={32} height={30} alt="Logo" />
         <span className={s.title}>Tasteorama</span>
         <Navigation isLoggedIn={isLoggedIn} />
