@@ -14,11 +14,11 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
 
   const isOpen = useSelector(state => state.modal.isLogoutModalOpen);
 
-  const handleClose = () => {
+  const onClose = () => {
     dispatch(closeLogoutModal());
   };
 
-  const handleConfirm = async () => {
+  const onConfirm = async () => {
     await dispatch(logout());
     dispatch(closeLogoutModal());
     navigate('/');
@@ -27,25 +27,21 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={handleClose}
+      onRequestClose={onClose}
       className={css.container}
       overlayClassName={css.overlay}
     >
       <div>
-        <button type="button" className={css.btnx} onClick={handleClose}>
+        <button type="button" className={css.btnx} onClick={onClose}>
           <img src="./close24px-1x.jpg" alt="close" />
         </button>
         <h2 className={css.h2}>Are you sure?</h2>
         <p className={css.p}>We will miss you!</p>
         <div className={css.btncontainer}>
-          <button type="button" className={css.btncancel} onClick={handleClose}>
+          <button type="button" className={css.btncancel} onClick={onClose}>
             Cancel
           </button>
-          <button
-            type="button"
-            className={css.btnlogout}
-            onClick={handleConfirm}
-          >
+          <button type="button" className={css.btnlogout} onClick={onConfirm}>
             Log out
           </button>
         </div>
