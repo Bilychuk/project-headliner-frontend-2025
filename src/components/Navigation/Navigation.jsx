@@ -6,22 +6,35 @@ import UserInfo from '../UserInfo/UserInfo';
 export default function Navigation({ isLoggedIn }) {
   return (
     <nav className={s.desktopMenu}>
-      <NavLink to="/" className={s.link}>
+      <NavLink
+        to="/"
+        className={({ isActive }) => `${s.link} ${isActive ? s.active : ''}`}
+      >
         Recipes
       </NavLink>
 
       {!isLoggedIn ? (
         <>
-          <NavLink to="/login" className={s.link}>
+          <NavLink
+            to="/auth/login"
+            className={({ isActive }) =>
+              `${s.link} ${isActive ? s.active : ''}`
+            }
+          >
             Log in
           </NavLink>
-          <NavLink to="/register" className={s.registerBtn}>
+          <NavLink to="/auth/register" className={s.registerBtn}>
             Register
           </NavLink>
         </>
       ) : (
         <>
-          <NavLink to="/profile/:recipeType" className={s.link}>
+          <NavLink
+            to="/profile/own"
+            className={({ isActive }) =>
+              `${s.link} ${isActive ? s.active : ''}`
+            }
+          >
             My Profile
           </NavLink>
           <NavLink to="/add-recipe" className={s.registerBtn}>
