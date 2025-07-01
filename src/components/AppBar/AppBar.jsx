@@ -5,6 +5,7 @@ import sprite from '../../assets/icon/sprite.svg';
 import s from './AppBar.module.css';
 import BurgerModal from '../BurgerModal/BurgerModal';
 import Navigation from '../Navigation/Navigation';
+import { NavLink } from 'react-router-dom';
 
 export default function AppBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,10 +18,12 @@ export default function AppBar() {
   return (
     <header className={s.header}>
       <div className={s.container}>
-        <svg className={s.logo}>
-          <use href={`${sprite}#icon-logo`} />
-        </svg>
-        <span className={s.title}>Tasteorama</span>
+        <NavLink to="/" className={s.logoLink}>
+          <svg className={s.logo}>
+            <use href={`${sprite}#icon-logo`} />
+          </svg>
+          <span className={s.title}>Tasteorama</span>
+        </NavLink>
         <Navigation isLoggedIn={isLoggedIn} />
         <button className={s.burgerBtn} onClick={toggleModal}>
           <svg className={s.burger}>
