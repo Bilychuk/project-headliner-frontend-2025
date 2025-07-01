@@ -6,19 +6,23 @@ import RestrictedRoute from '../RestrictedRoute';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../redux/auth/operations';
 
-const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
+const MainPage = lazy(() => import('../../pages/MainPage/MainPage.jsx'));
 const RecipeViewPage = lazy(() =>
-  import('../../pages/RecipeViewPage/RecipeViewPage')
+  import('../../pages/RecipeViewPage/RecipeViewPage.jsx')
 );
 const AddRecipePage = lazy(() =>
-  import('../../pages/AddRecipePage/AddRecipePage')
+  import('../../pages/AddRecipePage/AddRecipePage.jsx')
 );
-const ProfilePage = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
-const LoginPage = lazy(() => import('../../pages/AuthPage/LoginPage'));
-const RegisterPage = lazy(() => import('../../pages/AuthPage/RegisterPage'));
-const OwnRecipes = lazy(() => import('../OwnRecipes/OwnRecipes'));
+const ProfilePage = lazy(() =>
+  import('../../pages/ProfilePage/ProfilePage.jsx')
+);
+const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage.jsx'));
+const RegisterPage = lazy(() =>
+  import('../../pages/RegisterPage/RegisterPage.jsx')
+);
+const OwnRecipes = lazy(() => import('../OwnRecipes/OwnRecipes.jsx'));
 const FavoriteRecipes = lazy(() =>
-  import('../FavoriteRecipes/FavoriteRecipes')
+  import('../FavoriteRecipes/FavoriteRecipes.jsx')
 );
 
 export default function App() {
@@ -44,13 +48,13 @@ export default function App() {
 
           {/* Auth для  юзера */}
           <Route
-            path="/auth/login"
+            path="/login"
             element={
               <RestrictedRoute component={<LoginPage />} redirectTo="/" />
             }
           />
           <Route
-            path="/auth/register"
+            path="/register"
             element={
               <RestrictedRoute component={<RegisterPage />} redirectTo="/" />
             }
@@ -60,19 +64,13 @@ export default function App() {
           <Route
             path="/add-recipe"
             element={
-              <PrivateRoute
-                component={<AddRecipePage />}
-                redirectTo="/auth/login"
-              />
+              <PrivateRoute component={<AddRecipePage />} redirectTo="/login" />
             }
           />
           <Route
             path="/profile/:recipeType"
             element={
-              <PrivateRoute
-                component={<ProfilePage />}
-                redirectTo="/auth/login"
-              />
+              <PrivateRoute component={<ProfilePage />} redirectTo="/login" />
             }
           >
             {/* Вкладені маршрути */}

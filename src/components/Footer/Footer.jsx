@@ -22,11 +22,11 @@ export default function Footer() {
         </p>
 
         <nav className={s.navigation}>
-          <a href="#" className={s.link}>
+          <a href="/" className={s.link}>
             Recipes
           </a>
           {!hideAccountLinks && (
-            <a href="#" className={s.link}>
+            <a href="/login" className={s.link}>
               Account
             </a>
           )}
