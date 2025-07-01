@@ -1,3 +1,5 @@
+import { authReducer } from './auth/slice';
+
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import {
@@ -11,7 +13,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { authReducer } from './auth/slice.js';
 
 const authPersistConfig = {
   key: 'auth',
