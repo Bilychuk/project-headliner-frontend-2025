@@ -15,26 +15,13 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    logoutAction(state) {
+    logout(state) {
       state.user = null;
       state.token = null;
       state.isLoggedIn = false;
     },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(logout.fulfilled, state => {
-        state.user = null;
-        state.token = null;
-        state.isLoggedIn = false;
-      })
-      .addCase(logout.rejected, state => {
-        state.user = null;
-        state.token = null;
-        state.isLoggedIn = false;
-      });
-  },
 });
 
-export const { login, logoutAction } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

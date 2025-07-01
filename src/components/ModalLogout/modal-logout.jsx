@@ -5,9 +5,8 @@ import css from './LogoutModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { logout } from '../../redux/modal/operations.js';
 import { closeLogoutModal } from '../../redux/modal/slice.js';
-import { logout } from '../../redux/auth/operations.js';
-import { logoutAction } from '../../redux/auth/slice.js';
 
 const LogoutModal = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const LogoutModal = () => {
 
   const onConfirm = async () => {
     await dispatch(logout());
-    dispatch(logoutAction());
     dispatch(closeLogoutModal());
     navigate('/');
   };
@@ -36,7 +34,7 @@ const LogoutModal = () => {
       <div>
         <button type="button" className={css.btnx} onClick={onClose}>
           <svg>
-            <use href="/icons/header-icons/burger-close.svg#icon-close"></use>
+            <use href="../../assets/icon/sprite.svg#icon-close"></use>
           </svg>
         </button>
         <h2 className={css.h2}>Are you sure?</h2>
