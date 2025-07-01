@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -9,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RegisterSchema } from '../../validation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import styles from './RegisterPage.module.css';
 
@@ -97,7 +96,7 @@ const RegisterPage = () => {
                     tabIndex={-1}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
-                    {showPassword ? '🙈' : '👁️'}
+                    {showPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
                 <ErrorMessage name="password" component="div" className={styles.error} />
@@ -118,7 +117,7 @@ const RegisterPage = () => {
                     tabIndex={-1}
                     aria-label={showRepeatPassword ? 'Hide password' : 'Show password'}
                   >
-                    {showRepeatPassword ? '🙈' : '👁️'}
+                    {showRepeatPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
                 <ErrorMessage name="repeatPassword" component="div" className={styles.error} />
