@@ -32,4 +32,22 @@ export function validateLogin({ email, password }) {
     return 'Password must be at least 6 characters';
   }
   return '';
-} 
+}
+
+// Yup schemas for Formik validation
+import * as Yup from 'yup';
+
+export const RegisterSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().email('Enter a valid email address').required('Email is required'),
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  repeatPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+    .required('Repeat your password'),
+  agreed: Yup.boolean().oneOf([true], 'You must agree to the Terms of Service and Privacy Policy'),
+});
+
+export const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Enter a valid email address').required('Email is required'),
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+}); 
