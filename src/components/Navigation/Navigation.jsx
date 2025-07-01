@@ -12,10 +12,10 @@ export default function Navigation({ isLoggedIn }) {
 
       {!isLoggedIn ? (
         <>
-          <NavLink to="/login" className={s.link}>
+          <NavLink to="/auth/login" className={s.link}>
             Log in
           </NavLink>
-          <NavLink to="/register" className={s.registerBtn}>
+          <NavLink to="/auth/register" className={s.registerBtn}>
             Register
           </NavLink>
         </>

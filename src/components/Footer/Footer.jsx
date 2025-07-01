@@ -5,7 +5,8 @@ import sprite from '../../assets/icon/sprite.svg';
 export default function Footer() {
   const location = useLocation();
   const hideAccountLinks =
-    location.pathname === '/login' || location.pathname === '/register';
+    location.pathname === '/auth/login' ||
+    location.pathname === '/auth/register';
 
   return (
     <footer>
@@ -22,11 +23,11 @@ export default function Footer() {
         </p>
 
         <nav className={s.navigation}>
-          <a href="/" className={s.link}>
+          <a href="#" className={s.link}>
             Recipes
           </a>
           {!hideAccountLinks && (
-            <a href="/login" className={s.link}>
+            <a href="#" className={s.link}>
               Account
             </a>
           )}
