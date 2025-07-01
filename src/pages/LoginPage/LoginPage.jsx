@@ -1,13 +1,16 @@
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { login } from '../../redux/auth/operations';
-import { selectAuthLoading, selectAuthError } from '../../redux/auth/selectors';
+import { login } from '../../redux/auth/operations.js';
+import { selectAuthLoading, selectAuthError } from '../../redux/auth/selectors.js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { LoginSchema } from '../../validation';
+import { LoginSchema } from '../../validation.js';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import React, { useRef, useState } from 'react';
+import { validateLogin } from '../../validation.js';
 
 import styles from './LoginPage.module.css';
 

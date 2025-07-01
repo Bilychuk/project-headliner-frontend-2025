@@ -1,13 +1,18 @@
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { register } from '../../redux/auth/operations';
-import { selectAuthLoading, selectAuthError } from '../../redux/auth/selectors';
+import { register } from '../../redux/auth/operations.js';
+import { selectAuthLoading, selectAuthError } from '../../redux/auth/selectors.js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { RegisterSchema } from '../../validation';
+import { RegisterSchema } from '../../validation.js';
 import { toast, ToastContainer } from 'react-toastify';
+import { validateRegister } from '../../validation.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+
+
+import React, { useRef, useState } from 'react';
 
 import styles from './RegisterPage.module.css';
 
@@ -151,4 +156,5 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage; 
+
 

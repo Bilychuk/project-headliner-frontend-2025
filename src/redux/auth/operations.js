@@ -100,5 +100,7 @@ export const fetchCurrentUser = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to fetch user');
     }
   }
+
 );
+
 
