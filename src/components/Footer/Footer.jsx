@@ -5,7 +5,8 @@ import sprite from '../../assets/icon/sprite.svg';
 export default function Footer() {
   const location = useLocation();
   const hideAccountLinks =
-    location.pathname === '/login' || location.pathname === '/register';
+    location.pathname === '/auth/login' ||
+    location.pathname === '/auth/register';
 
   return (
     <footer>
