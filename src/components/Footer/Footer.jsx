@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import s from './Footer.module.css';
@@ -14,12 +14,12 @@ export default function Footer() {
   return (
     <footer>
       <div className={s.container}>
-        <NavLink to="/" className={s.logo}>
+        <Link to="/" className={s.logo}>
           <svg className={s.logoIcon}>
             <use href={`${sprite}#icon-logo`} />
           </svg>
           <p className={s.title}>Tasteorama</p>
-        </NavLink>
+        </Link>
 
         <p className={s.subtitle}>
           &copy; 2025 CookingCompanion. All rights reserved.
