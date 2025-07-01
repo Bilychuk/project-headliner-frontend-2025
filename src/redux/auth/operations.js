@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { login as loginAction } from './slice';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // Фейкова login-операція (імітація бекенду)
 export const login = (email, password) => async dispatch => {
@@ -32,3 +33,17 @@ export const getCurrentUser = () => async (dispatch, getState) => {
     console.error('Failed to fetch current user:', error);
   }
 };
+
+const setAuthHeader = value => {
+  axios.defaults.headers.common.Authorization = value;
+};
+
+export const logout = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
+  try {
+    await axios.post('/auth/logout');
+  } catch (error) {
+    console.error('Logout error:', error.message);
+  } finally {
+    setAuthHeader('');
+  }
+});

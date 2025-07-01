@@ -2,48 +2,51 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 import css from './LogoutModal.module.css';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useState } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { logout } from '../../redux/modal/operations.js';
-import { closeLogoutModal } from '../../redux/modal/slice.js';
+import sprite from '../../assets/icon/sprite.svg';
+import { logout } from '../../redux/auth/operations';
 
 const LogoutModal = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isOpen = useSelector(state => state.modal.isLogoutModalOpen);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-  const onClose = () => {
-    dispatch(closeLogoutModal());
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const onConfirm = async () => {
     await dispatch(logout());
-    dispatch(closeLogoutModal());
+    closeModal();
     navigate('/');
   };
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
+      isOpen={isModalOpen}
+      onRequestClose={closeModal}
       className={css.container}
       overlayClassName={css.overlay}
     >
       <div>
-        <button type="button" className={css.btnx} onClick={onClose}>
+        <button className={css.btnx} onClick={closeModal}>
           <svg>
-            <use href="../../assets/icon/sprite.svg#icon-close"></use>
+            <use href={`${sprite}#icon-close`}></use>
           </svg>
         </button>
         <h2 className={css.h2}>Are you sure?</h2>
         <p className={css.p}>We will miss you!</p>
         <div className={css.btncontainer}>
-          <button type="button" className={css.btncancel} onClick={onClose}>
+          <button className={css.btncancel} onClick={closeModal}>
             Cancel
           </button>
-          <button type="button" className={css.btnlogout} onClick={onConfirm}>
+          <button className={css.btnlogout} onClick={onConfirm}>
             Log out
           </button>
         </div>
