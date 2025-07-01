@@ -1,8 +1,10 @@
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { register } from '../../redux/auth/operations.js';
-import { selectAuthLoading, selectAuthError } from '../../redux/auth/selectors.js';
+import {
+  selectAuthLoading,
+  selectAuthError,
+} from '../../redux/auth/selectors.js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RegisterSchema } from '../../validation.js';
 import { toast, ToastContainer } from 'react-toastify';
@@ -38,8 +40,12 @@ const RegisterPage = () => {
     } catch (error) {
       let errorMessage = error;
       // Якщо це 409 Conflict
-      if (errorMessage && errorMessage.toString().toLowerCase().includes('conflict')) {
-        errorMessage = 'Користувач з таким email вже існує. Спробуйте інший email або увійдіть.';
+      if (
+        errorMessage &&
+        errorMessage.toString().toLowerCase().includes('conflict')
+      ) {
+        errorMessage =
+          'Користувач з таким email вже існує. Спробуйте інший email або увійдіть.';
       }
       toast.error(errorMessage, { position: 'top-right' });
     } finally {
@@ -54,17 +60,26 @@ const RegisterPage = () => {
         <div className={styles.registerContainer}>
           <h2 className={styles.title}>Register</h2>
           <p className={styles.subtitle}>
-            Join our community of culinary enthusiasts, save your favorite recipes, and share your cooking creations
+            Join our community of culinary enthusiasts, save your favorite
+            recipes, and share your cooking creations
           </p>
           <Formik
-            initialValues={{ name: '', email: '', password: '', repeatPassword: '', agreed: false }}
+            initialValues={{
+              name: '',
+              email: '',
+              password: '',
+              repeatPassword: '',
+              agreed: false,
+            }}
             validationSchema={RegisterSchema}
             validate={validateRegister}
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (
               <Form className={styles.form}>
-                <label className={styles.label} htmlFor="name">Enter your name</label>
+                <label className={styles.label} htmlFor="name">
+                  Enter your name
+                </label>
                 <Field
                   className={styles.input}
                   type="text"
@@ -72,9 +87,15 @@ const RegisterPage = () => {
                   name="name"
                   placeholder="Max"
                 />
-                <ErrorMessage name="name" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className={styles.error}
+                />
 
-                <label className={styles.label} htmlFor="email">Enter your email address</label>
+                <label className={styles.label} htmlFor="email">
+                  Enter your email address
+                </label>
                 <Field
                   className={styles.input}
                   type="email"
@@ -82,9 +103,15 @@ const RegisterPage = () => {
                   name="email"
                   placeholder="email@gmail.com"
                 />
-                <ErrorMessage name="email" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.error}
+                />
 
-                <label className={styles.label} htmlFor="password">Create a strong password</label>
+                <label className={styles.label} htmlFor="password">
+                  Create a strong password
+                </label>
                 <div className={styles.passwordWrapper}>
                   <Field
                     className={styles.input}
@@ -96,16 +123,24 @@ const RegisterPage = () => {
                   <button
                     type="button"
                     className={styles.showPasswordBtn}
-                    onClick={() => setShowPassword((prev) => !prev)}
+                    onClick={() => setShowPassword(prev => !prev)}
                     tabIndex={-1}
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    aria-label={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
                   >
                     {showPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
-                <ErrorMessage name="password" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={styles.error}
+                />
 
-                <label className={styles.label} htmlFor="repeatPassword">Repeat your password</label>
+                <label className={styles.label} htmlFor="repeatPassword">
+                  Repeat your password
+                </label>
                 <div className={styles.passwordWrapper}>
                   <Field
                     className={styles.input}
@@ -117,14 +152,20 @@ const RegisterPage = () => {
                   <button
                     type="button"
                     className={styles.showPasswordBtn}
-                    onClick={() => setShowRepeatPassword((prev) => !prev)}
+                    onClick={() => setShowRepeatPassword(prev => !prev)}
                     tabIndex={-1}
-                    aria-label={showRepeatPassword ? 'Hide password' : 'Show password'}
+                    aria-label={
+                      showRepeatPassword ? 'Hide password' : 'Show password'
+                    }
                   >
                     {showRepeatPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
-                <ErrorMessage name="repeatPassword" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="repeatPassword"
+                  component="div"
+                  className={styles.error}
+                />
 
                 <div className={styles.termsWrapper}>
                   <Field type="checkbox" id="terms" name="agreed" />
@@ -132,21 +173,36 @@ const RegisterPage = () => {
                     I agree to the Terms of Service and Privacy Policy
                   </label>
                 </div>
-                <ErrorMessage name="agreed" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="agreed"
+                  component="div"
+                  className={styles.error}
+                />
 
-                <button 
-                  className={styles.registerBtn} 
-                  type="submit" 
+                <button
+                  className={styles.registerBtn}
+                  type="submit"
                   disabled={isSubmitting || isLoading}
                 >
-                  {isSubmitting || isLoading ? 'Creating account...' : 'Create account'}
+                  {isSubmitting || isLoading
+                    ? 'Creating account...'
+                    : 'Create account'}
                 </button>
               </Form>
             )}
           </Formik>
           <div className={styles.loginText}>
             Already have an account?{' '}
-            <a href="#" className={styles.loginLink} onClick={e => { e.preventDefault(); navigate('/login'); }}>Log in</a>
+            <a
+              href="#"
+              className={styles.loginLink}
+              onClick={e => {
+                e.preventDefault();
+                navigate('/auth/login');
+              }}
+            >
+              Log in
+            </a>
           </div>
         </div>
       </div>
@@ -154,6 +210,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage; 
-
-
+export default RegisterPage;
