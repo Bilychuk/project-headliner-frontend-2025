@@ -30,7 +30,7 @@ export default function Navigation({ isLoggedIn }) {
       ) : (
         <>
           <NavLink
-            to="/profile/:recipeType"
+            to="/profile/own"
             className={({ isActive }) =>
               `${s.link} ${isActive ? s.active : ''}`
             }
