@@ -1,5 +1,4 @@
 
-import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../redux/auth/operations.js';
@@ -54,6 +53,7 @@ const LoginPage = () => {
           <Formik
             initialValues={{ email: '', password: '' }}
             validationSchema={LoginSchema}
+            validate={validateLogin}
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (

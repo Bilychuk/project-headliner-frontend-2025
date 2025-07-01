@@ -1,5 +1,4 @@
 
-import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { register } from '../../redux/auth/operations.js';
@@ -10,7 +9,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import { validateRegister } from '../../validation.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-
 
 import React, { useRef, useState } from 'react';
 
@@ -61,6 +59,7 @@ const RegisterPage = () => {
           <Formik
             initialValues={{ name: '', email: '', password: '', repeatPassword: '', agreed: false }}
             validationSchema={RegisterSchema}
+            validate={validateRegister}
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (
