@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import sprite from '../../assets/icon/sprite.svg';
 import s from './BurgerModal.module.css';
 import UserInfo from '../UserInfo/UserInfo';
@@ -10,12 +10,13 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
       <div className={s.modal} onClick={e => e.stopPropagation()}>
         <div className={s.modalContent}>
           <div className={s.modalHeader}>
-            <div className={s.logo}>
+            <Link to="/" className={s.logo} onClick={onClose}>
               <svg className={s.logoImg}>
                 <use href={`${sprite}#icon-logo`} />
               </svg>
               <p className={s.title}>Tasteorama</p>
-            </div>
+            </Link>
+
             <button className={s.closeBtn} onClick={onClose}>
               <svg className={s.close}>
                 <use href={`${sprite}#icon-close-with-circle`} />
