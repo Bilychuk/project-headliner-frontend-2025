@@ -3,7 +3,6 @@ import { login as loginAction } from './slice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { api } from '../../api/api';
-import { logout } from './slice';
 
 // Login operation
 export const login = createAsyncThunk(
