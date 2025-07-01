@@ -78,6 +78,9 @@ const authSlice = createSlice({
       .addCase('auth/fetchCurrentUser/fulfilled', (state, action) => {
         state.user = action.payload;
       })
+      .addCase('auth/logout/pending', state => {
+        state.isLoading = true;
+      })
       .addCase('auth/logout/fulfilled', state => {
         state.user = null;
         state.token = null;
