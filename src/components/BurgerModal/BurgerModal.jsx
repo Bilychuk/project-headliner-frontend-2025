@@ -25,7 +25,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
 
           <ul className={s.list}>
             <li>
-              <NavLink to="/" className={s.link}>
+              <NavLink to="/" className={s.link} onClick={onClose}>
                 Recipes
               </NavLink>
             </li>
@@ -33,7 +33,11 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
             {!isLoggedIn ? (
               <>
                 <li>
-                  <NavLink to="/auth/login" className={s.link}>
+                  <NavLink
+                    to="/auth/login"
+                    className={s.link}
+                    onClick={onClose}
+                  >
                     Log in
                   </NavLink>
                 </li>
@@ -41,6 +45,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                   <NavLink
                     to="/auth/register"
                     className={`${s.link} ${s.registerBtn}`}
+                    onClick={onClose}
                   >
                     Register
                   </NavLink>
@@ -49,7 +54,11 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
             ) : (
               <>
                 <li>
-                  <NavLink to="/profile/own" className={s.link}>
+                  <NavLink
+                    to="/profile/own"
+                    className={s.link}
+                    onClick={onClose}
+                  >
                     My Profile
                   </NavLink>
                 </li>
@@ -61,6 +70,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                   <NavLink
                     to="/add-recipe"
                     className={`${s.link} ${s.registerBtn}`}
+                    onClick={onClose}
                   >
                     Add Recipe
                   </NavLink>
