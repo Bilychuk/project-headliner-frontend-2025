@@ -1,6 +1,8 @@
+import axios from 'axios';
+import { login as loginAction } from './slice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { api } from '../../api/api';
-import { logout } from './slice';
 
 // Login operation
 export const login = createAsyncThunk(
@@ -8,15 +10,19 @@ export const login = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const { data } = await api.post('/api/auth/login', formData);
-      if (data.data?.accessToken) localStorage.setItem('accessToken', data.data.accessToken);
-      if (data.data?.refreshToken) localStorage.setItem('refreshToken', data.data.refreshToken);
+      if (data.data?.accessToken)
+        localStorage.setItem('accessToken', data.data.accessToken);
+      if (data.data?.refreshToken)
+        localStorage.setItem('refreshToken', data.data.refreshToken);
       return {
         user: data.data?.user || data.data,
         token: data.data?.accessToken || null,
         refreshToken: data.data?.refreshToken || null,
       };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Login failed');
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Login failed'
+      );
     }
   }
 );
@@ -27,42 +33,47 @@ export const register = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const { data } = await api.post('/api/auth/register', formData);
-      if (data.data?.accessToken) localStorage.setItem('accessToken', data.data.accessToken);
-      if (data.data?.refreshToken) localStorage.setItem('refreshToken', data.data.refreshToken);
+      if (data.data?.accessToken)
+        localStorage.setItem('accessToken', data.data.accessToken);
+      if (data.data?.refreshToken)
+        localStorage.setItem('refreshToken', data.data.refreshToken);
       return {
         user: data.data?.user || data.data,
         token: data.data?.accessToken || null,
         refreshToken: data.data?.refreshToken || null,
       };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Registration failed');
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Registration failed'
+      );
     }
   }
 );
 
 // Refresh token operation
-export const refresh = createAsyncThunk(
-  'auth/refresh',
-  async (_, thunkAPI) => {
-    try {
-      const refreshToken = localStorage.getItem('refreshToken');
-      const { data } = await api.post('/api/auth/refresh', { refreshToken });
-      if (data.data?.accessToken) localStorage.setItem('accessToken', data.data.accessToken);
-      if (data.data?.refreshToken) localStorage.setItem('refreshToken', data.data.refreshToken);
-      const user = await thunkAPI.dispatch(fetchCurrentUser()).unwrap();
-      return {
-        user,
-        token: data.data?.accessToken || null,
-        refreshToken: data.data?.refreshToken || null,
-      };
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Token refresh failed');
-    }
+export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  try {
+    const refreshToken = localStorage.getItem('refreshToken');
+    const { data } = await api.post('/api/auth/refresh', { refreshToken });
+    if (data.data?.accessToken)
+      localStorage.setItem('accessToken', data.data.accessToken);
+    if (data.data?.refreshToken)
+      localStorage.setItem('refreshToken', data.data.refreshToken);
+    const user = await thunkAPI.dispatch(fetchCurrentUser()).unwrap();
+    return {
+      user,
+      token: data.data?.accessToken || null,
+      refreshToken: data.data?.refreshToken || null,
+    };
+  } catch (error) {
+    return thunkAPI.rejectWithValue(
+      error.response?.data?.message || 'Token refresh failed'
+    );
   }
-);
+});
 
 // Auto login з localStorage
-export const autoLogin = () => async (dispatch) => {
+export const autoLogin = () => async dispatch => {
   const token = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
   if (token && refreshToken) {
@@ -84,8 +95,21 @@ export const autoLogin = () => async (dispatch) => {
   }
 };
 
+//Logout
+
+export const logout = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
+  try {
+    await api.post('/auth/logout');
+  } catch (error) {
+    console.error('Logout error:', error.message);
+  } finally {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+  }
+});
+
 // Interceptor для автоматичного refresh токена
-export const setupAuthInterceptor = () => (dispatch) => {
+export const setupAuthInterceptor = () => dispatch => {
   // Тут можна додати логіку для автоматичного refresh токена
   // при 401 помилках
 };
@@ -97,10 +121,9 @@ export const fetchCurrentUser = createAsyncThunk(
       const { data } = await api.get('/api/users/current');
       return data.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to fetch user');
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch user'
+      );
     }
   }
-
 );
-
-

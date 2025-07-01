@@ -24,9 +24,9 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase('auth/login/pending', (state) => {
+      .addCase('auth/login/pending', state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -42,7 +42,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase('auth/register/pending', (state) => {
+      .addCase('auth/register/pending', state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -55,7 +55,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase('auth/refresh/pending', (state) => {
+      .addCase('auth/refresh/pending', state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -77,11 +77,22 @@ const authSlice = createSlice({
       })
       .addCase('auth/fetchCurrentUser/fulfilled', (state, action) => {
         state.user = action.payload;
+      })
+      .addCase('auth/logout/pending', state => {
+        state.isLoading = true;
+      })
+      .addCase('auth/logout/fulfilled', state => {
+        state.user = null;
+        state.token = null;
+        state.isLoggedIn = false;
+      })
+      .addCase('auth/logout/rejected', state => {
+        state.user = null;
+        state.token = null;
+        state.isLoggedIn = false;
       });
   },
 });
 
-
 export const { login, logout, clearError } = authSlice.actions;
 export const authReducer = authSlice.reducer;
-
