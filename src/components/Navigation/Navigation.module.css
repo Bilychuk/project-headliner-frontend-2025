@@ -9,11 +9,12 @@
   color: white;
   font-size: 14px;
   text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
 }
 
-.link:hover,
-.link:focus {
-  text-decoration: underline;
+.link.active {
+  border-bottom: 1px solid #ffffff;
 }
 
 .registerBtn {
