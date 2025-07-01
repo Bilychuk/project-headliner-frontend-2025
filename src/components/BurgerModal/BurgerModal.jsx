@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import sprite from '../../assets/icon/sprite.svg';
 import s from './BurgerModal.module.css';
 import UserInfo from '../UserInfo/UserInfo';
@@ -10,12 +10,13 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
       <div className={s.modal} onClick={e => e.stopPropagation()}>
         <div className={s.modalContent}>
           <div className={s.modalHeader}>
-            <div className={s.logo}>
+            <Link to="/" className={s.logo} onClick={onClose}>
               <svg className={s.logoImg}>
                 <use href={`${sprite}#icon-logo`} />
               </svg>
               <p className={s.title}>Tasteorama</p>
-            </div>
+            </Link>
+
             <button className={s.closeBtn} onClick={onClose}>
               <svg className={s.close}>
                 <use href={`${sprite}#icon-close-with-circle`} />
@@ -25,7 +26,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
 
           <ul className={s.list}>
             <li>
-              <NavLink to="/recipes" className={s.link}>
+              <NavLink to="/" className={s.link} onClick={onClose}>
                 Recipes
               </NavLink>
             </li>
@@ -33,14 +34,19 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
             {!isLoggedIn ? (
               <>
                 <li>
-                  <NavLink to="/login" className={s.link}>
+                  <NavLink
+                    to="/auth/login"
+                    className={s.link}
+                    onClick={onClose}
+                  >
                     Log in
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
-                    to="/register"
+                    to="/auth/register"
                     className={`${s.link} ${s.registerBtn}`}
+                    onClick={onClose}
                   >
                     Register
                   </NavLink>
@@ -49,7 +55,11 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
             ) : (
               <>
                 <li>
-                  <NavLink to="/profile" className={s.link}>
+                  <NavLink
+                    to="/profile/own"
+                    className={s.link}
+                    onClick={onClose}
+                  >
                     My Profile
                   </NavLink>
                 </li>
@@ -61,6 +71,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                   <NavLink
                     to="/add-recipe"
                     className={`${s.link} ${s.registerBtn}`}
+                    onClick={onClose}
                   >
                     Add Recipe
                   </NavLink>

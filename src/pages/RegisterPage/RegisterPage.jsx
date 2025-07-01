@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RegisterSchema } from '../../validation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import styles from './RegisterPage.module.css';
 
 const RegisterPage = () => {
@@ -150,3 +152,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage; 
+
