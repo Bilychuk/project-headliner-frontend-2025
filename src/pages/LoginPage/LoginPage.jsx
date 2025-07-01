@@ -1,8 +1,10 @@
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../redux/auth/operations.js';
-import { selectAuthLoading, selectAuthError } from '../../redux/auth/selectors.js';
+import {
+  selectAuthLoading,
+  selectAuthError,
+} from '../../redux/auth/selectors.js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LoginSchema } from '../../validation.js';
 import { toast, ToastContainer } from 'react-toastify';
@@ -32,7 +34,7 @@ const LoginPage = () => {
       const result = await dispatch(login(payload)).unwrap();
       toast.success('Login successful', { position: 'top-right' });
       resetForm();
-      
+
       // Редірект на dashboard або на попередню сторінку
       const from = location.state?.from?.pathname || '/dashboard';
       navigate(from, { replace: true });
@@ -58,7 +60,9 @@ const LoginPage = () => {
           >
             {({ isSubmitting }) => (
               <Form className={styles.form}>
-                <label className={styles.label} htmlFor="email">Enter your email address</label>
+                <label className={styles.label} htmlFor="email">
+                  Enter your email address
+                </label>
                 <Field
                   className={styles.input}
                   type="email"
@@ -66,9 +70,15 @@ const LoginPage = () => {
                   name="email"
                   placeholder="email@gmail.com"
                 />
-                <ErrorMessage name="email" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.error}
+                />
 
-                <label className={styles.label} htmlFor="password">Create a strong password</label>
+                <label className={styles.label} htmlFor="password">
+                  Create a strong password
+                </label>
                 <div className={styles.passwordWrapper}>
                   <Field
                     className={styles.input}
@@ -80,18 +90,24 @@ const LoginPage = () => {
                   <button
                     type="button"
                     className={styles.showPasswordBtn}
-                    onClick={() => setShowPassword((prev) => !prev)}
+                    onClick={() => setShowPassword(prev => !prev)}
                     tabIndex={-1}
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    aria-label={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
                   >
                     {showPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
-                <ErrorMessage name="password" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={styles.error}
+                />
 
-                <button 
-                  className={styles.loginBtn} 
-                  type="submit" 
+                <button
+                  className={styles.loginBtn}
+                  type="submit"
                   disabled={isSubmitting || isLoading}
                 >
                   {isSubmitting || isLoading ? 'Logging in...' : 'Login'}
@@ -101,7 +117,16 @@ const LoginPage = () => {
           </Formik>
           <div className={styles.registerText}>
             Don&apos;t have an account?{' '}
-            <a href="#" className={styles.registerLink} onClick={e => { e.preventDefault(); navigate('/register'); }}>Register</a>
+            <a
+              href="#"
+              className={styles.registerLink}
+              onClick={e => {
+                e.preventDefault();
+                navigate('/auth/register');
+              }}
+            >
+              Register
+            </a>
           </div>
         </div>
       </div>
@@ -109,5 +134,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage; 
-
+export default LoginPage;

@@ -4,7 +4,13 @@ export function validateEmail(email) {
 }
 
 // Registration validation
-export function validateRegister({ name, email, password, repeatPassword, agreed }) {
+export function validateRegister({
+  name,
+  email,
+  password,
+  repeatPassword,
+  agreed,
+}) {
   if (!name || !name.trim()) {
     return 'Name is required';
   }
@@ -39,15 +45,26 @@ import * as Yup from 'yup';
 
 export const RegisterSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Enter a valid email address').required('Email is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  email: Yup.string()
+    .email('Enter a valid email address')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords do not match')
     .required('Repeat your password'),
-  agreed: Yup.boolean().oneOf([true], 'You must agree to the Terms of Service and Privacy Policy'),
+  agreed: Yup.boolean().oneOf(
+    [true],
+    'You must agree to the Terms of Service and Privacy Policy'
+  ),
 });
 
 export const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Enter a valid email address').required('Email is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-}); 
+  email: Yup.string()
+    .email('Enter a valid email address')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+});
