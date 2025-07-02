@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { login as loginAction } from './slice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import { logout as LogoutAction } from './slice.js';
 import { api } from '../../api/api';
 
 // Login operation
@@ -90,7 +90,7 @@ export const autoLogin = () => async dispatch => {
     } catch (error) {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      dispatch(logout());
+      dispatch(LogoutAction());
     }
   }
 };
@@ -99,12 +99,14 @@ export const autoLogin = () => async dispatch => {
 
 export const logout = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
   try {
-    await api.post('/auth/logout');
+    await api.post('/api/auth/logout');
   } catch (error) {
     console.error('Logout error:', error.message);
   } finally {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    delete api.defaults.headers.common.Authorization;
+    thunkAPI.dispatch(LogoutAction());
   }
 });
 
