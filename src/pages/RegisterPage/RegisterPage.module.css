@@ -1,4 +1,6 @@
 .registerBg {
+  padding-top: 56px;
+  padding-bottom: 56px;
   min-height: 100vh;
   background: #f8f9f3;
   display: flex;
@@ -10,7 +12,7 @@
   background: #f3eedc;
   border-radius: 32px;
   padding: 36px 28px 24px 28px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,8 +94,53 @@
   margin: 4px 0 0 0;
 }
 
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
 .termsLabel {
-  font-size: 0.97rem;
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.customCheckbox {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: 1.5px solid #595d62;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  transition: background-color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  width: 12px;
+  height: 12px;
+  display: none;
+}
+
+.checkbox:checked + .customCheckbox {
+  background-color: #9b6c43;
+  border-color: #9b6c43;
+}
+
+.checkbox:checked + .customCheckbox .checkIcon {
+  display: block;
+}
+
+.termsLabel {
+  font-size: 12px;
   color: #18120c;
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
@@ -101,7 +148,7 @@
 
 .registerBtn {
   width: 100%;
-  background: #a68a64;
+  background: #9b6c43;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
@@ -159,7 +206,7 @@
     margin: 0 auto;
     padding: 32px 16px 20px 16px;
     border-radius: 24px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
   }
   .title {
     font-size: 2rem;
@@ -196,17 +243,15 @@
     justify-content: center;
   }
   .registerContainer {
-    max-width:360px;
+    max-width: 360px;
     margin: 0;
     border-radius: 14px;
   }
   .title {
     font-size: 1.3rem;
-    
   }
   .subtitle {
     font-size: 0.97rem;
-    
   }
   .form {
     gap: 7px;
@@ -238,7 +283,7 @@
     background: #f3eedc;
     border-radius: 32px;
     padding: 32px 28px 24px 28px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -349,4 +394,4 @@
   .loginLink:hover {
     color: #a68a64;
   }
-} 
+}
