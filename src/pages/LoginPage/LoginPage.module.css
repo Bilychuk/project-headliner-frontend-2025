@@ -51,7 +51,7 @@
   transition: border 0.2s;
 }
 .input:focus {
-  border: 1.5px solid #a68a64;
+  border: 1.5px solid #9b6c43;
 }
 
 .passwordWrapper {

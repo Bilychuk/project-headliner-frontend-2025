@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import React, { useRef, useState } from 'react';
+import sprite from '../../assets/icon/sprite.svg';
 
 import styles from './RegisterPage.module.css';
 
@@ -168,8 +169,18 @@ const RegisterPage = () => {
                 />
 
                 <div className={styles.termsWrapper}>
-                  <Field type="checkbox" id="terms" name="agreed" />
                   <label htmlFor="terms" className={styles.termsLabel}>
+                    <Field
+                      type="checkbox"
+                      id="terms"
+                      name="agreed"
+                      className={styles.checkbox}
+                    />
+                    <span className={styles.customCheckbox}>
+                      <svg className={styles.checkIcon}>
+                        <use href={`${sprite}#icon-check-white`}></use>
+                      </svg>
+                    </span>
                     I agree to the Terms of Service and Privacy Policy
                   </label>
                 </div>
