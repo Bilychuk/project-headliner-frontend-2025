@@ -1,7 +1,7 @@
 import s from './LogoutBtn.module.css';
 import sprite from '../../assets/icon/sprite.svg';
 import { useState } from 'react';
-import LogoutModal from '../ModalLogout/modal-logout.jsx';
+import ModalLogout from '../ModalLogout/ModalLogout.jsx';
 
 export default function LogoutBtn({ onBurgerModalClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +19,7 @@ export default function LogoutBtn({ onBurgerModalClose }) {
           <use href={`${sprite}#icon-logout`} />
         </svg>
       </button>
-      <LogoutModal
+      <ModalLogout
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
         onBurgerModalClose={onBurgerModalClose}

@@ -1,10 +1,8 @@
-
-import { lazy, useEffect } from 'react';
+import { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import PrivateRoute from '../PrivateRoute';
+import PrivateRoute from '../PrivateRoute/PrivateRoute.jsx';
 import Layout from '../Layout/Layout';
-import RestrictedRoute from '../RestrictedRoute';
-
+import RestrictedRoute from '../RestrictedRoute/RestrictedRoute.jsx';
 
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage.jsx'));
 const RecipeViewPage = lazy(() =>
@@ -25,10 +23,8 @@ const FavoriteRecipes = lazy(() =>
   import('../FavoriteRecipes/FavoriteRecipes.jsx')
 );
 
-
 export default function App() {
   return (
-
     // {/* Публічні маршрути */}
     <Routes>
       <Route path="/" element={<Layout />}>

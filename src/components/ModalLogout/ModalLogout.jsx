@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
-import css from './modal-logout.module.css';
+import s from './ModalLogout.module.css';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import { logout } from '../../redux/auth/operations';
 
 import { useDispatch } from 'react-redux';
 
-const LogoutModal = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
+const ModalLogout = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,22 +31,22 @@ const LogoutModal = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={css.container}
-      overlayClassName={css.overlay}
+      className={s.container}
+      overlayClassName={s.overlay}
     >
       <div>
-        <button className={css.btnx}>
+        <button className={s.btnx}>
           <svg>
             <use href={`${sprite}#icon-close`}></use>
           </svg>
         </button>
-        <h2 className={css.h2}>Are you sure?</h2>
-        <p className={css.p}>We will miss you!</p>
-        <div className={css.btncontainer}>
-          <button className={css.btncancel} onClick={onRequestClose}>
+        <h2 className={s.h2}>Are you sure?</h2>
+        <p className={s.p}>We will miss you!</p>
+        <div className={s.btncontainer}>
+          <button className={s.btncancel} onClick={onRequestClose}>
             Cancel
           </button>
-          <button className={css.btnlogout} onClick={onConfirm}>
+          <button className={s.btnlogout} onClick={onConfirm}>
             Log out
           </button>
         </div>
@@ -55,4 +55,4 @@ const LogoutModal = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
   );
 };
 
-export default LogoutModal;
+export default ModalLogout;
