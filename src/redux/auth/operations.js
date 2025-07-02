@@ -14,6 +14,9 @@ export const login = createAsyncThunk(
         localStorage.setItem('accessToken', data.data.accessToken);
       if (data.data?.refreshToken)
         localStorage.setItem('refreshToken', data.data.refreshToken);
+      if (data.data?.accessToken) {
+        api.defaults.headers.common.Authorization = `Bearer ${data.data.accessToken}`;
+      }
       return {
         user: data.data?.user || data.data,
         token: data.data?.accessToken || null,
@@ -32,16 +35,12 @@ export const register = createAsyncThunk(
   'auth/register',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await api.post('/api/auth/register', formData);
-      if (data.data?.accessToken)
-        localStorage.setItem('accessToken', data.data.accessToken);
-      if (data.data?.refreshToken)
-        localStorage.setItem('refreshToken', data.data.refreshToken);
-      return {
-        user: data.data?.user || data.data,
-        token: data.data?.accessToken || null,
-        refreshToken: data.data?.refreshToken || null,
-      };
+      await api.post('/api/auth/register', formData);
+      // Після реєстрації одразу логінимось
+      const loginResult = await thunkAPI.dispatch(
+        login({ email: formData.email, password: formData.password })
+      ).unwrap();
+      return loginResult;
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || 'Registration failed'
