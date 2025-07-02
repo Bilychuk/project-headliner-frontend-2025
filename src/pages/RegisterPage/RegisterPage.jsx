@@ -40,7 +40,7 @@ const RegisterPage = () => {
       navigate(from, { replace: true });
     } catch (error) {
       let errorMessage = error;
-      // Якщо це 409 Conflict
+      
       if (
         errorMessage &&
         errorMessage.toString().toLowerCase().includes('conflict')

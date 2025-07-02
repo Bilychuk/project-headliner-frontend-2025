@@ -35,8 +35,8 @@ const LoginPage = () => {
       toast.success('Login successful', { position: 'top-right' });
       resetForm();
 
-      // Редірект на dashboard або на попередню сторінку
-      const from = location.state?.from?.pathname || '/dashboard';
+      // Редірект на головну або на попередню сторінку
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     } catch (error) {
       const errorMessage = error || 'Login failed';
