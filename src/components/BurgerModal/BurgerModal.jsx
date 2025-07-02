@@ -65,7 +65,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                 </li>
                 <li className={s.userSection}>
                   <UserInfo />
-                  <LogoutBtn />
+                  <LogoutBtn onBurgerModalClose={onClose} />
                 </li>
                 <li>
                   <NavLink
