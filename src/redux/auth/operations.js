@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { login as loginAction } from './slice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { logout as LogoutAction } from './slice.js';
 import { api } from '../../api/api';
@@ -37,9 +35,9 @@ export const register = createAsyncThunk(
     try {
       await api.post('/api/auth/register', formData);
       // Після реєстрації одразу логінимось
-      const loginResult = await thunkAPI.dispatch(
-        login({ email: formData.email, password: formData.password })
-      ).unwrap();
+      const loginResult = await thunkAPI
+        .dispatch(login({ email: formData.email, password: formData.password }))
+        .unwrap();
       return loginResult;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -74,8 +72,8 @@ export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
 // Auto login з localStorage
 export const autoLogin = () => async dispatch => {
   const token = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
-  if (token && refreshToken) {
+  if (token) {
+    // api.defaults.headers.common.Authorization = `Bearer ${token}`;
     try {
       const user = await dispatch(fetchCurrentUser()).unwrap();
       dispatch({
@@ -83,12 +81,10 @@ export const autoLogin = () => async dispatch => {
         payload: {
           user,
           token,
-          refreshToken,
         },
       });
     } catch (error) {
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
       dispatch(LogoutAction());
     }
   }
