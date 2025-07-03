@@ -73,7 +73,6 @@ export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
 export const autoLogin = () => async dispatch => {
   const token = localStorage.getItem('accessToken');
   if (token) {
-    // api.defaults.headers.common.Authorization = `Bearer ${token}`;
     try {
       const user = await dispatch(fetchCurrentUser()).unwrap();
       dispatch({
