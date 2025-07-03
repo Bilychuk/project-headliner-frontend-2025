@@ -40,7 +40,7 @@ const AddRecipeForm = () => {
     >
       {({ setFieldValue, isSubmitting }) => (
         <Form className={css.form} encType="multipart/form-data">
-          <h2 className={css.pageTitle}>Add Recipe</h1>
+          <h2 className={css.pageTitle}>Add Recipe</h2>
 
           <div className={css.wrapper}>
             <div className={css.photoColumn}>
