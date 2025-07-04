@@ -7,6 +7,7 @@ const initialState = {
   isLoggedIn: false,
   isLoading: false,
   error: null,
+  favorites: [],
 };
 
 const authSlice = createSlice({
@@ -37,6 +38,7 @@ const authSlice = createSlice({
         state.refreshToken = action.payload.refreshToken;
         state.isLoggedIn = true;
         state.error = null;
+        state.favorites = action.payload.favorites || [];
       })
       .addCase('auth/login/rejected', (state, action) => {
         state.isLoading = false;
@@ -77,6 +79,7 @@ const authSlice = createSlice({
       })
       .addCase('auth/fetchCurrentUser/fulfilled', (state, action) => {
         state.user = action.payload;
+        state.favorites = action.payload.favorites || [];
       })
       .addCase('auth/logout/pending', state => {
         state.isLoading = true;
