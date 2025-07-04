@@ -1,9 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Select from 'react-select';
 import css from './AddRecipeForm.module.css';
 import { BsCamera } from 'react-icons/bs';
-import { IoIosArrowDown } from 'react-icons/io';
+import { useCustomSelectStyles } from '../../styles/customSelectStyles';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -11,6 +12,8 @@ const validationSchema = Yup.object({
   time: Yup.number().required('Required').positive().integer(),
   calories: Yup.number().nullable().positive(),
   category: Yup.string().required('Required'),
+  ingredient: Yup.string().required('Required'),
+  ingredientAmount: Yup.string().required('Required'),
   instructions: Yup.string().required('Required'),
 });
 
@@ -26,7 +29,23 @@ const initialValues = {
   photo: null,
 };
 
+const categoryOptions = [
+  { value: 'soup', label: 'Soup' },
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+
+const ingredientOptions = [
+  { value: 'broccoli', label: 'Broccoli' },
+  { value: 'egg', label: 'Egg' },
+  { value: 'cheese', label: 'Cheese' },
+];
+
 const AddRecipeForm = () => {
+  const selectStylesDefault = useCustomSelectStyles('default');
+  const selectStylesIngredients = useCustomSelectStyles('ingredients');
+
   const handleSubmit = (values, { setSubmitting }) => {
     console.log(values);
     setSubmitting(false);
@@ -38,9 +57,9 @@ const AddRecipeForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ setFieldValue, isSubmitting }) => (
+      {({ setFieldValue, isSubmitting, values }) => (
         <Form className={css.form} encType="multipart/form-data">
-          <h1 className={css.pageTitle}>Add Recipe</h1>
+          
 
           <div className={css.wrapper}>
             <div className={css.photoColumn}>
@@ -123,15 +142,22 @@ const AddRecipeForm = () => {
                     className={css.error}
                   />
                 </label>
+
                 <label className={`${css.label} ${css.category}`}>
                   <span className={css.labelTitle}>Category</span>
-                  {/* <IoIosArrowDown /> */}
-                  <Field as="select" className={css.select} name="category">
-                    <option value="">Soup</option>
-                    <option value="chocolate">Chocolate</option>
-                    <option value="strawberry">Strawberry</option>
-                    <option value="vanilla">Vanilla</option>
-                  </Field>
+                  <Select
+                    className={css.reactSelect}
+                    name="category"
+                    options={categoryOptions}
+                    placeholder="Soup"
+                    value={categoryOptions.find(
+                      opt => opt.value === values.category
+                    )}
+                    onChange={option =>
+                      setFieldValue('category', option?.value)
+                    }
+                    styles={selectStylesDefault}
+                  />
                   <ErrorMessage
                     name="category"
                     component="div"
@@ -144,19 +170,25 @@ const AddRecipeForm = () => {
 
               <div className={css.rowGroupIngredients}>
                 <label className={css.label}>
-                  {/* <IoIosArrowDown /> */}
                   <span className={css.labelTitle}>Name</span>
-
-                  <Field
-                    as="select"
-                    className={css.selectIngredients}
+                  <Select
+                    className={css.reactSelect}
                     name="ingredient"
-                  >
-                    <option value="">Choose ingredient</option>
-                    <option value="broccoli">Broccoli</option>
-                    <option value="cheese">Cheese</option>
-                    <option value="egg">Egg</option>
-                  </Field>
+                    options={ingredientOptions}
+                    placeholder="Broccoli"
+                    value={ingredientOptions.find(
+                      opt => opt.value === values.ingredient
+                    )}
+                    onChange={option =>
+                      setFieldValue('ingredient', option?.value)
+                    }
+                    styles={selectStylesIngredients}
+                  />
+                  <ErrorMessage
+                    name="ingredient"
+                    component="div"
+                    className={css.error}
+                  />
                 </label>
 
                 <label className={css.label}>
@@ -166,6 +198,11 @@ const AddRecipeForm = () => {
                     type="text"
                     name="ingredientAmount"
                     placeholder="100g"
+                  />
+                  <ErrorMessage
+                    name="ingredientAmount"
+                    component="div"
+                    className={css.error}
                   />
                 </label>
               </div>
