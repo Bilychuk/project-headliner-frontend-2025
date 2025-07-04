@@ -8,7 +8,7 @@ export default function Layout() {
   return (
     <>
       <AppBar />
-      
+     
       <main className={s.layout}>
         {/* <Outlet /> */}
         <Suspense

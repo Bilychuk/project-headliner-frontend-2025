@@ -1,10 +1,13 @@
+
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select';
 import css from './AddRecipeForm.module.css';
 import { BsCamera } from 'react-icons/bs';
+
 import { useCustomSelectStyles } from '../../styles/customSelectStyles';
+
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -37,9 +40,9 @@ const categoryOptions = [
 ];
 
 const ingredientOptions = [
-  { value: 'broccoli', label: 'Broccoli' },
   { value: 'egg', label: 'Egg' },
   { value: 'cheese', label: 'Cheese' },
+  { value: 'broccoli', label: 'Broccoli' },
 ];
 
 const AddRecipeForm = () => {
@@ -58,8 +61,8 @@ const AddRecipeForm = () => {
       onSubmit={handleSubmit}
     >
       {({ setFieldValue, isSubmitting, values }) => (
-        <Form className={css.form} encType="multipart/form-data">
-          
+        <Form encType="multipart/form-data">
+
 
           <div className={css.wrapper}>
             <div className={css.photoColumn}>
@@ -175,7 +178,7 @@ const AddRecipeForm = () => {
                     className={css.reactSelect}
                     name="ingredient"
                     options={ingredientOptions}
-                    placeholder="Broccoli"
+                    placeholder="Egg"
                     value={ingredientOptions.find(
                       opt => opt.value === values.ingredient
                     )}
