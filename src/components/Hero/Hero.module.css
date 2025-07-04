@@ -21,7 +21,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),
+  background-color: #413f3f;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),
     image-set(
       url('../../assets/img/Banner.webp') 1x,
       url('../../assets/img/Banner@2x.webp') 2x
