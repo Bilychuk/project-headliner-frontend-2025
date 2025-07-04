@@ -30,7 +30,7 @@ export const fetchRecipeById = createAsyncThunk(
 export const toggleFavorite = createAsyncThunk(
   'recipe/toggleFavorite',
   async (recipeId, thunkAPI) => {
-    const state = thunkAPI.getState;
+    const state = thunkAPI.getState();
     const isFavorite = state.recipe.recipe?.isFavorite;
 
     try {
