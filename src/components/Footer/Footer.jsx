@@ -32,7 +32,10 @@ export default function Footer() {
           </NavLink>
 
           {!hideAccountLinks && (
-            <NavLink to={isLoggedIn ? '/profile' : '/login'} className={s.link}>
+            <NavLink
+              to={isLoggedIn ? '/profile/own' : '/auth/login'}
+              className={s.link}
+            >
               Account
             </NavLink>
           )}
