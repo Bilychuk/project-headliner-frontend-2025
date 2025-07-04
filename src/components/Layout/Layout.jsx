@@ -7,9 +7,9 @@ import Loader from '../Loader/Loader.jsx';
 
 export default function Layout() {
   return (
-    <>
+    <div className={s.wrapper}>
       <AppBar />
-      
+
       <main className={s.layout}>
         {/* <Outlet /> */}
         <Suspense fallback={<Loader />}>
@@ -18,6 +18,6 @@ export default function Layout() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
