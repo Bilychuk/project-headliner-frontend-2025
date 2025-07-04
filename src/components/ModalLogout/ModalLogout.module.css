@@ -34,13 +34,18 @@
 
 .btnx {
   position: absolute;
+  height: 28px;
+  border-radius: 8px;
+  padding: 0px 0px 4px 0px;
   top: 16px;
   right: 16px;
   background-color: transparent;
   border: none;
-  width: 24px;
-  height: 24px;
+  display: flex;
+  align-items: center;
+  background: none;
   cursor: pointer;
+  stroke: #000000;
 }
 
 .h2 {
@@ -50,15 +55,16 @@
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .p {
   color: #000000;
   font-weight: 400;
   font-size: 16px;
-  line-height: 155%;
-  letter-spacing: 0%;
+  line-height: 1.55;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .btncontainer {

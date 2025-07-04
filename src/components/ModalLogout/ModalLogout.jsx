@@ -35,8 +35,8 @@ const ModalLogout = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
       overlayClassName={s.overlay}
     >
       <div>
-        <button className={s.btnx}>
-          <svg>
+        <button className={s.btnx} onClick={onRequestClose}>
+          <svg width="24" height="24">
             <use href={`${sprite}#icon-close`}></use>
           </svg>
         </button>

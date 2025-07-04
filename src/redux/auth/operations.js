@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { login as loginAction } from './slice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { logout as LogoutAction } from './slice.js';
 import { api } from '../../api/api';
@@ -14,6 +12,9 @@ export const login = createAsyncThunk(
         localStorage.setItem('accessToken', data.data.accessToken);
       if (data.data?.refreshToken)
         localStorage.setItem('refreshToken', data.data.refreshToken);
+      if (data.data?.accessToken) {
+        api.defaults.headers.common.Authorization = `Bearer ${data.data.accessToken}`;
+      }
       return {
         user: data.data?.user || data.data,
         token: data.data?.accessToken || null,
@@ -32,16 +33,12 @@ export const register = createAsyncThunk(
   'auth/register',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await api.post('/api/auth/register', formData);
-      if (data.data?.accessToken)
-        localStorage.setItem('accessToken', data.data.accessToken);
-      if (data.data?.refreshToken)
-        localStorage.setItem('refreshToken', data.data.refreshToken);
-      return {
-        user: data.data?.user || data.data,
-        token: data.data?.accessToken || null,
-        refreshToken: data.data?.refreshToken || null,
-      };
+      await api.post('/api/auth/register', formData);
+      // Після реєстрації одразу логінимось
+      const loginResult = await thunkAPI
+        .dispatch(login({ email: formData.email, password: formData.password }))
+        .unwrap();
+      return loginResult;
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || 'Registration failed'
@@ -75,8 +72,7 @@ export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
 // Auto login з localStorage
 export const autoLogin = () => async dispatch => {
   const token = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
-  if (token && refreshToken) {
+  if (token) {
     try {
       const user = await dispatch(fetchCurrentUser()).unwrap();
       dispatch({
@@ -84,12 +80,10 @@ export const autoLogin = () => async dispatch => {
         payload: {
           user,
           token,
-          refreshToken,
         },
       });
     } catch (error) {
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
       dispatch(LogoutAction());
     }
   }

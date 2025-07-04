@@ -1,8 +1,10 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute/PrivateRoute.jsx';
 import Layout from '../Layout/Layout';
 import RestrictedRoute from '../RestrictedRoute/RestrictedRoute.jsx';
+import { useDispatch } from 'react-redux';
+import { autoLogin } from '../../redux/auth/operations';
 
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage.jsx'));
 const RecipeViewPage = lazy(() =>
@@ -24,6 +26,12 @@ const FavoriteRecipes = lazy(() =>
 );
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(autoLogin());
+  }, [dispatch]);
+
   return (
     // {/* Публічні маршрути */}
     <Routes>
