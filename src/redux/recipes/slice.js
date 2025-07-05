@@ -44,7 +44,7 @@ const recipeSlice = createSlice({
         state.error = null;
       })
       .addCase(toggleFavorite.rejected, (state, action) => {
-        state.recipe.isfavorite = null;
+        state.recipe.isFavorite = null;
         state.isLoading = false;
         state.error = action.payload;
       })
