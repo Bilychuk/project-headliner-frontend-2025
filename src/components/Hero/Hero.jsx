@@ -1,7 +1,7 @@
 import css from './Hero.module.css';
 import { SearchForm } from '../SearchForm/SearchForm';
 
-export const Hero = () => {
+const Hero = () => {
   return (
     <section className={css.container}>
       <div className={css.hero}>
@@ -11,3 +11,4 @@ export const Hero = () => {
     </section>
   );
 };
+export default Hero;
