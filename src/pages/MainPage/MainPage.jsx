@@ -3,6 +3,7 @@ import { getRecipes } from '../../api/api';
 import RecipeList from '../../components/RecipeList/RecipeList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 import Loader from '../../components/Loader/Loader.jsx';
+import Hero from '../../components/Hero/Hero.jsx';
 import styles from './MainPage.module.css';
 import { toast } from 'react-toastify';
 

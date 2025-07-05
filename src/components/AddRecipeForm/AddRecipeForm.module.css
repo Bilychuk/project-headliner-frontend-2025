@@ -39,7 +39,13 @@
 .photoLabel:hover {
   background-color: #b0b0b0;
 }
-
+.previewImage {
+  object-fit: cover;
+  width: 361px;
+  height: 383px;
+  overflow: hidden;
+  border-radius: 16px;
+}
 .inputFile {
   display: none;
 }

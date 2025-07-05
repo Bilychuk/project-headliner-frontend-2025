@@ -1,12 +1,12 @@
-export const selectAuthUser = (state) => state.auth.user;
-export const selectAuthToken = (state) => state.auth.token;
-export const selectAuthRefreshToken = (state) => state.auth.refreshToken;
-export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
-export const selectAuthLoading = (state) => state.auth.isLoading;
-export const selectAuthError = (state) => state.auth.error;
+export const selectAuthUser = state => state.auth.user;
+export const selectAuthToken = state => state.auth.token;
+export const selectAuthRefreshToken = state => state.auth.refreshToken;
+export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+export const selectAuthLoading = state => state.auth.isLoading;
+export const selectAuthError = state => state.auth.error;
 
 // Композитні селектори
-export const selectAuthState = (state) => ({
+export const selectAuthState = state => ({
   user: state.auth.user,
   token: state.auth.token,
   refreshToken: state.auth.refreshToken,
@@ -15,5 +15,5 @@ export const selectAuthState = (state) => ({
   error: state.auth.error,
 });
 
-export const selectIsAuthenticated = (state) => 
+export const selectIsAuthenticated = state =>
   state.auth.isLoggedIn && state.auth.token !== null;

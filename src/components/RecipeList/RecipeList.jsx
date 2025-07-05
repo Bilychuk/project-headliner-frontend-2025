@@ -3,7 +3,7 @@ import styles from './RecipeList.module.css';
 
 const RecipeList = ({ recipes }) => {
   return (
-   <div className={styles.grid}>
+    <div className={styles.container}>
       {recipes.map(recipe => (
         <RecipeCard key={recipe._id} recipe={recipe} />
       ))}
