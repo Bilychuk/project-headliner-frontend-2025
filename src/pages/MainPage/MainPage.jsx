@@ -3,6 +3,7 @@ import { getRecipes } from '../../api/api';
 import RecipeList from '../../components/RecipeList/RecipeList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 import styles from './MainPage.module.css';
+import { Hero } from '../../components/Hero/Hero';
 
 const MainPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -46,6 +47,7 @@ const MainPage = () => {
 
   return (
     <section className={styles.section}>
+      <Hero />
       <RecipeList recipes={recipes} />
       {loading && <p className={styles.loading}>Dowload...</p>}
       {hasMore && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
