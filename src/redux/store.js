@@ -1,5 +1,5 @@
 import { authReducer } from './auth/slice';
-
+import { recipeReducer } from "./recipes/slice.js"
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import {
@@ -22,6 +22,7 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
+  recipe: recipeReducer,
 });
 
 export const store = configureStore({
