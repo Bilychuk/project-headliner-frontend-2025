@@ -34,7 +34,7 @@ const RecipeDetails = ({ recipe, allIngredients=[] }) => {
       return;
     }
 
-    dispatch(toggleFavorite(recipe.id));
+    dispatch(toggleFavorite(recipe._id));
   };
 
   return (
