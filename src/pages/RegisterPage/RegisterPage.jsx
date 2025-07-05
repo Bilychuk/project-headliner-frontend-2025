@@ -7,7 +7,7 @@ import {
 } from '../../redux/auth/selectors.js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RegisterSchema } from '../../validation.js';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { validateRegister } from '../../validation.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -36,17 +36,16 @@ const RegisterPage = () => {
       await dispatch(register(payload)).unwrap();
       toast.success('Registration successful', { position: 'top-right' });
       resetForm();
-      const from = location.state?.from?.pathname || '/dashboard';
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     } catch (error) {
       let errorMessage = error;
-      
+
       if (
         errorMessage &&
         errorMessage.toString().toLowerCase().includes('conflict')
       ) {
-        errorMessage =
-          'Користувач з таким email вже існує. Спробуйте інший email або увійдіть.';
+        errorMessage = 'Email in use. Try a different email or log in.';
       }
       toast.error(errorMessage, { position: 'top-right' });
     } finally {
@@ -56,7 +55,6 @@ const RegisterPage = () => {
 
   return (
     <>
-      <ToastContainer />
       <div className={styles.registerBg}>
         <div className={styles.registerContainer}>
           <h2 className={styles.title}>Register</h2>

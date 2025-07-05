@@ -1,13 +1,14 @@
-
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select';
 import css from './AddRecipeForm.module.css';
 import { BsCamera } from 'react-icons/bs';
-
+import { createRecipe } from '../../api/api.js';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useCustomSelectStyles } from '../../styles/customSelectStyles';
-
+import { useEffect, useState } from 'react';
+import { getCategories, getIngredients } from '../../api/api.js';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -15,8 +16,14 @@ const validationSchema = Yup.object({
   time: Yup.number().required('Required').positive().integer(),
   calories: Yup.number().nullable().positive(),
   category: Yup.string().required('Required'),
-  ingredient: Yup.string().required('Required'),
-  ingredientAmount: Yup.string().required('Required'),
+  ingredients: Yup.array()
+    .of(
+      Yup.object({
+        id: Yup.string().required('Required'),
+        measure: Yup.string().required('Required'),
+      })
+    )
+    .min(1, 'Add at least one ingredient'),
   instructions: Yup.string().required('Required'),
 });
 
@@ -26,32 +33,75 @@ const initialValues = {
   time: '',
   calories: '',
   category: '',
-  ingredient: '',
-  ingredientAmount: '',
+  ingredients: [],
+  newIngredient: null,
+  newIngredientMeasure: '',
   instructions: '',
   photo: null,
 };
 
-const categoryOptions = [
-  { value: 'soup', label: 'Soup' },
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
-
-const ingredientOptions = [
-  { value: 'egg', label: 'Egg' },
-  { value: 'cheese', label: 'Cheese' },
-  { value: 'broccoli', label: 'Broccoli' },
-];
-
 const AddRecipeForm = () => {
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [ingredientOptions, setIngredientOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const categories = await getCategories();
+        const ingredients = await getIngredients();
+
+        setCategoryOptions(
+          categories.data.map(cat => ({ value: cat._id, label: cat.name }))
+        );
+
+        setIngredientOptions(
+          ingredients.data.map(ing => ({ value: ing._id, label: ing.name }))
+        );
+      } catch (error) {
+        const errorMessage =
+          error || 'Failed to fetch categories or ingredients';
+        toast.error(errorMessage, { position: 'top-right' });
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const selectStylesDefault = useCustomSelectStyles('default');
   const selectStylesIngredients = useCustomSelectStyles('ingredients');
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      const formData = new FormData();
+      formData.append('title', values.title);
+      formData.append('description', values.description);
+      formData.append('time', values.time);
+      if (values.calories) {
+        formData.append('calories', values.calories);
+      }
+      formData.append('category', values.category);
+      formData.append('instructions', values.instructions);
+      if (values.photo) {
+        formData.append('thumb', values.photo);
+      }
+
+      values.ingredients.forEach((ingredient, index) => {
+        formData.append(`ingredients[${index}][id]`, ingredient.id);
+        formData.append(`ingredients[${index}][measure]`, ingredient.measure);
+      });
+
+      await createRecipe(formData);
+
+      toast.success('Recipe created successfully!');
+      resetForm();
+      navigate('/your-recipe-page'); // заміни на свій маршрут перегляду
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Something went wrong');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -62,13 +112,18 @@ const AddRecipeForm = () => {
     >
       {({ setFieldValue, isSubmitting, values }) => (
         <Form encType="multipart/form-data">
-
-
           <div className={css.wrapper}>
             <div className={css.photoColumn}>
               <p className={css.uploadTitle}>Upload Photo</p>
               <label htmlFor="photoInput" className={css.photoLabel}>
-                <BsCamera className={css.cameraIcon} />
+                {values.photo && (
+                  <img
+                    src={URL.createObjectURL(values.photo)}
+                    alt="Preview"
+                    className={css.previewImage}
+                  />
+                )}
+                {!values.photo && <BsCamera className={css.cameraIcon} />}
                 <input
                   id="photoInput"
                   className={css.inputFile}
@@ -83,7 +138,7 @@ const AddRecipeForm = () => {
             </div>
 
             <div className={css.formColumn}>
-              <h2 className={css.sectionTitle}>General Information</h2>
+              <h3 className={css.sectionTitle}>General Information</h3>
 
               <label className={css.label}>
                 <span className={css.labelTitle}>Recipe Title</span>
@@ -152,7 +207,7 @@ const AddRecipeForm = () => {
                     className={css.reactSelect}
                     name="category"
                     options={categoryOptions}
-                    placeholder="Soup"
+                    placeholder="Select category"
                     value={categoryOptions.find(
                       opt => opt.value === values.category
                     )}
@@ -169,28 +224,18 @@ const AddRecipeForm = () => {
                 </label>
               </div>
 
-              <h2 className={css.sectionTitle}>Ingredients</h2>
-
+              <h3 className={css.sectionTitle}>Ingredients</h3>
               <div className={css.rowGroupIngredients}>
                 <label className={css.label}>
                   <span className={css.labelTitle}>Name</span>
                   <Select
                     className={css.reactSelect}
-                    name="ingredient"
+                    name="newIngredient"
                     options={ingredientOptions}
-                    placeholder="Egg"
-                    value={ingredientOptions.find(
-                      opt => opt.value === values.ingredient
-                    )}
-                    onChange={option =>
-                      setFieldValue('ingredient', option?.value)
-                    }
+                    placeholder="Select ingredient"
+                    value={values.newIngredient}
+                    onChange={option => setFieldValue('newIngredient', option)}
                     styles={selectStylesIngredients}
-                  />
-                  <ErrorMessage
-                    name="ingredient"
-                    component="div"
-                    className={css.error}
                   />
                 </label>
 
@@ -199,31 +244,81 @@ const AddRecipeForm = () => {
                   <Field
                     className={`${css.input} ${css.ingredientAmount}`}
                     type="text"
-                    name="ingredientAmount"
+                    name="newIngredientMeasure"
                     placeholder="100g"
                   />
-                  <ErrorMessage
-                    name="ingredientAmount"
-                    component="div"
-                    className={css.error}
-                  />
                 </label>
+
+                <FieldArray name="ingredients">
+                  {({ push }) => (
+                    <button
+                      type="button"
+                      className={`${css.addBtn} ${css.btn}`}
+                      onClick={() => {
+                        if (
+                          values.newIngredient &&
+                          values.newIngredientMeasure
+                        ) {
+                          push({
+                            id: values.newIngredient.value,
+                            measure: values.newIngredientMeasure,
+                          });
+
+                          setFieldValue('newIngredient', null);
+                          setFieldValue('newIngredientMeasure', '');
+                        } else {
+                          toast.error('Select ingredient and amount');
+                        }
+                      }}
+                    >
+                      Add new Ingredient
+                    </button>
+                  )}
+                </FieldArray>
               </div>
 
-              <button className={`${css.removeBtn} ${css.btn}`} type="button">
-                Remove last Ingredient
-              </button>
+              <FieldArray name="ingredients">
+                {({ remove }) => (
+                  <>
+                    <table className={css.ingredientTable}>
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Amount</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {values.ingredients.map((ing, index) => {
+                          if (!ing.id && !ing.measure) return null;
+                          return (
+                            <tr key={index}>
+                              <td>
+                                {
+                                  ingredientOptions.find(
+                                    opt => opt.value === ing.id
+                                  )?.label
+                                }
+                              </td>
+                              <td>{ing.measure}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  onClick={() => remove(index)}
+                                >
+                                  🗑️
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </>
+                )}
+              </FieldArray>
 
-              <button className={`${css.addBtn} ${css.btn}`} type="button">
-                Add new ingredient
-              </button>
-
-              <div className={css.ingredientHeader}>
-                <span className={css.ingredientSpan}>Name:</span>
-                <span className={css.ingredientSpan}>Amount:</span>
-              </div>
-
-              <h2 className={css.sectionTitle}>Instructions</h2>
+              <h3 className={css.sectionTitle}>Instructions</h3>
               <Field
                 as="textarea"
                 className={`${css.textarea} ${css.textareaInstructions}`}

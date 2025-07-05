@@ -7,7 +7,7 @@ import {
 } from '../../redux/auth/selectors.js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LoginSchema } from '../../validation.js';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import React, { useRef, useState } from 'react';
@@ -48,7 +48,6 @@ const LoginPage = () => {
 
   return (
     <>
-      <ToastContainer />
       <div className={styles.loginBg}>
         <div className={styles.loginContainer}>
           <h2 className={styles.title}>Login</h2>

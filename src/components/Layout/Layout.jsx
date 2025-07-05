@@ -4,6 +4,7 @@ import AppBar from '../AppBar/AppBar';
 import Footer from '../Footer/Footer';
 import { Suspense } from 'react';
 import Loader from '../Loader/Loader.jsx';
+import { ToastContainer } from 'react-toastify';
 
 export default function Layout() {
   return (
@@ -18,6 +19,7 @@ export default function Layout() {
       </main>
 
       <Footer />
+      <ToastContainer position="top-right" />
     </div>
   );
 }
