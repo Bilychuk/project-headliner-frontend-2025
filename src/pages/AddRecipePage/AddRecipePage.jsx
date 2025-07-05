@@ -5,7 +5,7 @@ import css from './AddRecipePage.module.css';
 const AddRecipePage = () => {
   return (
     <div className={css.container}>
-      <h1 className={css.pageTitle}>Add Recipe</h1>
+      <h2 className={css.pageTitle}>Add Recipe</h2>
       <AddRecipeForm />
     </div>
   );
