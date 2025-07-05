@@ -6,11 +6,11 @@ export const getRecipeByIdAPI = async (id) => {
 };
 
 export const addFavoriteAPI = async (id) => {
-  const response = await api.post(`api/favorites/${id}`);
+  const response = await api.post(`api/recipes/favorites/${id}`);
   return response.data;
 };
 
 export const removeFavoriteAPI = async (id) => {
-  const response = await api.delete(`api/favorites/${id}`);
+  const response = await api.delete(`api/recipes/favorites/${id}`);
   return response.data;
 };
