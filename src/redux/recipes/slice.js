@@ -39,8 +39,22 @@ const recipeSlice = createSlice({
             action.payload.action === 'add' ? true : false;
         }
       })
+      .addCase(toggleFavorite.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleFavorite.rejected, (state, action) => {
+        state.recipe.isfavorite = null;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(fetchAllIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload;
+      })
+      .addCase(fetchAllIngredients.pending, state => {
+        state.ingredients = [];
+        state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchAllIngredients.rejected, (state, action) => {
         state.ingredients = [];
