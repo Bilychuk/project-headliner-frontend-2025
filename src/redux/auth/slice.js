@@ -77,6 +77,10 @@ const authSlice = createSlice({
         state.refreshToken = null;
         state.isLoggedIn = false;
       })
+      .addCase('auth/fetchCurrentUser/pending', state => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase('auth/fetchCurrentUser/fulfilled', (state, action) => {
         state.user = action.payload;
         state.favorites = action.payload.favorites || [];
