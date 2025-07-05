@@ -48,6 +48,7 @@ const MainPage = () => {
 
   return (
     <section className={styles.section}>
+      <Hero />
       <RecipeList recipes={recipes} />
       {loading && <Loader />}
       {hasMore && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
