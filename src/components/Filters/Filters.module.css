@@ -1,0 +1,77 @@
+.filtersContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.filtersLinkBtn {
+  /* Змінив назву класу */
+  background-color: transparent;
+  border: none;
+  color: #000; /* Колір тексту з макету */
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex; /* Для вирівнювання тексту та іконки */
+  align-items: center;
+  gap: 4px; /* Менший відступ між текстом та іконкою, як у лого */
+  padding: 0;
+  text-decoration: none; /* Прибираємо стандартне підкреслення, якщо раптом є */
+}
+
+.filterIcon {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #000;
+}
+
+.filterText {
+  font-weight: 600;
+  font-size: 12px;
+  color: #000;
+}
+
+.resetLinkBtn {
+  background-color: transparent;
+  border: none;
+  color: #000;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0; /* Важливо: прибираємо всі padding, пов'язані з бордером */
+  margin-right: 24px;
+  display: inline-block; /* Залишаємо inline-block для кнопки */
+  white-space: nowrap;
+  text-decoration: none; /* Переконайтеся, що немає стандартного підкреслення */
+  position: relative; /* Важливо для позиціонування ::after */
+  /* Remove any fixed width or min-width if present */
+}
+
+.resetLinkBtnUnderlined::after {
+  content: ''; /* Обов'язково для псевдоелемента */
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* Регулюйте це значення, щоб відсунути лінію від тексту */
+  width: 100%; /* Ширина псевдоелемента буде дорівнювати ширині кнопки */
+  height: 1px; /* Товщина лінії */
+  background-color: #000; /* Колір лінії */
+}
+
+.resetLinkBtn:disabled {
+  /* Колір для неактивної кнопки */
+  cursor: pointer;
+  border-bottom: none; /* Для неактивної кнопки бордера знизу не буде */
+  padding-bottom: 0; /* І відступу знизу теж */
+}
+
+.resetLinkBtn:disabled::after {
+  display: none;
+}
+
+.selectsWrapper {
+  display: flex;
+  gap: 24px;
+}
