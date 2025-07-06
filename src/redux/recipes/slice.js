@@ -12,7 +12,6 @@ const recipeSlice = createSlice({
     recipe: null,
     isLoading: false,
     error: null,
-    favorites: [],
   },
 
   extraReducers: builder => {
@@ -23,28 +22,10 @@ const recipeSlice = createSlice({
         state.recipe = null;
       })
       .addCase(fetchRecipeById.fulfilled, (state, action) => {
-        const recipe = action.payload;
-        const favoriteIds = state.favorites || [];
-        const isFavorite = favoriteIds.includes(recipe._id);
-        state.recipe = { ...recipe, isFavorite };
+        state.recipe = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchRecipeById.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(toggleFavorite.fulfilled, (state, action) => {
-        if (state.recipe && state.recipe._id === action.payload.recipeId) {
-          state.recipe.isFavorite =
-            action.payload.action === 'add' ? true : false;
-        }
-      })
-      .addCase(toggleFavorite.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(toggleFavorite.rejected, (state, action) => {
-        state.recipe.isfavorite = null;
         state.isLoading = false;
         state.error = action.payload;
       })

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toggleFavorite } from '../recipes/operations.js';
 
 const initialState = {
   user: null,
@@ -97,6 +98,30 @@ const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.isLoggedIn = false;
+      })
+      .addCase(toggleFavorite.fulfilled, (state, action) => {
+        //додавання рецепта в улюблені
+        const { recipeId, action: act } = action.payload;
+        if (!state.user) return;
+
+        if (act === 'add') {
+          if (!state.user.favorites.includes(recipeId)) {
+            state.user.favorites.push(recipeId);
+          }
+        } else if (act === 'remove') {
+          state.user.favorites = state.user.favorites.filter(
+            id => id !== recipeId
+          );
+        }
+      })
+      .addCase(toggleFavorite.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleFavorite.rejected, (state, action) => {
+        state.recipe.isfavorite = null;
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

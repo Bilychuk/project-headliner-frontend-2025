@@ -1,3 +1,168 @@
 .container {
-    
+  width: 361px;
+  margin: 48px auto;
+  /* padding: 0px 16px; */
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 32px;
+}
+
+.image {
+  max-height: 261px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.header {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.meta {
+  margin-top: 32px;
+  background-color: #faf3e0;
+  padding: 16px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  border-radius: 8px;
+}
+
+.meta h3 {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.meta p {
+  font-size: 16px;
+}
+
+.favoriteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 361px;
+  height: 56px;
+  background-color: #9b6c43;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  margin: 24px auto;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.favoriteBtn:hover,
+.favoriteBtn:focus {
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #ffffff;
+}
+
+.favIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.h3 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.p {
+  white-space: pre-line;
+  line-height: 1.55;
+}
+
+.ingredients {
+  margin-top: 40px;
+}
+
+.ingredients ul {
+  all: unset;
+  display: list-item;
+  list-style: none;
+  font: inherit;
+  color: inherit;
+  line-height: 1.55;
+}
+.ingredients li:last-child {
+  all: unset;
+}
+
+.ingredients li:last-child:hover,
+.ingredients li:last-child:focus {
+  all: unset;
+}
+
+.prepSteps {
+  margin-top: 40px;
+}
+
+.instructionsP {
+  margin-bottom: 26px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 704px;
+  }
+
+  .topContainer {
+    flex-direction: column;
+  }
+
+  .image {
+    max-height: 624px;
+  }
+
+  .metaContainer {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .meta {
+    width: 431px;
+  }
+
+  .favoriteBtn {
+    width: 249px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    width: 1225px;
+  }
+
+  .image {
+    width: 1225px;
+  }
+
+  .recipeBodyContainer {
+    max-width: 1225px;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 32px;
+    gap: 24px;
+  }
+
+  .metaContainer {
+    flex-direction: column;
+    width: 393px;
+  }
+
+  .meta {
+    width: 393px;
+  }
+
+  .favoriteBtn {
+    width: 393px;
+  }
 }

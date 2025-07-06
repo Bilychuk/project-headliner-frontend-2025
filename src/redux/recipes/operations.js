@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getRecipeByIdAPI, addFavoriteAPI, removeFavoriteAPI } from '../../api/recipes.js';
+import {
+  getRecipeByIdAPI,
+  addFavoriteAPI,
+  removeFavoriteAPI,
+} from '../../api/recipes.js';
 import { getAllIngredientsAPI } from '../../api/ingredients.js';
+import { useSelector } from 'react-redux';
+import { selectFavoriteRecipeIds } from '../auth/selectors.js';
 
 export const fetchAllIngredients = createAsyncThunk(
   'recipe/fetchAllIngredients',
@@ -26,17 +32,18 @@ export const fetchRecipeById = createAsyncThunk(
   }
 );
 
-
 export const toggleFavorite = createAsyncThunk(
   'recipe/toggleFavorite',
   async (recipeId, thunkAPI) => {
     const state = thunkAPI.getState();
-    const isFavorite = state.recipe.recipe?.isFavorite;
+    // const isFavorite = state.recipe.recipe?.isFavorite;
+    const favoriteIds = selectFavoriteRecipeIds(state);
+    const isFavorite = favoriteIds.includes(recipeId);
 
     try {
       if (isFavorite) {
         await removeFavoriteAPI(recipeId);
-        return { recipeId, action: 'remove' }
+        return { recipeId, action: 'remove' };
       } else {
         await addFavoriteAPI(recipeId);
         return { recipeId, action: 'add' };
@@ -45,4 +52,4 @@ export const toggleFavorite = createAsyncThunk(
       return thunkAPI.rejectWithValue(e.message);
     }
   }
-)
+);
