@@ -40,7 +40,7 @@ export const useCustomSelectStyles = (type = 'default') => {
     option: (base, state) => ({
       ...base,
       paddingTop: '10px',
-      paddingBottom: '10px',
+      // paddingBottom: '10px',
       paddingLeft: '24px',
       paddingRight: '24px',
       fontSize: '16px',
@@ -61,7 +61,7 @@ export const useCustomSelectStyles = (type = 'default') => {
     }),
     placeholder: base => ({
       ...base,
-      color: '#000',
+      color: '#595D62',
       fontSize: '16px',
       fontWeight: 400,
     }),
@@ -81,7 +81,7 @@ export const useCustomSelectStyles = (type = 'default') => {
 const getStyles = type => {
   const width = window.innerWidth;
 
-  if (width >= 1158) {
+  if (width >= 1440) {
     return type === 'ingredients'
       ? { width: '497px', height: '46px' }
       : { width: '392px', height: '46px' };
@@ -91,7 +91,7 @@ const getStyles = type => {
       : { width: '340px', height: '48px' };
   } else {
     return type === 'ingredients'
-      ? { width: '361px', height: '48px' }
-      : { width: '171px', height: '48px' };
+      ? { maxWidth: '361px', height: '48px' }
+      : { maxWidth: '171px', height: '48px' };
   }
 };
