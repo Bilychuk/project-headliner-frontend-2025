@@ -17,3 +17,8 @@ export const selectAuthState = state => ({
 
 export const selectIsAuthenticated = state =>
   state.auth.isLoggedIn && state.auth.token !== null;
+
+export const selectFavoriteRecipeIds = state => {
+  const user = state.auth.user;
+  return user?.favorites || [];
+};

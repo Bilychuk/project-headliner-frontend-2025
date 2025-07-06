@@ -5,7 +5,7 @@ const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
 
   const handleLoadMore = () => {
-    navigate(`/recipe/${recipe._id}`);
+    navigate(`/recipes/${recipe._id}`);
   };
 
   const handleSave = () => {
