@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import RecipeList from '../../components/RecipeList/RecipeList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
-import s from './MainPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectRecipes,
@@ -20,6 +19,11 @@ import {
 } from '../../redux/filters/operations.js';
 import Filters from '../../components/Filters/Filters.jsx';
 import FiltersModal from '../../components/FiltersModal/FiltersModal.jsx';
+
+import Loader from '../../components/Loader/Loader.jsx';
+import Hero from '../../components/Hero/Hero.jsx';
+import styles from './MainPage.module.css';
+import { toast } from 'react-toastify';
 
 const RECIPES_PER_PAGE = 12;
 
