@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
 .formColumn {
@@ -12,13 +11,16 @@
 .uploadTitle {
   font-weight: 600;
   font-size: 24px;
+  color: #000;
   margin-bottom: 4px;
 }
 
 .photoLabel {
-  max-width: 361px;
+  display: block;
   width: 100%;
-  aspect-ratio: 361 / 383;
+  width: 361px;
+  height: 383px;
+  margin-bottom: 24px;
   border-radius: 16px;
   background-color: #9f9f9f;
   display: flex;
@@ -26,7 +28,7 @@
   justify-content: center;
   cursor: pointer;
   position: relative;
-  transition: background-color 0.3s;
+  transition: background 0.3s;
 }
 
 .cameraIcon {
@@ -39,9 +41,8 @@
 }
 .previewImage {
   object-fit: cover;
-  max-width: 361px;
-  width: 100%;
-  aspect-ratio: 361 / 383;
+  width: 361px;
+  height: 383px;
   overflow: hidden;
   border-radius: 16px;
 }
@@ -53,6 +54,7 @@
   font-weight: 600;
   font-size: 24px;
   margin-bottom: 16px;
+  color: #000;
 }
 
 .label {
@@ -65,15 +67,16 @@
 .labelTitle {
   font-weight: 400;
   font-size: 18px;
+  color: #000;
 }
 
 .input {
-  width: 100%;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   padding: 12px;
-  max-width: 361px;
-  height: 48px;
+  width: 361px;
+  height: 46px;
+  max-height: 48px;
   background-color: #fff;
   transition: border-color 0.5s ease;
 }
@@ -95,8 +98,7 @@
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   padding: 12px;
-  width: 100%;
-  max-width: 361px;
+  width: 361px;
   height: 144px;
   transition: border-color 0.5s ease;
 }
@@ -117,45 +119,35 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
-  margin-bottom: 40px;
 }
 
-.caloriesLabel {
-  margin-bottom: 0;
-}
 .calories {
-  width: 100%;
-  max-width: 172px;
-  height: 48px;
+  width: 172px;
 }
-.category {
-  width: 100%;
-  max-width: 172px;
-  margin-bottom: 0;
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 12px;
+  width: 172px;
+  height: 46px;
+  max-height: 48px;
 }
 
 .rowGroupIngredients {
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
-.sectionIngredients {
-  font-weight: 600;
-  font-size: 24px;
-  margin-bottom: 32px;
-}
-
-.ingredientsName {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 0;
-}
-.ingredientsAmount {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 32px;
+.selectIngredients {
+  appearance: none;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 12px;
+  width: 361px;
+  height: 46px;
+  max-height: 48px;
 }
 
 .btn {
@@ -168,8 +160,7 @@
   border: 1px solid #d9d9d9;
   background-color: #9b6c43;
   padding: 12px 16px;
-  width: 100%;
-  max-width: 361px;
+  width: 361px;
   height: 44px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
 }
@@ -181,201 +172,137 @@
   outline: none;
 }
 
-.addBtn {
-  margin-bottom: 32px;
-}
-.ingredientTable {
-  border-spacing: 0;
-  max-width: 361px;
-  width: 100%;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  border: none;
-  border-bottom: 1px solid #c5c5c5;
-}
-.ingredientTabTitle {
-  max-width: 361px;
-  display: flex;
-  width: 100%;
-  font-weight: 600;
-  font-size: 16px;
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  padding-bottom: 16px;
-  padding-top: 16px;
-}
-.ingredientTbName {
-  font-weight: 600;
-  text-align: start;
-  width: 175px;
-}
-.ingredientItem {
-  border-top: 1px solid #c5c5c5;
-  display: flex;
-  gap: 4px;
-  max-width: 361px;
-  width: 100%;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.55;
-  padding: 16px 0px;
-}
-.chooseIngName {
-  width: 175px;
-}
-.chooseIngMeasure {
-  width: 150px;
-}
 .removeBtn {
-  border: none;
   background-color: transparent;
-  width: 24px;
-  height: 28px;
-  padding: 0px 0px 4px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  fill: none;
-  stroke: black;
+  color: #000;
 }
-.instructionsWrapper {
+
+.addBtn {
+  margin-bottom: 40px;
+}
+
+.textareaInstructions {
   margin-bottom: 40px;
 }
 
 .submitBtn {
-  margin-bottom: 0;
+  margin: 0;
+}
+
+.ingredientHeader {
+  display: none;
 }
 
 /* (768px) */
 @media (min-width: 768px) {
   .uploadTitle {
     font-size: 32px;
-  }
-
-  .photoLabel {
-    max-width: none;
-    width: 704px;
-    aspect-ratio: none;
-    height: 383px;
-  }
-  .previewImage {
-    max-width: none;
-    width: 704px;
-    aspect-ratio: none;
-    height: 383px;
-  }
-
-  .sectionTitle {
-    font-size: 32px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 
   .label {
     margin-bottom: 32px;
   }
 
+  .photoLabel {
+    width: 704px;
+  }
+
+  .sectionTitle {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
   .input {
     width: 704px;
-    max-width: none;
   }
 
   .textarea {
     width: 704px;
-    max-width: none;
+  }
+  .rowGroup {
+    gap: 24px;
+  }
+
+  .calories {
+    width: 340px;
+  }
+
+  .select {
+    width: 340px;
   }
 
   .rowGroupIngredients {
     display: flex;
     flex-direction: row;
     gap: 24px;
-    height: 130px;
-    margin-bottom: 32px;
-  }
-  .sectionIngredients {
-    font-size: 32px;
+    height: 78px;
+    margin-bottom: 16px;
   }
 
-  .ingredientsAmount {
-    margin-bottom: 0;
-  }
-
-  .rowGroup {
-    gap: 24px;
-  }
-  .addWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .calories {
-    width: 340px;
-    max-width: none;
-  }
-
-  .category {
-    width: 340px;
-    max-width: none;
-  }
-  .label.caloriesLabel {
-    margin-bottom: 0;
-  }
-
-  .label.category {
-    margin-bottom: 0;
+  .selectIngredients {
+    width: 431px;
   }
 
   .ingredientAmount {
     width: 249px;
   }
 
+  .removeBtn {
+    display: none;
+  }
+
+  .btn {
+    width: 704px;
+  }
   .addBtn {
-    margin-bottom: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    margin-right: 0;
     width: 249px;
     height: 36px;
+    margin-left: auto;
+    margin-bottom: 32px;
+  }
+  .ingredientHeader {
+    display: flex;
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .ingredientSpan {
+    width: 175px;
+    height: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #000;
   }
 
-  .ingredientTable {
-    max-width: none;
+  .ingredientHeader::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
     width: 431px;
-  }
-
-  .ingredientTabTitle {
-    max-width: none;
-    width: 431px;
-  }
-
-  .ingredientItem {
-    max-width: none;
-    width: 431px;
-  }
-  .btn {
-    max-width: none;
-  }
-  .submitBtn {
-    width: 704px;
-    height: 44px;
+    height: 1px;
+    background-color: #d9d9d9;
   }
 }
 
-/* (1440px) */
-@media (min-width: 1440px) {
-  .wrapper {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
+/* (1158px) */
+@media (min-width: 1158px) {
+  .form {
+    padding: 48px 107px;
+    width: 1440px;
   }
 
-  .uploadTitle {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 8px;
+  .input {
+    width: 809px;
+  }
+
+  .cameraIcon {
+    width: 161px;
+    height: 136px;
   }
 
   .photoLabel {
@@ -383,75 +310,65 @@
     height: 374px;
   }
 
-  .previewImage {
-    width: 391px;
-    height: 374px;
-  }
-  .sectionTitle {
-    font-size: 32px;
-    margin-bottom: 32px;
-  }
-  .input {
-    width: 809px;
+  .pageTitle {
+    margin-bottom: 40px;
   }
 
-  .cameraIcon {
-    width: 162px;
-    height: 136px;
-  }
-
-  .textarea {
-    width: 809px;
-    height: 144px;
-  }
-
-  .rowGroupIngredients {
-    height: 117px;
+  .wrapper {
+    display: block;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
   }
 
   .calories {
     width: 392px;
+    height: 76px;
   }
-  .category {
+
+  .select {
     width: 392px;
+    height: 76px;
   }
 
-  .rowGroup {
-    margin-bottom: 72px;
+  .selectIngredients {
+    width: 497px;
+    height: 78px;
   }
-
   .ingredientAmount {
     width: 288px;
+    height: 76px;
+  }
+
+  .textarea {
+    width: 809px;
+    height: 174px;
+  }
+
+  .btn {
+    width: 809px;
   }
 
   .addBtn {
-    justify-content: center;
-    align-items: center;
     width: 258px;
     height: 23px;
-    font-size: 12px;
-    padding: 4px 8px;
+    font-size: 16px;
   }
-  .addWrapper {
-    align-items: end;
-  }
-
-  .ingredientTable {
-    margin-bottom: 72px;
-    width: 332px;
-  }
-
-  .ingredientTabTitle {
-    width: 332px;
-  }
-
-  .ingredientItem {
-    width: 332px;
-  }
-  .label.instructionsWrapper {
+  .ingredientHeader {
     margin-bottom: 72px;
   }
-  .submitBtn {
-    width: 809px;
+
+  .ingredientHeader::before {
+    width: 304px;
+  }
+
+  .ingredientSpan {
+    width: 152px;
+  }
+  .sectionTitle {
+    margin-bottom: 16px;
+  }
+  .textareaInstructions {
+    margin-bottom: 72px;
   }
 }
