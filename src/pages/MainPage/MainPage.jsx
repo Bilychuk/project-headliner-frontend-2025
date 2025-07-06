@@ -24,8 +24,8 @@ const MainPage = () => {
       : [];
 
         setRecipes(prev => {
-        const ids = new Set(prev.map(r => r.id));
-        const uniqueNew = newRecipes.filter(r => !ids.has(r.id));
+        const ids = new Set(prev.map(r => r._id));
+        const uniqueNew = newRecipes.filter(r => !ids.has(r._id));
         return [...prev, ...uniqueNew];
       });
 
@@ -41,13 +41,13 @@ const MainPage = () => {
 
     fetchData();
   }, [page]);
-
+console.log('fetching page:', page);
   const handleLoadMore = () => setPage(prev => prev + 1);
 
   return (
     <section className={styles.section}>
       <RecipeList recipes={recipes} />
-      {loading && <p className={styles.loading}>Dowload...</p>}
+      {loading && <p className={styles.loading}>Download...</p>}
       {hasMore && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
     </section>
   );

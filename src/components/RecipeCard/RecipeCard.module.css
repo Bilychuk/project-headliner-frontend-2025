@@ -33,6 +33,7 @@
   align-items: flex-start;
   margin-bottom: 8px;
   gap: 16px;
+  
 }
 
 .title {
@@ -57,7 +58,13 @@
   height: 28px;
   background-color: #FFFFFF;
   border-radius: 8px;
-  
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.timeIcon {
+  stroke: currentColor;
 }
 
 .time {

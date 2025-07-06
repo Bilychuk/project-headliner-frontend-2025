@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './RecipeCard.module.css';
+import sprite from '../../assets/icon/sprite.svg';
 
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
@@ -10,6 +11,17 @@ const RecipeCard = ({ recipe }) => {
 
   const handleSave = () => {
     navigate('/login');
+  };
+
+  const renderCalories = () => {
+    const cals = recipe.calories;
+    if (!cals) return '- cals';
+
+    const calsStr = String(cals).trim();
+    if (calsStr.startsWith('~')) {
+      return `${calsStr} cals`;
+    }
+    return `~${calsStr} cals`;
   };
 
   return (
@@ -26,7 +38,9 @@ const RecipeCard = ({ recipe }) => {
         <div className={styles.headerRow}>
           <h3 className={styles.title}>{recipe.title}</h3>
             <div className={styles.timeBox}>
-            {/* <ClockIcon className={styles.timeIcon} /> */}
+            <svg className={styles.timeIcon} width="25" height="24">
+              <use href="/src/assets/icon/sprite.svg#icon-clock" />
+            </svg>
             <span className={styles.time}> {recipe.time} </span>
             </div>
         </div>
@@ -34,6 +48,8 @@ const RecipeCard = ({ recipe }) => {
         {recipe.description && (
           <p className={styles.description}>{recipe.description}</p>
         )}
+
+         <p className={styles.calories}> {renderCalories()}</p>
 
         <div className={styles.buttons}>
           <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
