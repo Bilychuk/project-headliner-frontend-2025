@@ -1,8 +1,12 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.container {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  max-width: 1200px;
-  margin: 16px 24px;
-  justify-content: center;
+}
+@media screen and (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }

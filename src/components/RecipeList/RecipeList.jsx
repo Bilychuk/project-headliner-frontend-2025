@@ -6,7 +6,7 @@ const RecipeList = ({ recipes }) => {
     return null;
   }
   return (
-    <div className={styles.grid}>
+    <div className={styles.container}>
       {recipes.map(recipe => (
         <RecipeCard key={recipe._id} recipe={recipe} />
       ))}

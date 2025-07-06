@@ -33,12 +33,6 @@ export default function MainPage() {
   const filtersLoading = useSelector(selectFiltersLoading);
   const filtersError = useSelector(selectFiltersError);
 
-  console.log('MainPage State Info:');
-  console.log('  recipes.length:', recipes.length);
-  console.log('  totalRecipes:', totalRecipes);
-  console.log('  recipesLoading:', recipesLoading);
-  console.log('  recipesError:', recipesError);
-
   const [currentFilters, setCurrentFilters] = useState({
     category: '',
     ingredient: '',
@@ -51,26 +45,24 @@ export default function MainPage() {
   const openFiltersModal = () => setIsFiltersModalOpen(true);
   const closeFiltersModal = () => setIsFiltersModalOpen(false);
 
-  const handleApplyFilters = useCallback(({ category, ingredient }) => {
+  const handleApplyFilters = ({ category, ingredient }) => {
     setCurrentFilters({ category, ingredient });
     setPage(1);
-  }, []);
+  };
 
-  const handleResetAndCloseFilters = useCallback(() => {
+  const handleResetAndCloseFilters = () => {
     setCurrentFilters({ category: '', ingredient: '' });
     setSearchQuery('');
     setPage(1);
     closeFiltersModal();
-  }, []);
+  };
 
-  const handleSearch = useCallback(query => {
+  const handleSearch = query => {
     setSearchQuery(query);
     setPage(1);
-  }, []);
+  };
 
-  const handleLoadMore = useCallback(() => {
-    setPage(prevPage => prevPage + 1);
-  }, []);
+  const handleLoadMore = () => setPage(prev => prev + 1);
 
   // --- ЛОГІКА ЗАВАНТАЖЕННЯ РЕЦЕПТІВ ---
   const loadRecipesRef = useRef();
