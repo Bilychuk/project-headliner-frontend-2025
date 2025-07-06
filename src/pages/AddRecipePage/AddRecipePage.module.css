@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .pageTitle {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .pageTitle {
+    margin-bottom: 40px;
+  }
+}

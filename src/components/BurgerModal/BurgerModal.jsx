@@ -45,7 +45,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                 <li>
                   <NavLink
                     to="/auth/register"
-                    className={`${s.link} ${s.registerBtn}`}
+                    className={s.registerButton}
                     onClick={onClose}
                   >
                     Register
@@ -70,7 +70,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                 <li>
                   <NavLink
                     to="/add-recipe"
-                    className={`${s.link} ${s.registerBtn}`}
+                    className={s.registerButton}
                     onClick={onClose}
                   >
                     Add Recipe
