@@ -14,6 +14,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import favoritesReducer from './recipes/slice';
+
 const authPersistConfig = {
   key: 'auth',
   storage,
@@ -22,6 +24,7 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
+  favorites: favoritesReducer,
 });
 
 export const store = configureStore({

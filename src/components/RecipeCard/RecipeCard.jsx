@@ -1,16 +1,33 @@
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsAuthenticated } from '../../redux/auth/selectors';
+import { selectFavoriteRecipeIds } from '../../redux/recipes/selectors';
+import { addToFavorites, removeFromFavorites } from '../../redux/recipes/operations';
 import styles from './RecipeCard.module.css';
 import sprite from '../../assets/icon/sprite.svg';
 
 const RecipeCard = ({ recipe }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isLoggedIn = useSelector(selectIsAuthenticated);
+  const favoriteIds = useSelector(selectFavoriteRecipeIds);
+  const isFavorite = favoriteIds.includes(recipe._id);
 
   const handleLoadMore = () => {
     navigate(`/recipe/${recipe._id}`);
   };
 
-  const handleSave = () => {
-    navigate('/login');
+  const toggleFavorite = () => {
+    if (!isLoggedIn) {
+      navigate('/auth/login'); 
+      return;
+    } 
+    if (isFavorite) {
+      dispatch(removeFromFavorites(recipe._id));
+    } else {
+      dispatch(addToFavorites(recipe._id));
+    }
   };
 
   const renderCalories = () => {
@@ -38,8 +55,8 @@ const RecipeCard = ({ recipe }) => {
         <div className={styles.headerRow}>
           <h3 className={styles.title}>{recipe.title}</h3>
             <div className={styles.timeBox}>
-            <svg className={styles.timeIcon} width="25" height="24">
-              <use href="/src/assets/icon/sprite.svg#icon-clock" />
+            <svg className={styles.timeIcon}>
+              <use href={`${sprite}#icon-clock`} />
             </svg>
             <span className={styles.time}> {recipe.time} </span>
             </div>
@@ -55,8 +72,14 @@ const RecipeCard = ({ recipe }) => {
           <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
             Learn more
           </button>
-          <button className={styles.saveBtn} onClick={handleSave} aria-label="Save recipe">
-            ❤️
+
+          <button className={`${styles.saveBtn} ${isFavorite ? styles.activeIcon : ''}`}
+            onClick={toggleFavorite} 
+            aria-label="Save recipe"
+          >
+            <svg className={`${styles.iconFavorite} ${isFavorite ? styles.activeIcon : ''}`}>
+              <use href={`${sprite}#icon-favorites-black`} />
+            </svg>
           </button>
         </div>
       </div>
