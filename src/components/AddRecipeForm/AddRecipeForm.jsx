@@ -2,7 +2,6 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select';
 import css from './AddRecipeForm.module.css';
-import { BsCamera } from 'react-icons/bs';
 import { createRecipe } from '../../api/api.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

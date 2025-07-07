@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuthenticated } from '../../redux/auth/selectors';
 import { toggleFavorite } from '../../redux/recipes/operations';
 import styles from './RecipeCard.module.css';
+import { toast } from 'react-toastify';
 import sprite from '../../assets/icon/sprite.svg';
 
 const RecipeCard = ({ recipe }) => {
@@ -35,14 +36,22 @@ const RecipeCard = ({ recipe }) => {
     return `~${calsStr} cals`;
   };
 
+  const handleRemove = async () => {
+    try {
+      await removeFavoriteAPI(recipe._id);
+      if (onRemove) {
+        onRemove(recipe._id);
+      }
+    } catch (error) {
+      const errorMessage = error || 'Failed to remove from favorites.';
+      toast.error(errorMessage, { position: 'top-right' });
+    }
+  };
+
   return (
     <article className={styles.card}>
       {recipe.thumb && (
-        <img
-          src={recipe.thumb}
-          alt={recipe.title}
-          className={styles.image}
-        />
+        <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
       )}
 
       <div className={styles.content}>
@@ -53,7 +62,7 @@ const RecipeCard = ({ recipe }) => {
               <use href={`${sprite}#icon-clock`} />
             </svg>
             <span className={styles.time}> {recipe.time} </span>
-            </div>
+          </div>
         </div>
 
         {recipe.description && (
