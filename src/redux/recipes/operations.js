@@ -5,7 +5,6 @@ import {
   removeFavoriteAPI,
 } from '../../api/recipes.js';
 import { getAllIngredientsAPI } from '../../api/ingredients.js';
-import { useSelector } from 'react-redux';
 import { selectFavoriteRecipeIds } from '../auth/selectors.js';
 
 export const fetchAllIngredients = createAsyncThunk(
@@ -36,7 +35,6 @@ export const toggleFavorite = createAsyncThunk(
   'recipe/toggleFavorite',
   async (recipeId, thunkAPI) => {
     const state = thunkAPI.getState();
-    // const isFavorite = state.recipe.recipe?.isFavorite;
     const favoriteIds = selectFavoriteRecipeIds(state);
     const isFavorite = favoriteIds.includes(recipeId);
 
@@ -50,6 +48,34 @@ export const toggleFavorite = createAsyncThunk(
       }
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const fetchFavoriteRecipes = createAsyncThunk(
+  'recipes/fetchFavorites',
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const response = await api.get(
+        `/api/recipes/favorites?page=${page}&limit=${limit}`
+      );
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchOwnRecipes = createAsyncThunk(
+  'recipes/fetchOwn',
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const response = await api.get(
+        `/api/recipes/own?page=${page}&limit=${limit}`
+      );
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

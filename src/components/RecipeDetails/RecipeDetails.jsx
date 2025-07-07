@@ -1,12 +1,13 @@
 import s from './RecipeDetails.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavorite } from '../../redux/recipes/operations.js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   selectIsAuthenticated,
   selectFavoriteRecipeIds,
 } from '../../redux/auth/selectors.js';
 import sprite from '../../assets/icon/sprite.svg';
+import toast from 'react-hot-toast';
 
 const RecipeDetails = ({ recipe, allIngredients = [] }) => {
   const {
@@ -30,27 +31,41 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuthenticated);
+  const location = useLocation();
 
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     if (!isAuth) {
-      navigate('/auth/login');
+      navigate('/auth/login', { state: { from: location } });
       return;
     }
 
-    dispatch(toggleFavorite(recipe._id));
+    try {
+      const resultAction = await dispatch(toggleFavorite(recipe._id));
+
+      if (toggleFavorite.rejected.match(resultAction)) {
+        toast.error('Failed to update favorites. Please try again.');
+      }
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
   };
 
   return (
     <div className={s.container}>
       <div className={s.topContainer}>
         <h1 className={s.header}>{title}</h1>
-        <picture className={s.image}>
-          <source
-            media="(min-width: 1440px)"
-            srcSet={thumb.replace('/preview/', '/preview/large/')}
-          />
-          <img src={thumb} alt={title} className={s.image} />
-        </picture>
+
+        {thumb ? (
+          <picture className={s.image}>
+            <source
+              media="(min-width: 1440px)"
+              srcSet={thumb.replace('/preview/', '/preview/large/')}
+            />
+            <img src={thumb} alt={title} className={s.image} />
+          </picture>
+        ) : (
+          <div className={s.imagePlaceholder}>No image</div>
+        )}
       </div>
 
       <div className={s.recipeBodyContainer}>

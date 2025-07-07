@@ -9,14 +9,13 @@
 }
 
 .image {
-  max-width: 337px;
+  width: 337px;
   height: 230px;
   border-radius: 16px;
   object-fit: cover;
 }
 
 .content {
-  padding: 0 12px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -29,10 +28,11 @@
   align-items: flex-start;
   margin-bottom: 8px;
   gap: 16px;
+  
 }
 
 .title {
-  max-width: 203px;
+  max-width: 276px;
   margin: 0;
   line-height: 1.2;
   word-wrap: break-word;
@@ -48,10 +48,24 @@
 }
 
 .timeBox {
-  width: 53px;
   height: 28px;
   background-color: #ffffff;
   border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.timeIcon {
+ stroke-width: 0.50px;
+ stroke: #000;
+ fill: none;
+  stroke: currentColor;
+  width: 25px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 .time {
@@ -59,6 +73,7 @@
   font-weight: 600;
   color: #000;
   white-space: nowrap;
+  
 }
 
 .description {
@@ -86,7 +101,7 @@
 .learnMoreBtn {
   border: 1px solid #000;
   border-radius: 8px;
-  width: 216px;
+  width: 289px;
   height: 40px;
   padding: 6px 12px;
   cursor: pointer;
@@ -103,6 +118,25 @@
   width: 40px;
   height: 40px;
   background-color: #faf3e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.saveBtn.active {
+  background-color: #9b6c43;;
+}
+
+.iconFavorite {
+  width: 24px;
+  height: 24px;
+  stroke: #000;
+  fill: none;
+  
+}
+
+.activeIcon {
+  fill: #000;
 }
 
 @media screen and (min-width: 768px) {
@@ -113,6 +147,14 @@
   .image {
     max-width: none;
     width: 315px;
+    height: 230px;
+  }
+  .title {
+    max-width: 254px;
+  }
+  .learnMoreBtn {
+    width: 267px;
+    height: 40px; 
   }
 }
 
@@ -122,5 +164,13 @@
   }
   .image {
     width: 264px;
+    height: 178px;
+  }
+  .title {
+    max-width: 203px;
+    height: 58px;
+  }
+  .learnMoreBtn {
+    width: 216px;
   }
 }
