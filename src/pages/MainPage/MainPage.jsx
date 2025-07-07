@@ -51,7 +51,7 @@ const MainPage = () => {
     <section className={styles.section}>
       <Hero />
       <RecipeList recipes={recipes} />
-      {loading && <p className={styles.loading}>Download...</p>}
+      
       {loading && <Loader />}
       {hasMore && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
     </section>
