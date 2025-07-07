@@ -5,7 +5,6 @@ import {
   removeFavoriteAPI,
 } from '../../api/recipes.js';
 import { getAllIngredientsAPI } from '../../api/ingredients.js';
-import { useSelector } from 'react-redux';
 import { selectFavoriteRecipeIds } from '../auth/selectors.js';
 
 export const fetchAllIngredients = createAsyncThunk(
@@ -36,7 +35,6 @@ export const toggleFavorite = createAsyncThunk(
   'recipe/toggleFavorite',
   async (recipeId, thunkAPI) => {
     const state = thunkAPI.getState();
-    // const isFavorite = state.recipe.recipe?.isFavorite;
     const favoriteIds = selectFavoriteRecipeIds(state);
     const isFavorite = favoriteIds.includes(recipeId);
 
