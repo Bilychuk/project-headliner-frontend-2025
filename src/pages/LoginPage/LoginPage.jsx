@@ -34,7 +34,7 @@ const LoginPage = () => {
       const result = await dispatch(login(payload)).unwrap();
       toast.success('Login successful', { position: 'top-right' });
       resetForm();
-
+      
       // Редірект на головну або на попередню сторінку
       const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });

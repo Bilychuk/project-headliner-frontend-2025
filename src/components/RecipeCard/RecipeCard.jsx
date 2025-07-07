@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsAuthenticated } from '../../redux/auth/selectors';
+import {
+  selectIsAuthenticated,
+  selectFavoriteRecipeIds,
+} from '../../redux/auth/selectors';
 import { toggleFavorite } from '../../redux/recipes/operations';
 import styles from './RecipeCard.module.css';
 import { toast } from 'react-toastify';
@@ -11,18 +14,29 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector(selectIsAuthenticated);
-  const isFavorite = recipe.isFavorite;
+  const favoriteIds = useSelector(selectFavoriteRecipeIds);
+  const isFavorite = favoriteIds.includes(recipe._id);
+  const calories = recipe.calories;
 
   const handleLoadMore = () => {
     navigate(`/recipes/${recipe._id}`);
   };
 
-  const handleToggleFavorite = () => {
+  const handleFavorite = async () => {
     if (!isLoggedIn) {
       navigate('/auth/login');
       return;
     }
-    dispatch(toggleFavorite(recipe._id));
+
+    try {
+      const resultAction = await dispatch(toggleFavorite(recipe._id));
+
+      if (toggleFavorite.rejected.match(resultAction)) {
+        toast.error('Failed to update favorites. Please try again.');
+      }
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
   };
 
   const renderCalories = () => {
@@ -34,18 +48,6 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
       return `${calsStr} cals`;
     }
     return `~${calsStr} cals`;
-  };
-
-  const handleRemove = async () => {
-    try {
-      await removeFavoriteAPI(recipe._id);
-      if (onRemove) {
-        onRemove(recipe._id);
-      }
-    } catch (error) {
-      const errorMessage = error || 'Failed to remove from favorites.';
-      toast.error(errorMessage, { position: 'top-right' });
-    }
   };
 
   return (
@@ -69,7 +71,7 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
           <p className={styles.description}>{recipe.description}</p>
         )}
 
-        <p className={styles.calories}> {renderCalories()}</p>
+        {calories && <p className={styles.calories}> {renderCalories()}</p>}
 
         <div className={styles.buttons}>
           <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
