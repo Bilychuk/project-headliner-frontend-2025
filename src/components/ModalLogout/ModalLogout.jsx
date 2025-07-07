@@ -22,7 +22,6 @@ const ModalLogout = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
       }
       navigate('/');
     } catch (error) {
-      console.error('Logout failed:', error);
       onRequestClose();
     }
   };

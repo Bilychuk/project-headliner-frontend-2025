@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  gap: 38px;
+  font-weight: 600;
+  font-size: 18px;
+}
+.link {
+  padding: 0px 0px 4px 0px;
+}
+.link.active {
+  border-bottom: 1px solid #000000;
+}

@@ -30,7 +30,7 @@ export default function Navigation({ isLoggedIn }) {
       ) : (
         <>
           <NavLink
-            to="/profile/own"
+            to="/profile"
             className={({ isActive }) =>
               `${s.link} ${isActive ? s.active : ''}`
             }

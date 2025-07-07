@@ -1,37 +1,63 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchRecipes } from './operations.js';
 
-const recipesSlice = createSlice({
-  name: 'recipes',
+import {
+  fetchAllIngredients,
+  fetchRecipeById,
+  toggleFavorite,
+} from './operations.js';
+
+const recipeSlice = createSlice({
+  name: 'recipe',
   initialState: {
-    items: [],
-    loading: false,
+    recipe: null,
+    isLoading: false,
     error: null,
-    total: 0,
   },
+
   extraReducers: builder => {
     builder
-      .addCase(fetchRecipes.pending, state => {
-        state.loading = true;
+      .addCase(fetchRecipeById.pending, state => {
+        state.isLoading = true;
         state.error = null;
+        state.recipe = null;
       })
-      .addCase(fetchRecipes.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-
-        if (action.meta.arg.page === 1) {
-          state.items = action.payload.data;
-        } else {
-          state.items = [...state.items, ...action.payload.data];
-        }
-
-        state.total = action.payload.totalItems;
+      .addCase(fetchRecipeById.fulfilled, (state, action) => {
+        state.recipe = action.payload;
+        state.isLoading = false;
       })
-      .addCase(fetchRecipes.rejected, (state, action) => {
-        state.loading = false;
+      .addCase(fetchRecipeById.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(toggleFavorite.fulfilled, (state, action) => {
+        if (state.recipe && state.recipe._id === action.payload.recipeId) {
+          state.recipe.isFavorite =
+            action.payload.action === 'add' ? true : false;
+        }
+      })
+      .addCase(toggleFavorite.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleFavorite.rejected, (state, action) => {
+        state.recipe.isFavorite = null;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchAllIngredients.fulfilled, (state, action) => {
+        state.ingredients = action.payload;
+      })
+      .addCase(fetchAllIngredients.pending, state => {
+        state.ingredients = [];
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllIngredients.rejected, (state, action) => {
+        state.ingredients = [];
+        console.error('Failed to load ingredients:', action.payload);
       });
   },
 });
 
-export const recipesReducer = recipesSlice.reducer;
+const recipeReducer = recipeSlice.reducer;
+export default recipeReducer;

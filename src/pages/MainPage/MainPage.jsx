@@ -104,53 +104,66 @@ export default function MainPage() {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  return (
-    <div className={styles.mainPageContainer}>
-      <Hero onSearch={handleSearch} searchQuery={searchQuery} />
-      <h1 className={styles.pageTitle}>Recipes</h1>
-      <div className={styles.filtersAndCountWrapper}>
-        {!recipesLoading && !recipesError && (
-          <>
-            {totalRecipes > 0 ? (
-              <p className={styles.recipeCount}>
-                {totalRecipes} {totalRecipes === 1 ? 'recipe' : 'recipes'}
-              </p>
-            ) : (
-              <p>Sorry, no recipes match your search.</p>
-            )}
-          </>
-        )}
+  useEffect(() => {
+    if (recipesError) {
+      toast.error(
+        `Error loading recipes: ${recipesError.message || 'Unknown error'}`,
+        { position: 'top-right' }
+      );
+    }
+  }, [recipesError]);
 
-        <Filters
+  useEffect(() => {
+    if (filtersError) {
+      toast.error(
+        `Error loading filters: ${filtersError.message || 'Unknown error'}`,
+        { position: 'top-right' }
+      );
+    }
+  }, [filtersError]);
+
+  return (
+    <section className={styles.section}>
+      <div className={styles.mainPageContainer}>
+        <Hero onSearch={handleSearch} searchQuery={searchQuery} />
+        <h1 className={styles.pageTitle}>Recipes</h1>
+        <div className={styles.filtersAndCountWrapper}>
+          {!recipesLoading && !recipesError && (
+            <>
+              {totalRecipes > 0 ? (
+                <p className={styles.recipeCount}>
+                  {totalRecipes} {totalRecipes === 1 ? 'recipe' : 'recipes'}
+                </p>
+              ) : (
+                <p>Sorry, no recipes match your search.</p>
+              )}
+            </>
+          )}
+          <Filters
+            onApplyFilters={handleApplyFilters}
+            currentFilters={currentFilters}
+            onResetAndCloseFilters={handleResetAndCloseFilters}
+            openFiltersModal={openFiltersModal}
+          />
+        </div>
+        <FiltersModal
+          isOpen={isFiltersModalOpen}
+          onClose={closeFiltersModal}
           onApplyFilters={handleApplyFilters}
           currentFilters={currentFilters}
           onResetAndCloseFilters={handleResetAndCloseFilters}
-          openFiltersModal={openFiltersModal}
         />
-      </div>
-      <FiltersModal
-        isOpen={isFiltersModalOpen}
-        onClose={closeFiltersModal}
-        onApplyFilters={handleApplyFilters}
-        currentFilters={currentFilters}
-        onResetAndCloseFilters={handleResetAndCloseFilters}
-      />
-
-      {recipesLoading && <Loader />}
-      {filtersLoading && <Loader />}
-      {recipesError && <p>Помилка: {recipesError.message}</p>}
-      {filtersError && (
-        <p>Помилка завантаження фільтрів: {filtersError.message}</p>
-      )}
-
-      <div>
-        {!recipesLoading && !recipesError && recipes.length > 0 && (
-          <RecipeList recipes={recipes} />
+        {recipesLoading && <Loader />}
+        {filtersLoading && <Loader />}
+        <div>
+          {!recipesLoading && !recipesError && recipes.length > 0 && (
+            <RecipeList recipes={recipes} />
+          )}
+        </div>
+        {totalRecipes > recipes.length && !recipesLoading && (
+          <LoadMoreBtn onClick={handleLoadMore} isLoading={recipesLoading} />
         )}
       </div>
-      {totalRecipes > recipes.length && !recipesLoading && (
-        <LoadMoreBtn onClick={handleLoadMore} isLoading={recipesLoading} />
-      )}
-    </div>
+    </section>
   );
 }

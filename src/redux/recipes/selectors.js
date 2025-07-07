@@ -1,4 +1,4 @@
-export const selectRecipes = state => state.recipes.items;
-export const selectTotalRecipes = state => state.recipes.total;
-export const selectRecipesLoading = state => state.recipes.loading;
-export const selectRecipesError = state => state.recipes.error;
+export const selectRecipe = state => state.recipe.recipe;
+export const selectRecipeIsLoading = state => state.recipe.isLoading;
+export const selectRecipeError = state => state.recipe.error;
+export const selectAllIngredients = state => state.recipe.ingredients;
