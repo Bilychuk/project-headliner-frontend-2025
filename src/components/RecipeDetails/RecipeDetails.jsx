@@ -7,6 +7,7 @@ import {
   selectFavoriteRecipeIds,
 } from '../../redux/auth/selectors.js';
 import sprite from '../../assets/icon/sprite.svg';
+import toast from 'react-hot-toast';
 
 const RecipeDetails = ({ recipe, allIngredients = [] }) => {
   const {
@@ -31,13 +32,22 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
   const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuthenticated);
 
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     if (!isAuth) {
       navigate('/auth/login');
       return;
     }
 
-    dispatch(toggleFavorite(recipe._id));
+    try {
+    const resultAction = await dispatch(toggleFavorite(recipe._id));
+
+    if (toggleFavorite.rejected.match(resultAction)) {
+      toast.error('Failed to update favorites. Please try again.');
+    }
+  } catch (error) {
+    toast.error('Something went wrong.');
+  }
+
   };
 
   return (
