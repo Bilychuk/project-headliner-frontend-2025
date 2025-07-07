@@ -57,13 +57,16 @@ const LoginPage = () => {
             validate={validateLogin}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, errors, touched }) => (
               <Form className={styles.form}>
                 <label className={styles.label} htmlFor="email">
                   Enter your email address
                 </label>
                 <Field
-                  className={styles.input}
+                  className={
+                    styles.input +
+                    (errors.email && touched.email ? ' ' + styles.inputError : '')
+                  }
                   type="email"
                   id="email"
                   name="email"
@@ -80,7 +83,10 @@ const LoginPage = () => {
                 </label>
                 <div className={styles.passwordWrapper}>
                   <Field
-                    className={styles.input}
+                    className={
+                      styles.input +
+                      (errors.password && touched.password ? ' ' + styles.inputError : '')
+                    }
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
