@@ -17,6 +17,7 @@ export default function Filters({
   currentFilters,
   onResetAndCloseFilters,
   openFiltersModal,
+  isMobileModal = false,
 }) {
   const [selectedCategory, setSelectedCategory] = useState(
     currentFilters.category || ''
@@ -33,14 +34,13 @@ export default function Filters({
   const categories = useSelector(selectCategories);
   const ingredients = useSelector(selectIngredients);
 
-  // Кастомний DropdownIndicator з вашою іконкою
+  // кастомний дропдаун з бібліотеки react-select
+
   const DropdownIndicator = props => (
     <components.DropdownIndicator {...props}>
       <svg width={16} height={16}>
         <use
           href={`${sprite}#${
-            // Перевірте, чи icon-icon-up відповідає ID у вашому sprite.svg
-            // Якщо у вашому SVG є icon-Icon-up (з великою I), то тут теж має бути 'icon-Icon-up'
             props.selectProps.menuIsOpen ? 'icon-icon-up' : 'icon-Icon-down'
           }`}
         />
@@ -65,7 +65,6 @@ export default function Filters({
     })),
   ];
 
-  // Знайти обраний об'єкт для react-select за value
   const selectedCategoryOption = categoryOptions.find(
     opt => opt.value === selectedCategory
   );
@@ -73,8 +72,6 @@ export default function Filters({
     opt => opt.value === selectedIngredient
   );
 
-  // *** ЦЕЙ РЯДОК БУВ ПЕРЕМІЩЕНИЙ ВИЩЕ ***
-  // Визначаємо, чи є активні фільтри для активації кнопки Reset
   const hasActiveFilters = selectedCategory !== '' || selectedIngredient !== '';
 
   useEffect(() => {
@@ -116,7 +113,7 @@ export default function Filters({
 
   return (
     <div className={s.filtersContainer}>
-      {isMobileOrTablet ? (
+      {isMobileOrTablet && !isMobileModal ? (
         <button
           type="button"
           className={s.filtersLinkBtn}
@@ -131,12 +128,11 @@ export default function Filters({
         <>
           <button
             type="button"
-            // Класи для кнопки Reset filters
             className={`${s.resetLinkBtn} ${
               hasActiveFilters ? s.resetLinkBtnUnderlined : ''
             }`}
             onClick={handleReset}
-            disabled={!hasActiveFilters} // Вимкнути кнопку, якщо фільтрів немає
+            disabled={!hasActiveFilters}
           >
             Reset filters
           </button>
@@ -149,7 +145,10 @@ export default function Filters({
               components={{ DropdownIndicator }}
               isSearchable={false}
               styles={{
-                container: base => ({ ...base, width: '179px' }),
+                container: base => ({
+                  ...base,
+                  width: isMobileOrTablet ? '296px' : '179px',
+                }),
                 control: (base, state) => ({
                   ...base,
                   minHeight: '33px',
@@ -165,12 +164,10 @@ export default function Filters({
                 placeholder: base => ({
                   ...base,
                   color: '#595d62',
-                  paddingLeft: '8px',
                 }),
                 singleValue: base => ({
                   ...base,
                   color: '#595d62',
-                  paddingLeft: '8px',
                 }),
 
                 indicatorContainer: (base, state) => ({
@@ -211,7 +208,10 @@ export default function Filters({
               components={{ DropdownIndicator }}
               isSearchable={false}
               styles={{
-                container: base => ({ ...base, width: '179px' }),
+                container: base => ({
+                  ...base,
+                  width: isMobileOrTablet ? '296px' : '179px',
+                }),
                 control: (base, state) => ({
                   ...base,
                   minHeight: '33px',
@@ -227,12 +227,10 @@ export default function Filters({
                 placeholder: base => ({
                   ...base,
                   color: '#595d62',
-                  paddingLeft: '8px',
                 }),
                 singleValue: base => ({
                   ...base,
                   color: '#595d62',
-                  paddingLeft: '8px',
                 }),
 
                 indicatorContainer: (base, state) => ({

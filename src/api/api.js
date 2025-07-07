@@ -14,7 +14,6 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-
 export const getRecipes = async (page = 1, limit = 12) => {
   const res = await api.get(`/api/recipes?page=${page}&limit=${limit}`);
   return res.data;
@@ -38,4 +37,3 @@ export const getIngredients = async () => {
   const response = await api.get('api/ingredients');
   return response.data;
 };
-

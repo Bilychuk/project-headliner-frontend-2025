@@ -4,12 +4,12 @@ import { fetchCategories, fetchIngredients } from './operations.js';
 const initialState = {
   categories: [],
   ingredients: [],
-  loading: false, // Loading для фільтрів
-  error: null, // Error для фільтрів
+  loading: false,
+  error: null,
 };
 
 const filtersSlice = createSlice({
-  name: 'filters', // Назва слайсу тепер 'filters'
+  name: 'filters',
   initialState,
   extraReducers: builder => {
     builder

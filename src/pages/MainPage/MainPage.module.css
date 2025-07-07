@@ -1,8 +1,8 @@
 .filtersAndCountWrapper {
-  display: flex; /* Робить контейнер флекс-контейнером */
-  align-items: baseline; /* ВИРІВНЮЄ ЕЛЕМЕНТИ ПО ЇХ БАЗОВІЙ ЛІНІЇ! */
-  /* Додає відступ між лічильником та фільтрами, регулюйте за потребою */
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .recipeCount {
@@ -13,7 +13,14 @@
 
 .pageTitle {
   font-weight: 600;
-  font-size: 40px;
+  font-size: 32px;
   color: #000;
   margin-bottom: 16px;
+  margin-top: 48px;
+}
+
+@media screen and (min-width: 768px) {
+  .pageTitle {
+    font-size: 40px;
+  }
 }

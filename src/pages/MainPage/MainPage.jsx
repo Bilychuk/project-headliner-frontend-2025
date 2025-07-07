@@ -45,7 +45,6 @@ export default function MainPage() {
   const [page, setPage] = useState(1);
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
 
-  // Функції для керування станом
   const openFiltersModal = () => setIsFiltersModalOpen(true);
   const closeFiltersModal = () => setIsFiltersModalOpen(false);
 
@@ -66,18 +65,19 @@ export default function MainPage() {
     setPage(1);
   };
 
+  // обробник для кнопки "Load More"
   const handleLoadMore = () => setPage(prev => prev + 1);
 
-  // --- ЛОГІКА ЗАВАНТАЖЕННЯ РЕЦЕПТІВ ---
+  // завантаження рецептів
   const loadRecipesRef = useRef();
   const loadRecipes = useCallback(() => {
     dispatch(
       fetchRecipes({
         category: currentFilters.category,
         ingredient: currentFilters.ingredient,
-        query: searchQuery,
+        search: searchQuery,
         page: page,
-        limit: RECIPES_PER_PAGE,
+        perPage: RECIPES_PER_PAGE,
       })
     );
   }, [
@@ -86,6 +86,7 @@ export default function MainPage() {
     currentFilters.ingredient,
     searchQuery,
     page,
+    RECIPES_PER_PAGE,
   ]);
 
   useEffect(() => {
@@ -103,15 +104,15 @@ export default function MainPage() {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  // Рендеринг
   return (
-    <div className={s.mainPageContainer}>
-      <h1 className={s.pageTitle}>Recipes</h1>
-      <div className={s.filtersAndCountWrapper}>
+    <div className={styles.mainPageContainer}>
+      <Hero onSearch={handleSearch} searchQuery={searchQuery} />
+      <h1 className={styles.pageTitle}>Recipes</h1>
+      <div className={styles.filtersAndCountWrapper}>
         {!recipesLoading && !recipesError && (
           <>
             {totalRecipes > 0 ? (
-              <p className={s.recipeCount}>
+              <p className={styles.recipeCount}>
                 {totalRecipes} {totalRecipes === 1 ? 'recipe' : 'recipes'}
               </p>
             ) : (
@@ -119,13 +120,11 @@ export default function MainPage() {
             )}
           </>
         )}
-        {/* Компоненти фільтрів та модальних вікон */}
+
         <Filters
           onApplyFilters={handleApplyFilters}
           currentFilters={currentFilters}
           onResetAndCloseFilters={handleResetAndCloseFilters}
-          onSearch={handleSearch}
-          searchQuery={searchQuery}
           openFiltersModal={openFiltersModal}
         />
       </div>
@@ -137,17 +136,18 @@ export default function MainPage() {
         onResetAndCloseFilters={handleResetAndCloseFilters}
       />
 
-      {recipesLoading && <p>Завантаження рецептів...</p>}
-      {filtersLoading && <p>Завантаження опцій фільтрів...</p>}
+      {recipesLoading && <Loader />}
+      {filtersLoading && <Loader />}
       {recipesError && <p>Помилка: {recipesError.message}</p>}
+      {filtersError && (
+        <p>Помилка завантаження фільтрів: {filtersError.message}</p>
+      )}
 
-      {/* Контейнер для рецептів - видалено ref */}
       <div>
         {!recipesLoading && !recipesError && recipes.length > 0 && (
           <RecipeList recipes={recipes} />
         )}
       </div>
-
       {totalRecipes > recipes.length && !recipesLoading && (
         <LoadMoreBtn onClick={handleLoadMore} isLoading={recipesLoading} />
       )}

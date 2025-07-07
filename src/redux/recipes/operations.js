@@ -3,8 +3,7 @@ import { api } from '../../api/api';
 
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
-  async ({ category, ingredient, query, page = 1, limit = 8 }, thunkAPI) => {
-    // Додали page, limit, query
+  async ({ category, ingredient, search, page = 1, perPage = 8 }, thunkAPI) => {
     try {
       const params = new URLSearchParams();
       if (category) {
@@ -13,14 +12,13 @@ export const fetchRecipes = createAsyncThunk(
       if (ingredient) {
         params.append('ingredient', ingredient);
       }
-      if (query) {
-        params.append('query', query); // Додаємо пошуковий запит
+      if (search) {
+        params.append('search', search);
       }
-      params.append('page', page); // Додаємо номер сторінки
-      params.append('limit', limit); // Додаємо ліміт рецептів на сторінці
-
+      params.append('page', page);
+      params.append('perPage', perPage);
       const response = await api.get(`/api/recipes?${params.toString()}`);
-      return response.data.data; // Очікуємо { recipes: [...], total: ... }
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -2,33 +2,38 @@ import Modal from 'react-modal';
 import Filters from '../Filters/Filters.jsx';
 Modal.setAppElement('#root');
 import s from './FiltersModal.module.css';
+import sprite from '../../assets/icon/sprite.svg';
 
 const FiltersModal = ({
   isOpen,
-  onRequestClose,
+  onClose,
   currentFilters,
   onApplyFilters,
-  onResetAndClose,
+  onResetAndCloseFilters,
 }) => {
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose} // Забезпечує закриття по Escape та кліку поза модалкою
-      className={s.modalContent} // Клас для вмісту модалки
-      overlayClassName={s.overlay} // Клас для фонового затемнення
+      onRequestClose={onClose}
+      className={s.modalContent}
+      overlayClassName={s.overlay}
+      ariaHideApp={false}
     >
       <div className={s.modalHeader}>
-        <h2 className={s.modalTitle}>Filters</h2> {/* Заголовок "Filters" */}
-        <button className={s.closeButton} onClick={onRequestClose}>
-          &times; {/* Символ хрестика */}
+        <button className={s.filtersCloseBtn} onClick={onClose}>
+          {' '}
+          <span className={s.filtersText}>Filters</span>
+          <svg className={s.closeIcon}>
+            <use href={`${sprite}#icon-close-filters`} />
+          </svg>
         </button>
       </div>
 
-      {/* Рендеримо наш компонент Filters всередині модалки */}
       <Filters
         onApplyFilters={onApplyFilters}
         currentFilters={currentFilters}
-        onResetAndClose={onResetAndClose}
+        onResetAndCloseFilters={onResetAndCloseFilters}
+        isMobileModal={true}
       />
     </Modal>
   );

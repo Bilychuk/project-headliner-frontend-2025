@@ -1,23 +1,23 @@
 .filtersContainer {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column-reverse;
 }
 
 .filtersLinkBtn {
-  /* Змінив назву класу */
   background-color: transparent;
   border: none;
-  color: #000; /* Колір тексту з макету */
+  color: #000;
   font-family: inherit;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  display: flex; /* Для вирівнювання тексту та іконки */
+  display: flex;
   align-items: center;
-  gap: 4px; /* Менший відступ між текстом та іконкою, як у лого */
+  gap: 4px;
   padding: 0;
-  text-decoration: none; /* Прибираємо стандартне підкреслення, якщо раптом є */
+  text-decoration: none;
 }
 
 .filterIcon {
@@ -41,30 +41,29 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  padding: 0; /* Важливо: прибираємо всі padding, пов'язані з бордером */
-  margin-right: 24px;
-  display: inline-block; /* Залишаємо inline-block для кнопки */
+  padding: 0;
+  text-align: left;
+  display: inline-block;
   white-space: nowrap;
-  text-decoration: none; /* Переконайтеся, що немає стандартного підкреслення */
-  position: relative; /* Важливо для позиціонування ::after */
-  /* Remove any fixed width or min-width if present */
+  text-decoration: none;
+  position: relative;
+  margin-top: 24px;
 }
 
 .resetLinkBtnUnderlined::after {
-  content: ''; /* Обов'язково для псевдоелемента */
+  content: '';
   position: absolute;
   left: 0;
-  bottom: -4px; /* Регулюйте це значення, щоб відсунути лінію від тексту */
-  width: 100%; /* Ширина псевдоелемента буде дорівнювати ширині кнопки */
-  height: 1px; /* Товщина лінії */
-  background-color: #000; /* Колір лінії */
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background-color: #000;
 }
 
 .resetLinkBtn:disabled {
-  /* Колір для неактивної кнопки */
   cursor: pointer;
-  border-bottom: none; /* Для неактивної кнопки бордера знизу не буде */
-  padding-bottom: 0; /* І відступу знизу теж */
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .resetLinkBtn:disabled::after {
@@ -73,5 +72,37 @@
 
 .selectsWrapper {
   display: flex;
+  flex-direction: column;
   gap: 24px;
+}
+
+@media screen and (min-width: 1440px) {
+  .filtersContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .selectsWrapper {
+    display: flex;
+    gap: 24px;
+    flex-direction: row;
+  }
+  .resetLinkBtn {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 24px;
+    margin-top: 0;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    position: relative;
+  }
 }

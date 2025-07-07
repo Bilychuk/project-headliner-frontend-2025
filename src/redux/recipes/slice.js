@@ -19,50 +19,13 @@ const recipesSlice = createSlice({
         state.loading = false;
         state.error = null;
 
-        // --- ЛОГУВАННЯ ДЛЯ ДІАГНОСТИКИ ---
-        console.log('Recipes Slice: fetchRecipes.fulfilled triggered!');
-        console.log('Full Action Payload:', action.payload);
-        console.log('Type of Action Payload:', typeof action.payload);
-        console.log(
-          'Action Payload .data (expected recipes array):',
-          action.payload?.data
-        );
-        console.log(
-          'Action Payload .totalItems (expected total):',
-          action.payload?.totalItems
-        );
-        // --- КІНЕЦЬ ЛОГУВАННЯ ---
-
-        // Змінюємо доступ: припускаємо, що action.payload вже є тим об'єктом, що містить 'data' та 'totalItems'
-        let receivedRecipes = [];
-        let totalItems = 0;
-
-        if (action.payload && typeof action.payload === 'object') {
-          receivedRecipes = Array.isArray(action.payload.data) // Тепер recipes - це action.payload.data
-            ? action.payload.data
-            : [];
-          totalItems =
-            typeof action.payload.totalItems === 'number' // Тепер totalItems - це action.payload.totalItems
-              ? action.payload.totalItems
-              : 0;
-        } else {
-          console.error(
-            'Unexpected payload structure. Payload is not an object:',
-            action.payload
-          );
-          state.items = [];
-          state.total = 0;
-          state.error = 'Unexpected data format from server.';
-          return; // Вийти, якщо payload не відповідає очікуванням
-        }
-
         if (action.meta.arg.page === 1) {
-          state.items = receivedRecipes;
+          state.items = action.payload.data;
         } else {
-          state.items = [...state.items, ...receivedRecipes];
+          state.items = [...state.items, ...action.payload.data];
         }
 
-        state.total = totalItems; // Встановлюємо загальну кількість
+        state.total = action.payload.totalItems;
       })
       .addCase(fetchRecipes.rejected, (state, action) => {
         state.loading = false;
