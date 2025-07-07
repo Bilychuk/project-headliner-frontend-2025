@@ -24,7 +24,7 @@ export default function OwnRecipes() {
   return (
     <>
       <RecipeList recipes={ownRecipes} type="own" />
-      {ownRecipes.length >= 12 && <LoadMoreBtn />}
+      {Array.isArray(ownRecipes) && ownRecipes.length >= 12 && <LoadMoreBtn />}
     </>
   );
 }

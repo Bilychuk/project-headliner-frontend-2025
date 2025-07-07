@@ -101,7 +101,7 @@ export const fetchOwnRecipes = createAsyncThunk(
       const response = await api.get(
         `/api/recipes/own?page=${page}&limit=${limit}`
       );
-      return response.data.data;
+      return response.data.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
