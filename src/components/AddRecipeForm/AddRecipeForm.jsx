@@ -92,7 +92,13 @@ const AddRecipeForm = () => {
       if (values.calories) {
         formData.append('calories', values.calories);
       }
-      formData.append('category', values.category);
+      // formData.append('category', values.category);
+
+      const selectedCategory = categoryOptions.find(
+  opt => opt.value === values.category
+);
+formData.append('category', selectedCategory.label);
+
       formData.append('instructions', values.instructions);
       if (values.photo) {
         formData.append('thumb', values.photo);
@@ -226,7 +232,7 @@ const AddRecipeForm = () => {
                       className={css.reactSelect}
                       name="category"
                       options={categoryOptions}
-                      placeholder="Soup"
+                      placeholder="Select category"
                       value={categoryOptions.find(
                         opt => opt.value === values.category
                       )}
@@ -251,7 +257,7 @@ const AddRecipeForm = () => {
                       className={css.reactSelect}
                       name="newIngredient"
                       options={ingredientOptions}
-                      placeholder="Brocoli"
+                      placeholder="Select ingredient"
                       value={values.newIngredient}
                       onChange={option =>
                         setFieldValue('newIngredient', option)
@@ -353,7 +359,7 @@ const AddRecipeForm = () => {
                     as="textarea"
                     className={`${css.textarea} ${css.textareaInstructions}`}
                     name="instructions"
-                    placeholder="Enter a text"
+                    placeholder="Enter the step by step instructions for your recipe"
                   />
                   <ErrorMessage
                     name="instructions"

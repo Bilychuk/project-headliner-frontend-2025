@@ -135,9 +135,8 @@
   
 }
 
-.iconFavorite.activeIcon {
-  stroke: #fff;
-  fill: none;
+.activeIcon {
+  fill: #000;
 }
 
 @media screen and (min-width: 768px) {

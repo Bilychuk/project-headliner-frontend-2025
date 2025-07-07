@@ -1,3 +1,4 @@
+import { createSelector } from "@reduxjs/toolkit";
 export const selectAuthUser = state => state.auth.user;
 export const selectAuthToken = state => state.auth.token;
 export const selectAuthRefreshToken = state => state.auth.refreshToken;
@@ -18,7 +19,12 @@ export const selectAuthState = state => ({
 export const selectIsAuthenticated = state =>
   state.auth.isLoggedIn && state.auth.token !== null;
 
-export const selectFavoriteRecipeIds = state => {
-  const user = state.auth.user;
-  return user?.favorites || [];
-};
+// export const selectFavoriteRecipeIds = state => {
+//   const user = state.auth.user;
+//   return user?.favorites || [];
+// };
+
+export const selectFavoriteRecipeIds = createSelector(
+  [selectAuthUser],
+  user => user?.favorites ?? []
+);
