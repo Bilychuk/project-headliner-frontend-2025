@@ -9,9 +9,8 @@
 }
 
 .image {
-  max-width: 264px;
-  height: 178px;
-  width: 100%;
+  width: 337px;
+  height: 230px;
   border-radius: 16px;
   object-fit: cover;
 }
@@ -33,7 +32,7 @@
 }
 
 .title {
-  max-width: 203px;
+  max-width: 276px;
   margin: 0;
   line-height: 1.2;
   word-wrap: break-word;
@@ -102,7 +101,7 @@
 .learnMoreBtn {
   border: 1px solid #000;
   border-radius: 8px;
-  width: 216px;
+  width: 289px;
   height: 40px;
   padding: 6px 12px;
   cursor: pointer;
@@ -151,6 +150,9 @@
     width: 315px;
     height: 230px;
   }
+  .title {
+    max-width: 254px;
+  }
   .learnMoreBtn {
     width: 267px;
     height: 40px; 
@@ -164,5 +166,12 @@
   .image {
     width: 264px;
     height: 178px;
+  }
+  .title {
+    max-width: 203px;
+    height: 58px;
+  }
+  .learnMoreBtn {
+    width: 216px;
   }
 }

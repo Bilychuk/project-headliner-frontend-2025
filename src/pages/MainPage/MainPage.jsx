@@ -44,7 +44,7 @@ const MainPage = () => {
 
     fetchData();
   }, [page]);
-console.log('fetching page:', page);
+
   const handleLoadMore = () => setPage(prev => prev + 1);
 
   return (
