@@ -1,4 +1,5 @@
 import styles from './Pagination.module.css';
+import sprite from '../../assets/icon/sprite.svg';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const visiblePages = 6;
@@ -23,7 +24,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === 1}
         className={styles.arrow}
       >
-        ←
+       <svg className={styles.icon}>
+          <use href={`${sprite}#icon-arrow-left`} />
+        </svg>
       </button>
 
       {pageNumbers.map((pageNum) => (
@@ -41,7 +44,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === totalPages}
         className={styles.arrow}
       >
-        →
+        <svg className={styles.icon}>
+          <use href={`${sprite}#icon-arrow-right`} />
+        </svg>
       </button>
     </div>
   );

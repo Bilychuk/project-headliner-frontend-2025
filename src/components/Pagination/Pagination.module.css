@@ -24,6 +24,11 @@
   border-radius: 6px;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 .arrow:disabled {
   opacity: 0.5; 
@@ -36,4 +41,10 @@
   border-radius: 8px;
   width: 40px;
   height: 40px;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  fill: currentColor;
 }
