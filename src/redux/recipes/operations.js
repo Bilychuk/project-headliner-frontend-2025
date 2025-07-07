@@ -1,33 +1,53 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { api } from '../../api/api';
+import {
+  getRecipeByIdAPI,
+  addFavoriteAPI,
+  removeFavoriteAPI,
+} from '../../api/recipes.js';
+import { getAllIngredientsAPI } from '../../api/ingredients.js';
+import { selectFavoriteRecipeIds } from '../auth/selectors.js';
 
-// Додати рецепт у улюблені
-export const addToFavorites = createAsyncThunk(
-  'favorites/add',
-  async (recipeId, thunkAPI) => {
+export const fetchAllIngredients = createAsyncThunk(
+  'recipe/fetchAllIngredients',
+  async (_, thunkAPI) => {
     try {
-      const { data } = await api.post(`/api/favorites/${recipeId}`);
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to add to favorites'
-      );
+      const res = await getAllIngredientsAPI();
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-
-// Видалити рецепт з улюблених
-export const removeFromFavorites = createAsyncThunk(
-  'favorites/remove',
-  async (recipeId, thunkAPI) => {
+export const fetchRecipeById = createAsyncThunk(
+  'recipe/fetchById',
+  async (id, thunkAPI) => {
     try {
-      const { data } = await api.delete(`/api/favorites/${recipeId}`);
-      return recipeId;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to remove from favorites'
-      );
+      const response = await getRecipeByIdAPI(id);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const toggleFavorite = createAsyncThunk(
+  'recipe/toggleFavorite',
+  async (recipeId, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const favoriteIds = selectFavoriteRecipeIds(state);
+    const isFavorite = favoriteIds.includes(recipeId);
+
+    try {
+      if (isFavorite) {
+        await removeFavoriteAPI(recipeId);
+        return { recipeId, action: 'remove' };
+      } else {
+        await addFavoriteAPI(recipeId);
+        return { recipeId, action: 'add' };
+      }
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );

@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuthenticated } from '../../redux/auth/selectors';
-import { selectFavoriteRecipeIds } from '../../redux/recipes/selectors';
-import { addToFavorites, removeFromFavorites } from '../../redux/recipes/operations';
+import { toggleFavorite } from '../../redux/recipes/operations';
 import styles from './RecipeCard.module.css';
 import sprite from '../../assets/icon/sprite.svg';
 
@@ -11,23 +10,18 @@ const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector(selectIsAuthenticated);
-  const favoriteIds = useSelector(selectFavoriteRecipeIds);
-  const isFavorite = favoriteIds.includes(recipe._id);
+  const isFavorite = recipe.isFavorite;
 
   const handleLoadMore = () => {
-    navigate(`/recipe/${recipe._id}`);
+    navigate(`/recipes/${recipe._id}`);
   };
 
-  const toggleFavorite = () => {
+  const handleToggleFavorite = () => {
     if (!isLoggedIn) {
       navigate('/auth/login'); 
       return;
     } 
-    if (isFavorite) {
-      dispatch(removeFromFavorites(recipe._id));
-    } else {
-      dispatch(addToFavorites(recipe._id));
-    }
+      dispatch(toggleFavorite(recipe._id));
   };
 
   const renderCalories = () => {
@@ -74,7 +68,7 @@ const RecipeCard = ({ recipe }) => {
           </button>
 
           <button className={`${styles.saveBtn} ${isFavorite ? styles.activeIcon : ''}`}
-            onClick={toggleFavorite} 
+            onClick={handleToggleFavorite} 
             aria-label="Save recipe"
           >
             <svg className={`${styles.iconFavorite} ${isFavorite ? styles.activeIcon : ''}`}>

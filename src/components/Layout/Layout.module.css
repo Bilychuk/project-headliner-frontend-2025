@@ -6,6 +6,7 @@
 
 .layout {
   flex: 1;
+  width: 100%;
   max-width: 393px;
   margin: 0 auto;
   padding: 0 16px;
@@ -13,14 +14,15 @@
 
 @media screen and (min-width: 768px) {
   .layout {
-    max-width: 768px;
+    max-width: none;
+    width: 768px;
     padding: 0 32px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .layout {
-    max-width: 1440px;
-    padding: 0 108px;
+    width: 1440px;
+    padding: 0 107px;
   }
 }
