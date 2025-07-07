@@ -1,17 +1,39 @@
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsAuthenticated } from '../../redux/auth/selectors';
+import { toggleFavorite } from '../../redux/recipes/operations';
 import styles from './RecipeCard.module.css';
-import { removeFavoriteAPI } from '../../api/recipes';
 import { toast } from 'react-toastify';
+import sprite from '../../assets/icon/sprite.svg';
 
-const RecipeCard = ({ recipe, type }) => {
+const RecipeCard = ({ recipe }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isLoggedIn = useSelector(selectIsAuthenticated);
+  const isFavorite = recipe.isFavorite;
 
   const handleLoadMore = () => {
     navigate(`/recipes/${recipe._id}`);
   };
 
-  const handleSave = () => {
-    navigate('/login');
+  const handleToggleFavorite = () => {
+    if (!isLoggedIn) {
+      navigate('/auth/login'); 
+      return;
+    } 
+      dispatch(toggleFavorite(recipe._id));
+  };
+
+  const renderCalories = () => {
+    const cals = recipe.calories;
+    if (!cals) return '- cals';
+
+    const calsStr = String(cals).trim();
+    if (calsStr.startsWith('~')) {
+      return `${calsStr} cals`;
+    }
+    return `~${calsStr} cals`;
   };
 
   const handleRemove = async () => {
@@ -35,8 +57,10 @@ const RecipeCard = ({ recipe, type }) => {
       <div className={styles.content}>
         <div className={styles.headerRow}>
           <h3 className={styles.title}>{recipe.title}</h3>
-          <div className={styles.timeBox}>
-            {/* <ClockIcon className={styles.timeIcon} /> */}
+            <div className={styles.timeBox}>
+            <svg className={styles.timeIcon}>
+              <use href={`${sprite}#icon-clock`} />
+            </svg>
             <span className={styles.time}> {recipe.time} </span>
           </div>
         </div>
@@ -45,16 +69,20 @@ const RecipeCard = ({ recipe, type }) => {
           <p className={styles.description}>{recipe.description}</p>
         )}
 
+         <p className={styles.calories}> {renderCalories()}</p>
+
         <div className={styles.buttons}>
           <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
             Learn more
           </button>
-          <button
-            className={styles.saveBtn}
-            onClick={handleSave}
+
+          <button className={`${styles.saveBtn} ${isFavorite ? styles.activeIcon : ''}`}
+            onClick={handleToggleFavorite} 
             aria-label="Save recipe"
           >
-            ❤️
+            <svg className={`${styles.iconFavorite} ${isFavorite ? styles.activeIcon : ''}`}>
+              <use href={`${sprite}#icon-favorites-black`} />
+            </svg>
           </button>
         </div>
       </div>

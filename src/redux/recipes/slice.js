@@ -59,4 +59,5 @@ const recipeSlice = createSlice({
   },
 });
 
-export const recipeReducer = recipeSlice.reducer;
+const recipeReducer = recipeSlice.reducer;
+export default recipeReducer;
