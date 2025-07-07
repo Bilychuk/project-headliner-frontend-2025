@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import s from './ProfileNavigation.module.css';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.jsx';
-import RecipeList from '../RecipeList/RecipeList.jsx';
 
 export default function ProfileNavigation() {
   return (
@@ -18,8 +16,6 @@ export default function ProfileNavigation() {
       >
         Saved Recipes
       </NavLink>
-      <RecipeList recipes={recipes} type={recipeType} />
-      <LoadMoreBtn />
     </div>
   );
 }

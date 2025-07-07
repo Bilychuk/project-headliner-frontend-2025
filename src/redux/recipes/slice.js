@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchAllIngredients,
+  fetchFavoriteRecipes,
+  fetchOwnRecipes,
   fetchRecipeById,
   toggleFavorite,
 } from './operations.js';
@@ -9,6 +11,8 @@ const recipeSlice = createSlice({
   name: 'recipe',
   initialState: {
     recipe: null,
+    ownRecipes: [],
+    favoriteRecipes: [],
     isLoading: false,
     error: null,
   },
@@ -41,6 +45,30 @@ const recipeSlice = createSlice({
         state.ingredients = [];
         state.isLoading = false;
         console.error('Failed to load ingredients:', action.payload);
+      })
+      .addCase(fetchOwnRecipes.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchOwnRecipes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ownRecipes = action.payload;
+      })
+      .addCase(fetchOwnRecipes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchFavoriteRecipes.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.favoriteRecipes = action.payload;
+      })
+      .addCase(fetchFavoriteRecipes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

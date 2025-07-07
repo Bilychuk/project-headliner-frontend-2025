@@ -65,6 +65,7 @@ export default function App() {
           }
         >
           {/* Вкладені маршрути */}
+          <Route index element={<Navigate to="own" />} />
           <Route path="own" element={<OwnRecipes />} />
           <Route path="favorites" element={<FavoriteRecipes />} />
         </Route>

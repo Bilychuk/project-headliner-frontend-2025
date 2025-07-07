@@ -9,7 +9,7 @@ import styles from './RecipeCard.module.css';
 import { toast } from 'react-toastify';
 import sprite from '../../assets/icon/sprite.svg';
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, type, onRemove }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -78,21 +78,33 @@ const RecipeCard = ({ recipe }) => {
             Learn more
           </button>
 
-          <button
-            onClick={handleFavorite}
-            className={`${styles.saveBtn} ${
-              isFavorite ? styles.activeIcon : ''
-            }`}
-            aria-label="Save recipe"
-          >
-            <svg
-              className={`${styles.iconFavorite} ${
+          {type === 'favorites' ? (
+            <button
+              className={styles.saveBtn}
+              onClick={handleRemove}
+              aria-label="Remove from favorites"
+            >
+              <svg className={styles.iconFavorite}>
+                <use href={`${sprite}#icon-favorites-black`} />
+              </svg>
+            </button>
+          ) : type === 'own' ? null : (
+            <button
+              className={`${styles.saveBtn} ${
                 isFavorite ? styles.activeIcon : ''
               }`}
+              onClick={handleToggleFavorite}
+              aria-label="Save recipe"
             >
-              <use href={`${sprite}#icon-favorites-black`} />
-            </svg>
-          </button>
+              <svg
+                className={`${styles.iconFavorite} ${
+                  isFavorite ? styles.activeIcon : ''
+                }`}
+              >
+                <use href={`${sprite}#icon-favorites-black`} />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
     </article>

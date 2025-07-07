@@ -9,9 +9,10 @@ import { useCustomSelectStyles } from '../../styles/customSelectStyles';
 import { useEffect, useState } from 'react';
 import { getCategories, getIngredients } from '../../api/api.js';
 import { selectIsAuthenticated } from '../../redux/auth/selectors.js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ModalErrorSaving from '../ModalErrorSaving/ModalErrorSaving.jsx';
 import sprite from '../../assets/icon/sprite.svg';
+import { fetchOwnRecipes } from '../../redux/recipes/operations.js';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -49,6 +50,8 @@ const AddRecipeForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,11 +113,12 @@ formData.append('category', selectedCategory.label);
       });
 
       const response = await createRecipe(formData);
+      dispatch(fetchOwnRecipes({ page: 1, limit: 12 }));
       const createdRecipeId = response.data._id;
 
       toast.success('Recipe created successfully!');
+      navigate(`/recipes/${createdRecipeId}`, { state: { updated: true } });
       resetForm();
-      navigate(`/recipes/${createdRecipeId}`);
     } catch (error) {
       toast.error(error.response?.data?.message || 'Something went wrong');
     } finally {
