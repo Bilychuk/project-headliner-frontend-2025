@@ -7,9 +7,14 @@ import Hero from '../../components/Hero/Hero.jsx';
 import styles from './MainPage.module.css';
 import { toast } from 'react-toastify';
 
+import Pagination from '../../components/Pagination/Pagination.jsx';
+
 const MainPage = () => {
   const [recipes, setRecipes] = useState([]);
   const [page, setPage] = useState(1);
+
+  const [totalPages, setTotalPages] = useState(1);
+
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -25,22 +30,40 @@ const MainPage = () => {
           ? response.data.data
           : [];
 
-        setRecipes(prev => {
-        const ids = new Set(prev.map(r => r._id));
-        const uniqueNew = newRecipes.filter(r => !ids.has(r._id));
-        return [...prev, ...uniqueNew];
-      });
+          setRecipes(newRecipes);
+      //   setRecipes(prev => {
+      //   const ids = new Set(prev.map(r => r._id));
+      //   const uniqueNew = newRecipes.filter(r => !ids.has(r._id));
+      //   return [...prev, ...uniqueNew];
+      // });
 
-        if (newRecipes.length < LIMIT) {
-          setHasMore(false);
-        }
-      } catch (error) {
-        const errorMessage = error || 'Error loading recipes';
-        toast.error(errorMessage, { position: 'top-right' });
-      } finally {
-        setLoading(false);
+    //    if (response.data?.totalCount) {
+    //       const calculatedPages = Math.ceil(response.data.totalCount / LIMIT);
+    //       setTotalPages(calculatedPages);
+    //     }
+
+    //     if (newRecipes.length < LIMIT) {
+    //       setHasMore(false);
+    //     }
+    //   } catch (error) {
+    //     const errorMessage = error || 'Error loading recipes';
+    //     toast.error(errorMessage, { position: 'top-right' });
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+    setTotalPages(Math.ceil(response.data.totalItems / LIMIT));
+
+      if (newRecipes.length < LIMIT) {
+        setHasMore(false);
       }
-    };
+    } catch (error) {
+      const errorMessage = error || 'Error loading recipes';
+      toast.error(errorMessage, { position: 'top-right' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
     fetchData();
   }, [page]);
@@ -54,6 +77,13 @@ const MainPage = () => {
       
       {loading && <Loader />}
       {hasMore && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
+
+      <Pagination
+        currentPage={page}
+       
+        onPageChange={setPage}
+      />
+
     </section>
   );
 };

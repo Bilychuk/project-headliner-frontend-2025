@@ -1,0 +1,39 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
+.pageBtn {
+  border: 1px solid #9b6c43;
+  background-color: transparent;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+}
+.arrow {
+  background-color: #9b6c43;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.arrow:disabled {
+  opacity: 0.5; 
+  cursor: not-allowed;
+  background-color: #9b6c43; 
+}
+.active {
+  background-color: #9b6c43;
+  color: #fff;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+}
