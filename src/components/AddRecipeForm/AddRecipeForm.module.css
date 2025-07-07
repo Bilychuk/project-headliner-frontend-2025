@@ -30,8 +30,11 @@
 }
 
 .cameraIcon {
-  width: 82px;
-  height: 82px;
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke-width: 2.56px;
+  stroke: black;
 }
 
 .photoLabel:hover {
@@ -238,7 +241,7 @@
   align-items: center;
   justify-content: center;
   fill: none;
-  stroke: black;
+  stroke: #070707;
 }
 .instructionsWrapper {
   margin-bottom: 40px;
@@ -396,8 +399,9 @@
   }
 
   .cameraIcon {
-    width: 162px;
-    height: 136px;
+    width: 99px;
+    height: 82px;
+    stroke-width: 1px;
   }
 
   .textarea {

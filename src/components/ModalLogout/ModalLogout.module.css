@@ -1,4 +1,5 @@
 /* 320-368 */
+
 .overlay {
   background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
@@ -13,21 +14,19 @@
 }
 
 .container {
-  width: 362px;
+  width: 100%;
+  max-width: 362px;
   height: 316px;
 
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
   gap: 20px;
   border-radius: 32px;
-
   border: 1px solid #555;
-  border-radius: 32px;
   background-color: #faf3e0;
   padding: 56px 24px 32px 24px;
 }
@@ -74,7 +73,8 @@
 }
 
 .btnlogout {
-  width: 314px;
+  width: 100%;
+  max-width: 314px;
   height: 54px;
 
   background-color: #c80000;
@@ -88,12 +88,18 @@
   font-size: 18px;
   line-height: 100%;
   letter-spacing: 0%;
+  transition: background-color 0.3s ease;
+}
+.btnlogout:hover,
+.btnlogout:focus {
+  background-color: #700a0a;
 }
 
 .btncancel {
-  width: 314px;
+  width: 100%;
+  max-width: 314px;
   height: 54px;
-
+  background-color: transparent;
   border: 1px solid #000000;
   border-radius: 8px;
   padding: 16px auto;
@@ -104,11 +110,20 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: #000000;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.btncancel:hover,
+.btncancel:focus {
+  border: 1px solid #d9d9d9;
+  background: #d9d9d9;
 }
 
 /* 793 - 1440*/
 @media screen and (min-width: 768px) {
   .container {
+    max-width: none;
     width: 420px;
     height: 236px;
     padding: 56px 32px 32px 32px;
@@ -124,6 +139,7 @@
   }
 
   .btnlogout {
+    max-width: none;
     width: 164.5px;
     height: 44px;
     padding: 12px 16px;
@@ -131,6 +147,7 @@
   }
 
   .btncancel {
+    max-width: none;
     width: 164.5px;
     height: 44px;
     padding: 12px 16px;
