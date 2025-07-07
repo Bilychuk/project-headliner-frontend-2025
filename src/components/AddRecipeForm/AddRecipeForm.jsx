@@ -137,7 +137,11 @@ const AddRecipeForm = () => {
                       className={css.previewImage}
                     />
                   )}
-                  {!values.photo && <BsCamera className={css.cameraIcon} />}
+                  {!values.photo && (
+                    <svg className={css.cameraIcon}>
+                      <use href={`${sprite}#icon-photo`} />
+                    </svg>
+                  )}
                   <input
                     id="photoInput"
                     className={css.inputFile}
