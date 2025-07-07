@@ -93,7 +93,7 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
               className={`${styles.saveBtn} ${
                 isFavorite ? styles.activeIcon : ''
               }`}
-              onClick={handleToggleFavorite}
+              onClick={handleFavorite}
               aria-label="Save recipe"
             >
               <svg
