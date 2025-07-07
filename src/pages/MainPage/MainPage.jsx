@@ -26,10 +26,10 @@ const MainPage = () => {
           : [];
 
         setRecipes(prev => {
-        const ids = new Set(prev.map(r => r._id));
-        const uniqueNew = newRecipes.filter(r => !ids.has(r._id));
-        return [...prev, ...uniqueNew];
-      });
+          const ids = new Set(prev.map(r => r._id));
+          const uniqueNew = newRecipes.filter(r => !ids.has(r._id));
+          return [...prev, ...uniqueNew];
+        });
 
         if (newRecipes.length < LIMIT) {
           setHasMore(false);
@@ -50,9 +50,9 @@ const MainPage = () => {
   return (
     <section className={styles.section}>
       <Hero />
-      <RecipeList recipes={recipes} />
-      
       {loading && <Loader />}
+      {!loading && <RecipeList recipes={recipes} type="all" />}
+
       {hasMore && !loading && <LoadMoreBtn onClick={handleLoadMore} />}
     </section>
   );

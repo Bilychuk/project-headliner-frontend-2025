@@ -6,7 +6,7 @@ import styles from './RecipeCard.module.css';
 import { toast } from 'react-toastify';
 import sprite from '../../assets/icon/sprite.svg';
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, type, onRemove }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,10 +19,10 @@ const RecipeCard = ({ recipe }) => {
 
   const handleToggleFavorite = () => {
     if (!isLoggedIn) {
-      navigate('/auth/login'); 
+      navigate('/auth/login');
       return;
-    } 
-      dispatch(toggleFavorite(recipe._id));
+    }
+    dispatch(toggleFavorite(recipe._id));
   };
 
   const renderCalories = () => {
@@ -57,7 +57,7 @@ const RecipeCard = ({ recipe }) => {
       <div className={styles.content}>
         <div className={styles.headerRow}>
           <h3 className={styles.title}>{recipe.title}</h3>
-            <div className={styles.timeBox}>
+          <div className={styles.timeBox}>
             <svg className={styles.timeIcon}>
               <use href={`${sprite}#icon-clock`} />
             </svg>
@@ -69,21 +69,40 @@ const RecipeCard = ({ recipe }) => {
           <p className={styles.description}>{recipe.description}</p>
         )}
 
-         <p className={styles.calories}> {renderCalories()}</p>
+        <p className={styles.calories}> {renderCalories()}</p>
 
         <div className={styles.buttons}>
           <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
             Learn more
           </button>
 
-          <button className={`${styles.saveBtn} ${isFavorite ? styles.activeIcon : ''}`}
-            onClick={handleToggleFavorite} 
-            aria-label="Save recipe"
-          >
-            <svg className={`${styles.iconFavorite} ${isFavorite ? styles.activeIcon : ''}`}>
-              <use href={`${sprite}#icon-favorites-black`} />
-            </svg>
-          </button>
+          {type === 'favorites' ? (
+            <button
+              className={styles.saveBtn}
+              onClick={handleRemove}
+              aria-label="Remove from favorites"
+            >
+              <svg className={styles.iconFavorite}>
+                <use href={`${sprite}#icon-favorites-black`} />
+              </svg>
+            </button>
+          ) : type === 'own' ? null : (
+            <button
+              className={`${styles.saveBtn} ${
+                isFavorite ? styles.activeIcon : ''
+              }`}
+              onClick={handleToggleFavorite}
+              aria-label="Save recipe"
+            >
+              <svg
+                className={`${styles.iconFavorite} ${
+                  isFavorite ? styles.activeIcon : ''
+                }`}
+              >
+                <use href={`${sprite}#icon-favorites-black`} />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
     </article>

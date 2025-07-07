@@ -51,3 +51,31 @@ export const toggleFavorite = createAsyncThunk(
     }
   }
 );
+
+export const fetchFavoriteRecipes = createAsyncThunk(
+  'recipes/fetchFavorites',
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const response = await api.get(
+        `/api/recipes/favorites?page=${page}&limit=${limit}`
+      );
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchOwnRecipes = createAsyncThunk(
+  'recipes/fetchOwn',
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const response = await api.get(
+        `/api/recipes/own?page=${page}&limit=${limit}`
+      );
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
