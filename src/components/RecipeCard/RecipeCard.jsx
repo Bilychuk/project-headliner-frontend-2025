@@ -27,7 +27,6 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
       navigate('/auth/login');
       return;
     }
-
     try {
       const resultAction = await dispatch(toggleFavorite(recipe._id));
 
@@ -55,7 +54,6 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
       {recipe.thumb && (
         <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
       )}
-
       <div className={styles.content}>
         <div className={styles.headerRow}>
           <h3 className={styles.title}>{recipe.title}</h3>
@@ -66,18 +64,14 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
             <span className={styles.time}> {recipe.time} </span>
           </div>
         </div>
-
         {recipe.description && (
           <p className={styles.description}>{recipe.description}</p>
         )}
-
         {calories && <p className={styles.calories}> {renderCalories()}</p>}
-
         <div className={styles.buttons}>
           <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
             Learn more
           </button>
-
           {type === 'favorites' ? (
             <button
               className={styles.saveBtn}
