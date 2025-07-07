@@ -7,7 +7,7 @@ import {
   selectRecipesError,
   selectRecipesLoading,
   selectTotalRecipes,
-} from '../../redux/recipes/selectors.js';
+} from '../../redux/recipes/selectors-all-recipes.js';
 import {
   selectFiltersError,
   selectFiltersLoading,

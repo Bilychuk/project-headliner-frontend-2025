@@ -1,6 +1,5 @@
 import { authReducer } from './auth/slice';
 import { filtersReducer } from './filters/slice.js';
-import { recipesReducer } from './recipes/slice.js';
 import recipeReducer from './recipes/slice.js';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
