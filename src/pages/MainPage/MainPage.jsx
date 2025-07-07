@@ -157,7 +157,7 @@ export default function MainPage() {
         {filtersLoading && <Loader />}
         <div>
           {!recipesLoading && !recipesError && recipes.length > 0 && (
-            <RecipeList recipes={recipes} />
+            <RecipeList recipes={recipes} type="all" />
           )}
         </div>
         {totalRecipes > recipes.length && !recipesLoading && (

@@ -9,9 +9,10 @@ import { useCustomSelectStyles } from '../../styles/customSelectStyles';
 import { useEffect, useState } from 'react';
 import { getCategories, getIngredients } from '../../api/api.js';
 import { selectIsAuthenticated } from '../../redux/auth/selectors.js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ModalErrorSaving from '../ModalErrorSaving/ModalErrorSaving.jsx';
 import sprite from '../../assets/icon/sprite.svg';
+import { fetchOwnRecipes } from '../../redux/recipes/operations.js';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -49,6 +50,8 @@ const AddRecipeForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,7 +95,13 @@ const AddRecipeForm = () => {
       if (values.calories) {
         formData.append('calories', values.calories);
       }
-      formData.append('category', values.category);
+      // formData.append('category', values.category);
+
+      const selectedCategory = categoryOptions.find(
+  opt => opt.value === values.category
+);
+formData.append('category', selectedCategory.label);
+
       formData.append('instructions', values.instructions);
       if (values.photo) {
         formData.append('thumb', values.photo);
@@ -104,11 +113,12 @@ const AddRecipeForm = () => {
       });
 
       const response = await createRecipe(formData);
+      dispatch(fetchOwnRecipes({ page: 1, limit: 12 }));
       const createdRecipeId = response.data._id;
 
       toast.success('Recipe created successfully!');
+      navigate(`/recipes/${createdRecipeId}`, { state: { updated: true } });
       resetForm();
-      navigate(`/recipes/${createdRecipeId}`);
     } catch (error) {
       toast.error(error.response?.data?.message || 'Something went wrong');
     } finally {
@@ -226,7 +236,7 @@ const AddRecipeForm = () => {
                       className={css.reactSelect}
                       name="category"
                       options={categoryOptions}
-                      placeholder="Soup"
+                      placeholder="Select category"
                       value={categoryOptions.find(
                         opt => opt.value === values.category
                       )}
@@ -251,7 +261,7 @@ const AddRecipeForm = () => {
                       className={css.reactSelect}
                       name="newIngredient"
                       options={ingredientOptions}
-                      placeholder="Brocoli"
+                      placeholder="Select ingredient"
                       value={values.newIngredient}
                       onChange={option =>
                         setFieldValue('newIngredient', option)
@@ -353,7 +363,7 @@ const AddRecipeForm = () => {
                     as="textarea"
                     className={`${css.textarea} ${css.textareaInstructions}`}
                     name="instructions"
-                    placeholder="Enter a text"
+                    placeholder="Enter the step by step instructions for your recipe"
                   />
                   <ErrorMessage
                     name="instructions"
