@@ -25,7 +25,11 @@ export default function AppBar() {
           <span className={s.title}>Tasteorama</span>
         </Link>
         <Navigation isLoggedIn={isLoggedIn} />
-        <button className={s.burgerBtn} onClick={toggleModal}>
+        <button
+          className={s.burgerBtn}
+          aria-label="Open mobile menu"
+          onClick={toggleModal}
+        >
           <svg className={s.burger}>
             <use href={`${sprite}#icon-burger`} />
           </svg>

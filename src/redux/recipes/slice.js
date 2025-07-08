@@ -13,6 +13,7 @@ const recipeSlice = createSlice({
   initialState: {
     recipe: null,
     ownRecipes: [],
+    totalOwnRecipes: 0,
     favoriteRecipes: [],
     isLoading: false,
     error: null,
@@ -33,7 +34,6 @@ const recipeSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(toggleFavorite.fulfilled, (state, action) => {
         if (state.recipe && state.recipe._id === action.payload.recipeId) {
           state.recipe.isFavorite =
@@ -49,7 +49,6 @@ const recipeSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(fetchAllIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload;
         state.isLoading = false;
@@ -70,7 +69,17 @@ const recipeSlice = createSlice({
       })
       .addCase(fetchOwnRecipes.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.ownRecipes = action.payload;
+        state.error = null;
+        const { recipes, page, totalItems, hasNextPage } = action.payload;
+
+        if (page === 1) {
+          state.ownRecipes = recipes;
+        } else {
+          state.ownRecipes = [...state.ownRecipes, ...recipes];
+        }
+
+        state.totalOwnRecipes = totalItems;
+        state.hasNextPage = hasNextPage;
       })
       .addCase(fetchOwnRecipes.rejected, (state, action) => {
         state.isLoading = false;
