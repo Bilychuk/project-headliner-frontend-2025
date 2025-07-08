@@ -8,10 +8,7 @@ import {
   selectRecipesLoading,
   selectTotalRecipes,
 } from '../../redux/recipes/selectors-all-recipes.js';
-import {
-  selectFiltersError,
-  selectFiltersLoading,
-} from '../../redux/filters/selectors.js';
+import { selectFiltersError } from '../../redux/filters/selectors.js';
 import { fetchRecipes } from '../../redux/recipes/operations.js';
 import {
   fetchCategories,
@@ -34,7 +31,6 @@ export default function MainPage() {
   const totalRecipes = useSelector(selectTotalRecipes);
   const recipesLoading = useSelector(selectRecipesLoading);
   const recipesError = useSelector(selectRecipesError);
-  const filtersLoading = useSelector(selectFiltersLoading);
   const filtersError = useSelector(selectFiltersError);
 
   const [currentFilters, setCurrentFilters] = useState({
@@ -126,7 +122,13 @@ export default function MainPage() {
     <section className={styles.section}>
       <div className={styles.mainPageContainer}>
         <Hero onSearch={handleSearch} searchQuery={searchQuery} />
-        <h1 className={styles.pageTitle}>Recipes</h1>
+        {searchQuery ? (
+          <h1
+            className={styles.pageTitle}
+          >{`Search Results for “${searchQuery}”`}</h1>
+        ) : (
+          <h1 className={styles.pageTitle}>Recipes</h1>
+        )}
         <div className={styles.filtersAndCountWrapper}>
           {!recipesLoading && !recipesError && (
             <>
@@ -154,7 +156,6 @@ export default function MainPage() {
           onResetAndCloseFilters={handleResetAndCloseFilters}
         />
         {recipesLoading && <Loader />}
-        {filtersLoading && <Loader />}
         <div>
           {!recipesLoading && !recipesError && recipes.length > 0 && (
             <RecipeList recipes={recipes} type="all" />
