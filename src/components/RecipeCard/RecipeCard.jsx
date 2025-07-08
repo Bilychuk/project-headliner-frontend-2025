@@ -52,11 +52,16 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
   return (
     <article className={styles.card}>
       {recipe.thumb && (
-        <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
+        <img
+          src={recipe.thumb}
+          alt={recipe.title}
+          loading="lazy"
+          className={styles.image}
+        />
       )}
       <div className={styles.content}>
         <div className={styles.headerRow}>
-          <h3 className={styles.title}>{recipe.title}</h3>
+          <p className={styles.title}>{recipe.title}</p>
           <div className={styles.timeBox}>
             <svg className={styles.timeIcon}>
               <use href={`${sprite}#icon-clock`} />

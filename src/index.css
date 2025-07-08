@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Montserrat';
   src: url('./assets/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
-  font-weight: 400 600 700;
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', Arial, sans-serif;
   color: black;
   background-color: #fbfcf8;
   margin: 0 auto;
