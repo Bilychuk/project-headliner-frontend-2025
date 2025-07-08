@@ -8,7 +8,6 @@
   background-color: #413f3f;
   z-index: 0;
 }
-
 @media screen and (min-width: 768px) {
   .container {
     margin-left: -32px;
@@ -16,7 +15,6 @@
     width: calc(100% + 64px);
   }
 }
-
 @media screen and (min-width: 1440px) {
   .container {
     margin-left: -107px;
@@ -24,7 +22,6 @@
     width: calc(100% + 214px);
   }
 }
-
 .backgroundImage {
   position: absolute;
   top: 0;
