@@ -69,7 +69,12 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
         )}
         {calories && <p className={styles.calories}> {renderCalories()}</p>}
         <div className={styles.buttons}>
-          <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
+          <button
+            className={`${styles.learnMoreBtn} ${
+              type === 'own' ? styles.learnMoreBtnOwn : ''
+            }`}
+            onClick={handleLoadMore}
+          >
             Learn more
           </button>
           {type === 'favorites' ? (
