@@ -56,12 +56,6 @@
   pointer-events: none;
 }
 
-@media screen and (min-width: 1440px) {
-  .hideOverlay {
-    display: none;
-  }
-}
-
 .hero {
   position: relative;
   z-index: 2;

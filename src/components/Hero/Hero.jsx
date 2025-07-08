@@ -18,7 +18,7 @@ const Hero = ({ onSearch }) => {
         loading="lazy"
       />
 
-      <div className={`${css.overlay} ${isLoggedIn ? css.hideOverlay : ''}`} />
+      <div className={css.overlay} />
 
       <div className={css.hero}>
         <h1 className={css.heroTitle}>Plan, Cook, and Share Your Flavors</h1>
