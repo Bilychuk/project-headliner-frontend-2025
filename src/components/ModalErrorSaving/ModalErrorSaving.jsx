@@ -5,6 +5,8 @@ import sprite from '../../assets/icon/sprite.svg';
 import { api } from '../../api/api.js';
 import { useDispatch } from 'react-redux';
 
+Modal.setAppElement('#root');
+
 export default function ModalErrorSaving({ isOpen, onRequestClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export default function ModalErrorSaving({ isOpen, onRequestClose }) {
 
   const handleRegister = () => {
     onRequestClose();
-  navigate('/auth/register');
+    navigate('/auth/register');
   };
 
   return (
