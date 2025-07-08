@@ -8,7 +8,10 @@ import { toast } from 'react-toastify';
 import { useCustomSelectStyles } from '../../styles/customSelectStyles';
 import { useEffect, useState } from 'react';
 import { getCategories, getIngredients } from '../../api/api.js';
-import { selectIsAuthenticated } from '../../redux/auth/selectors.js';
+import {
+  selectAuthToken,
+  selectIsAuthenticated,
+} from '../../redux/auth/selectors.js';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalErrorSaving from '../ModalErrorSaving/ModalErrorSaving.jsx';
 import sprite from '../../assets/icon/sprite.svg';
@@ -50,6 +53,7 @@ const AddRecipeForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const token = useSelector(selectAuthToken);
 
   const dispatch = useDispatch();
 
@@ -81,12 +85,21 @@ const AddRecipeForm = () => {
 
   const navigate = useNavigate();
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  useEffect(() => {}, [isModalOpen]);
+  useEffect(() => {}, [isAuthenticated]);
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     if (!isAuthenticated) {
-      setIsModalOpen(true);
+      handleOpenModal();
       setSubmitting(false);
       return;
     }
+
     try {
       const formData = new FormData();
       formData.append('title', values.title);
@@ -98,9 +111,9 @@ const AddRecipeForm = () => {
       // formData.append('category', values.category);
 
       const selectedCategory = categoryOptions.find(
-  opt => opt.value === values.category
-);
-formData.append('category', selectedCategory.label);
+        opt => opt.value === values.category
+      );
+      formData.append('category', selectedCategory.label);
 
       formData.append('instructions', values.instructions);
       if (values.photo) {
@@ -112,7 +125,7 @@ formData.append('category', selectedCategory.label);
         formData.append(`ingredients[${index}][measure]`, ingredient.measure);
       });
 
-      const response = await createRecipe(formData);
+      const response = await createRecipe(formData, token);
       dispatch(fetchOwnRecipes({ page: 1, limit: 12 }));
       const createdRecipeId = response.data._id;
 
@@ -120,7 +133,14 @@ formData.append('category', selectedCategory.label);
       navigate(`/recipes/${createdRecipeId}`, { state: { updated: true } });
       resetForm();
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Something went wrong');
+      if (error.response?.status === 401) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+
+        handleOpenModal();
+      } else {
+        toast.error(error.response?.data?.message || 'Something went wrong');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -133,7 +153,7 @@ formData.append('category', selectedCategory.label);
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ setFieldValue, isSubmitting, values }) => (
+        {({ setFieldValue, isSubmitting, values, submitForm }) => (
           <Form encType="multipart/form-data">
             <div className={css.wrapper}>
               <div className={css.photoColumn}>
@@ -374,8 +394,15 @@ formData.append('category', selectedCategory.label);
 
                 <button
                   className={`${css.submitBtn} ${css.btn}`}
-                  type="submit"
+                  type="button"
                   disabled={isSubmitting}
+                  onClick={() => {
+                    if (!isAuthenticated) {
+                      handleOpenModal();
+                      return;
+                    }
+                    submitForm();
+                  }}
                 >
                   Publish Recipe
                 </button>
@@ -386,7 +413,7 @@ formData.append('category', selectedCategory.label);
       </Formik>
       <ModalErrorSaving
         isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
+        onRequestClose={handleCloseModal}
       />
     </>
   );

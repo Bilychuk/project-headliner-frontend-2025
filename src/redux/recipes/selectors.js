@@ -3,4 +3,6 @@ export const selectRecipeIsLoading = state => state.recipe.isLoading;
 export const selectRecipeError = state => state.recipe.error;
 export const selectAllIngredients = state => state.recipe.ingredients;
 export const selectOwnRecipes = state => state.recipe.ownRecipes;
+export const selectHasNextPage = state => state.recipe.hasNextPage;
+export const selectOwnTotal = state => state.recipe.totalOwnRecipes;
 export const selectFavoriteRecipes = state => state.recipe.favoriteRecipes;
