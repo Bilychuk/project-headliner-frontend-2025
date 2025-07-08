@@ -11,6 +11,8 @@ export default function FavoriteRecipes() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  console.log(recipes);
+
   useEffect(() => {
     dispatch(fetchFavoriteRecipes({ page, limit: 12 })).then(action => {
       if (!action.payload || action.payload.length < 12) {
