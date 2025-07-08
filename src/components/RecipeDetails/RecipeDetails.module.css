@@ -16,6 +16,26 @@
   border-radius: 8px;
 }
 
+.imagePlaceholder {
+  max-width: 361px;
+  width: 100%;
+  border-radius: 16px;
+  background-color: #9f9f9f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 1;
+}
+
+.cameraIcon {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke-width: 2.56px;
+  stroke: black;
+}
+
 .header {
   font-size: 40px;
   font-weight: 600;
@@ -121,6 +141,10 @@
     max-height: 624px;
   }
 
+  .imagePlaceholder {
+    max-width: 704px;
+  }
+
   .metaContainer {
     display: flex;
     gap: 24px;
@@ -143,6 +167,10 @@
 
   .image {
     width: 1225px;
+  }
+
+  .imagePlaceholder {
+    max-width: 1225px;
   }
 
   .recipeBodyContainer {
