@@ -9,7 +9,6 @@
   z-index: -1;
   padding: 0 32px;
 }
-
 @media screen and (min-width: 768px) {
   .container {
     /* margin-left: -32px;
@@ -18,15 +17,13 @@
     height: 443px;
   }
 }
-
-/* @media screen and (min-width: 1440px) {
+@media screen and (min-width: 1440px) {0
   .container {
     margin-left: -107px;
     margin-right: -107px;
     width: calc(100% + 214px);
   }
-} */
-
+}
 .backgroundImage {
   position: absolute;
   top: 0;
@@ -34,7 +31,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* object-position: 80% center; */
+  object-position: 30% center;
   z-index: -1;
 }
 
@@ -46,8 +43,7 @@
 
 @media screen and (min-width: 1440px) {
   .backgroundImage {
-    object-position: 92% 20%;
-    
+    object-position: 92% 25%;
   }
 }
 
