@@ -14,14 +14,13 @@ export default function ModalErrorSaving({ isOpen, onRequestClose }) {
     localStorage.removeItem('refreshToken');
 
     delete api.defaults.headers.common.Authorization;
-    dispatch(logoutAction());
     onRequestClose();
     navigate('/auth/login');
   };
 
   const handleRegister = () => {
     onRequestClose();
-    setTimeout(() => navigate('/auth/register'), 0);
+  navigate('/auth/register');
   };
 
   return (
