@@ -58,3 +58,16 @@
     width: 190px;
   }
 }
+.searchInput:hover,
+.searchInput:focus {
+  border-color: #C80000;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(155, 108, 67, 0.2);
+}
+
+.searchButton:hover,
+.searchButton:focus {
+  background-color: #7a5233;
+  outline: none;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #ffffff;
+}
