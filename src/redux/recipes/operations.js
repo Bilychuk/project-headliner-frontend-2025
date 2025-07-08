@@ -6,6 +6,34 @@ import {
 } from '../../api/recipes.js';
 import { getAllIngredientsAPI } from '../../api/ingredients.js';
 import { selectFavoriteRecipeIds } from '../auth/selectors.js';
+import { api } from '../../api/api';
+
+export const fetchRecipes = createAsyncThunk(
+  'recipes/fetchRecipes',
+  async (
+    { category, ingredient, search, page = 1, perPage = 12 },
+    thunkAPI
+  ) => {
+    try {
+      const params = new URLSearchParams();
+      if (category) {
+        params.append('category', category);
+      }
+      if (ingredient) {
+        params.append('ingredient', ingredient);
+      }
+      if (search) {
+        params.append('search', search);
+      }
+      params.append('page', page);
+      params.append('perPage', perPage);
+      const response = await api.get(`/api/recipes?${params.toString()}`);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchAllIngredients = createAsyncThunk(
   'recipe/fetchAllIngredients',
@@ -73,7 +101,7 @@ export const fetchOwnRecipes = createAsyncThunk(
       const response = await api.get(
         `/api/recipes/own?page=${page}&limit=${limit}`
       );
-      return response.data.data;
+      return response.data.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
