@@ -366,3 +366,16 @@
     margin-bottom: 72px;
   }
 }
+.inputError {
+  border: 1px solid red;
+}
+
+.textareaError {
+  border: 1px solid red;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
