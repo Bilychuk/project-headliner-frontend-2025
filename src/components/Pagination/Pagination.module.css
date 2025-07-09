@@ -4,6 +4,7 @@
   gap: 4px;
   margin-top: 24px;
   margin-bottom: 48px;
+  flex-wrap: wrap;
 }
 
 .pageBtn {
@@ -15,10 +16,11 @@
   font-size: 16px;
   width: 40px;
   height: 40px;
+  max-width: 100%;
 }
 .pageBtn:hover {
-    background-color: #6d554b;
-    border-radius: 6px;
+  background-color: #6d554b;
+  border-radius: 6px;
 }
 .pageBtn:focus {
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
@@ -39,14 +41,14 @@
   height: 40px;
 }
 .arrow:hover {
-    background-color: #6d554b;
-    border-radius: 6px;
+  background-color: #6d554b;
+  border-radius: 6px;
 }
 
 .arrow:disabled {
-  opacity: 0.3; 
+  opacity: 0.3;
   cursor: not-allowed;
-  background-color: #9b6c43; 
+  background-color: #9b6c43;
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
 .active {

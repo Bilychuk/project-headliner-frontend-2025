@@ -23,17 +23,20 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className={styles.arrow}
+        aria-label="previous page"
       >
-       <svg className={styles.icon}>
+        <svg className={styles.icon}>
           <use href={`${sprite}#icon-arrow-left`} />
         </svg>
       </button>
 
-      {pageNumbers.map((pageNum) => (
+      {pageNumbers.map(pageNum => (
         <button
           key={pageNum}
           onClick={() => onPageChange(pageNum)}
-          className={`${styles.pageBtn} ${pageNum === currentPage ? styles.active : ''}`}
+          className={`${styles.pageBtn} ${
+            pageNum === currentPage ? styles.active : ''
+          }`}
         >
           {pageNum}
         </button>
@@ -43,6 +46,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className={styles.arrow}
+        aria-label="next page"
       >
         <svg className={styles.icon}>
           <use href={`${sprite}#icon-arrow-right`} />

@@ -1,9 +1,8 @@
 body {
-  background: #FBFCF8 !important;
+  background: #fbfcf8 !important;
 }
 
 .loginBg {
-  
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -20,7 +19,7 @@ body {
   max-width: 400px;
   width: 100%;
   min-height: 340px;
-  gap:20px
+  gap: 20px;
 }
 
 .title {
@@ -82,7 +81,7 @@ body {
 
 .loginBtn {
   width: 100%;
-  background: #9B6C43;
+  background: #9b6c43;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
@@ -131,7 +130,7 @@ body {
     background: none;
   }
   .loginContainer {
-    min-width: 362px;
+    min-width: 320px;
     max-width: 362px;
     min-height: 399px;
     height: auto;
@@ -139,7 +138,7 @@ body {
     padding: 32px;
     border-radius: 32px;
     margin: 0 auto;
-    background: #FAF3E0;
+    background: #faf3e0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -180,7 +179,7 @@ body {
     padding: 32px;
     border-radius: 32px;
     margin: 0 auto;
-    background: #FAF3E0;
+    background: #faf3e0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -221,7 +220,7 @@ body {
     padding: 32px;
     border-radius: 32px;
     margin: 0 auto;
-    background: #FAF3E0;
+    background: #faf3e0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
