@@ -480,3 +480,8 @@
   border-color: red ;
   box-shadow: 0 0 0 1px red;
 }
+
+.errorMessage{
+  color: red;
+  font-size: 18px;
+}
