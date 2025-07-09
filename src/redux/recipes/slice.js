@@ -58,11 +58,7 @@ const recipeSlice = createSlice({
         state.error = null;
         const { recipes, page, totalItems, hasNextPage } = action.payload;
 
-        if (page === 1) {
-          state.ownRecipes = recipes;
-        } else {
-          state.ownRecipes = [...state.ownRecipes, ...recipes];
-        }
+        state.ownRecipes = recipes;
 
         state.totalOwnRecipes = totalItems;
         state.hasNextPage = hasNextPage;
@@ -79,11 +75,7 @@ const recipeSlice = createSlice({
         state.isLoading = false;
         const { recipes, page, hasNextPage, totalItems } = action.payload;
 
-        if (page === 1) {
-          state.favoriteRecipes = recipes;
-        } else {
-          state.favoriteRecipes = [...state.favoriteRecipes, ...recipes];
-        }
+        state.favoriteRecipes = recipes;
 
         state.favoriteTotal = totalItems;
         state.favoriteHasNextPage = hasNextPage;

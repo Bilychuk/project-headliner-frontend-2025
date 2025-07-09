@@ -8,7 +8,7 @@ import {
 } from '../../redux/recipes/selectors.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOwnRecipes } from '../../redux/recipes/operations.js';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import s from './OwnRecipes.module.css';
 import Loader from '../Loader/Loader.jsx';
@@ -27,12 +27,19 @@ export default function OwnRecipes() {
   }, [dispatch, page]);
 
   const location = useLocation();
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     if (location.state?.updated) {
       dispatch(fetchOwnRecipes({ page: 1, limit: 12 }));
     }
   }, [location.state, dispatch]);
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
 
   // const handleLoadMore = () => {
   //   const nextPage = page + 1;
@@ -42,9 +49,11 @@ export default function OwnRecipes() {
 
   return (
     <>
-      {ownRecipes.length > 0 && (
-        <p className={s.totalItems}>{`${totalOwnRecipes} recipes`}</p>
-      )}
+      <div ref={sectionRef}>
+        {ownRecipes.length > 0 && (
+          <p className={s.totalItems}>{`${totalOwnRecipes} recipes`}</p>
+        )}
+      </div>
       {isLoading && <Loader />}
       <RecipeList recipes={ownRecipes} type="own" />
       {/* {hasNextPage && <LoadMoreBtn onClick={handleLoadMore} />} */}
