@@ -9,6 +9,7 @@ import styles from './RecipeCard.module.css';
 import { toast } from 'react-toastify';
 import sprite from '../../assets/icon/sprite.svg';
 import defaultImage from '../../assets/img/default-recipe.webp';
+import { useState } from 'react';
 
 const RecipeCard = ({ recipe, type, onRemove }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
   const isLoggedIn = useSelector(selectIsAuthenticated);
   const favoriteIds = useSelector(selectFavoriteRecipeIds);
   const isFavorite = favoriteIds.includes(recipe._id);
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
   const calories = recipe.calories;
 
   const handleLoadMore = () => {
@@ -28,6 +30,7 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
       navigate('/auth/login');
       return;
     }
+    setIsFavoriteLoading(true);
     try {
       const resultAction = await dispatch(toggleFavorite(recipe._id));
 
@@ -36,6 +39,8 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
       }
     } catch (error) {
       toast.error('Something went wrong.');
+    } finally {
+      setIsFavoriteLoading(false);
     }
   };
 
@@ -52,14 +57,13 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
 
   return (
     <article className={styles.card}>
-      
-        <img
-          src={recipe.thumb || defaultImage}
-          alt={recipe.title}
-          loading="lazy"
-          className={styles.image}
-        />
-      
+      <img
+        src={recipe.thumb || defaultImage}
+        alt={recipe.title}
+        loading="lazy"
+        className={styles.image}
+      />
+
       <div className={styles.content}>
         <div className={styles.headerRow}>
           <p className={styles.title}>{recipe.title}</p>
@@ -100,14 +104,21 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
               }`}
               onClick={handleFavorite}
               aria-label="Save recipe"
+              disabled={isFavoriteLoading}
             >
-              <svg
-                className={`${styles.iconFavorite} ${
-                  isFavorite ? styles.activeIcon : ''
-                }`}
-              >
-                <use href={`${sprite}#icon-favorites-black`} />
-              </svg>
+              {isFavoriteLoading ? (
+                <svg className={styles.loaderIcon} width={24} height={24}>
+                  <use href={`${sprite}#icon-recycle-black`} />
+                </svg>
+              ) : (
+                <svg
+                  className={`${styles.iconFavorite} ${
+                    isFavorite ? styles.activeIcon : ''
+                  }`}
+                >
+                  <use href={`${sprite}#icon-favorites-black`} />
+                </svg>
+              )}
             </button>
           )}
         </div>

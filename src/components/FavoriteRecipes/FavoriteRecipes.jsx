@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from 'react';
 import s from './FavoriteRecipes.module.css';
 import Loader from '../Loader/Loader.jsx';
+import Pagination from '../Pagination/Pagination.jsx';
 
 export default function FavoriteRecipes() {
   const dispatch = useDispatch();
@@ -20,25 +21,22 @@ export default function FavoriteRecipes() {
   const totalSavedRecipes = useSelector(selectFavoriteTotal);
   const isLoading = useSelector(selectRecipeIsLoading);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  // const [hasMore, setHasMore] = useState(true);
+
+  const RECIPES_PER_PAGE = 12;
 
   useEffect(() => {
-    dispatch(fetchFavoriteRecipes({ page, limit: 12 })).then(action => {
-      if (!action.payload.hasNextPage) {
-        setHasMore(false);
-      }
-    });
+    dispatch(fetchFavoriteRecipes({ page, limit: RECIPES_PER_PAGE }));
   }, [page, dispatch]);
 
   const handleRemove = id => {
     dispatch(toggleFavorite(id)).then(() => {
+      dispatch(fetchFavoriteRecipes({ page: 1, limit: RECIPES_PER_PAGE }));
       setPage(1);
-      setHasMore(true);
-      dispatch(fetchFavoriteRecipes({ page: 1, limit: 12 }));
     });
   };
 
-  const loadMore = () => setPage(prev => prev + 1);
+  // const loadMore = () => setPage(prev => prev + 1);
 
   return (
     <>
@@ -47,7 +45,12 @@ export default function FavoriteRecipes() {
       )}
       {isLoading && <Loader />}
       <RecipeList recipes={recipes} type="favorites" onRemove={handleRemove} />
-      {hasMore && recipes.length > 0 && <LoadMoreBtn onClick={loadMore} />}
+      {/* {hasMore && recipes.length > 0 && <LoadMoreBtn onClick={loadMore} />} */}
+      <Pagination
+        currentPage={page}
+        totalPages={Math.ceil(totalSavedRecipes / RECIPES_PER_PAGE)}
+        onPageChange={setPage}
+      />
     </>
   );
 }

@@ -154,16 +154,18 @@ export default function MainPage() {
           )}
         </div>
         {totalRecipes > recipes.length && !recipesLoading && (
-          <LoadMoreBtn onClick={handleLoadMore} isLoading={recipesLoading} style={{ display: 'none' }}/>
+          <LoadMoreBtn
+            onClick={handleLoadMore}
+            isLoading={recipesLoading}
+            style={{ display: 'none' }}
+          />
         )}
         <Pagination
-         currentPage={page}
-         totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
-         onPageChange={setPage}
-         />
+          currentPage={page}
+          totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
+          onPageChange={setPage}
+        />
       </div>
     </section>
   );
 }
-
-          

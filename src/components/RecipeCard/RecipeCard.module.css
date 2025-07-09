@@ -158,6 +158,19 @@
   background-color: #9b6c43;
   fill: #fff;
 }
+.loaderIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .favBtn:hover {
   background-color: #6d554b;
 }
