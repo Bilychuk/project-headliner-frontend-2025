@@ -10,7 +10,7 @@ import {
   selectFavoriteTotal,
   selectRecipeIsLoading,
 } from '../../redux/recipes/selectors.js';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import s from './FavoriteRecipes.module.css';
 import Loader from '../Loader/Loader.jsx';
 import Pagination from '../Pagination/Pagination.jsx';
@@ -24,10 +24,17 @@ export default function FavoriteRecipes() {
   // const [hasMore, setHasMore] = useState(true);
 
   const RECIPES_PER_PAGE = 12;
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     dispatch(fetchFavoriteRecipes({ page, limit: RECIPES_PER_PAGE }));
   }, [page, dispatch]);
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
 
   const handleRemove = id => {
     dispatch(toggleFavorite(id)).then(() => {
@@ -40,9 +47,11 @@ export default function FavoriteRecipes() {
 
   return (
     <>
-      {recipes.length > 0 && (
-        <p className={s.totalItems}>{`${totalSavedRecipes} recipes`}</p>
-      )}
+      <div ref={sectionRef}>
+        {recipes.length > 0 && (
+          <p className={s.totalItems}>{`${totalSavedRecipes} recipes`}</p>
+        )}
+      </div>
       {isLoading && <Loader />}
       <RecipeList recipes={recipes} type="favorites" onRemove={handleRemove} />
       {/* {hasMore && recipes.length > 0 && <LoadMoreBtn onClick={loadMore} />} */}

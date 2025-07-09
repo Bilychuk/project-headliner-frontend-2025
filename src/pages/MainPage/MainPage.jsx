@@ -59,8 +59,15 @@ export default function MainPage() {
     setPage(1);
   };
 
+  const sectionRef = useRef(null);
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
+
   // обробник для кнопки "Load More"
-  const handleLoadMore = () => setPage(prev => prev + 1);
+  // const handleLoadMore = () => setPage(prev => prev + 1);
 
   const loadRecipesRef = useRef();
   const loadRecipes = useCallback(() => {
@@ -114,59 +121,61 @@ export default function MainPage() {
     <section className={styles.section}>
       <div className={styles.mainPageContainer}>
         <Hero onSearch={handleSearch} searchQuery={searchQuery} />
-        {searchQuery ? (
-          <h1
-            className={styles.pageTitle}
-          >{`Search Results for “${searchQuery}”`}</h1>
-        ) : (
-          <h1 className={styles.pageTitle}>Recipes</h1>
-        )}
-        <div className={styles.filtersAndCountWrapper}>
-          {!recipesLoading && !recipesError && (
-            <>
-              {totalRecipes > 0 ? (
-                <p className={styles.recipeCount}>
-                  {totalRecipes} {totalRecipes === 1 ? 'recipe' : 'recipes'}
-                </p>
-              ) : (
-                <p>Sorry, no recipes match your search.</p>
-              )}
-            </>
+        <div ref={sectionRef}>
+          {searchQuery ? (
+            <h1
+              className={styles.pageTitle}
+            >{`Search Results for “${searchQuery}”`}</h1>
+          ) : (
+            <h1 className={styles.pageTitle}>Recipes</h1>
           )}
-          <Filters
+          <div className={styles.filtersAndCountWrapper}>
+            {!recipesLoading && !recipesError && (
+              <>
+                {totalRecipes > 0 ? (
+                  <p className={styles.recipeCount}>
+                    {totalRecipes} {totalRecipes === 1 ? 'recipe' : 'recipes'}
+                  </p>
+                ) : (
+                  <p>Sorry, no recipes match your search.</p>
+                )}
+              </>
+            )}
+            <Filters
+              onApplyFilters={handleApplyFilters}
+              currentFilters={currentFilters}
+              onResetAndCloseFilters={handleResetAndCloseFilters}
+              openFiltersModal={openFiltersModal}
+            />
+          </div>
+          <FiltersModal
+            isOpen={isFiltersModalOpen}
+            onClose={closeFiltersModal}
             onApplyFilters={handleApplyFilters}
             currentFilters={currentFilters}
             onResetAndCloseFilters={handleResetAndCloseFilters}
-            openFiltersModal={openFiltersModal}
           />
-        </div>
-        <FiltersModal
-          isOpen={isFiltersModalOpen}
-          onClose={closeFiltersModal}
-          onApplyFilters={handleApplyFilters}
-          currentFilters={currentFilters}
-          onResetAndCloseFilters={handleResetAndCloseFilters}
-        />
-        {recipesLoading && <Loader />}
-        <div>
-          {!recipesLoading && !recipesError && recipes.length > 0 && (
-            <RecipeList recipes={recipes} type="all" />
-          )}
-        </div>
-        {totalRecipes > recipes.length && !recipesLoading && (
+          {recipesLoading && <Loader />}
+          <div>
+            {!recipesLoading && !recipesError && recipes.length > 0 && (
+              <RecipeList recipes={recipes} type="all" />
+            )}
+          </div>
+          {/* {totalRecipes > recipes.length && !recipesLoading && (
           <LoadMoreBtn
             onClick={handleLoadMore}
             isLoading={recipesLoading}
             style={{ display: 'none' }}
           />
-        )}
-        {recipes.length > 0 && (
-          <Pagination
-            currentPage={page}
-            totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
-            onPageChange={setPage}
-          />
-        )}
+        )} */}
+          {recipes.length > 0 && (
+            <Pagination
+              currentPage={page}
+              totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
+              onPageChange={setPage}
+            />
+          )}
+        </div>
       </div>
     </section>
   );

@@ -19,11 +19,7 @@ const recipesSlice = createSlice({
         state.loading = false;
         state.error = null;
 
-        if (action.meta.arg.page === 1) {
-          state.items = action.payload.data;
-        } else {
-          state.items = [...state.items, ...action.payload.data];
-        }
+        state.items = action.payload.data;
 
         state.total = action.payload.totalItems;
       })
