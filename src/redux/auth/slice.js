@@ -1,11 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toggleFavorite } from '../recipes/operations.js';
 
+const getUserFromStorage = () => {
+  try {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  } catch {
+    return null;
+  }
+};
+const getTokenFromStorage = () => {
+  try {
+    return localStorage.getItem('accessToken') || null;
+  } catch {
+    return null;
+  }
+};
+
+const initialToken = getTokenFromStorage();
+
 const initialState = {
-  user: null,
-  token: null,
+  user: getUserFromStorage(),
+  token: initialToken,
   refreshToken: null,
-  isLoggedIn: false,
+  isLoggedIn: !!initialToken,
   isLoading: false,
   error: null,
   favorites: [],
