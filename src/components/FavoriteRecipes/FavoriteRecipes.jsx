@@ -5,12 +5,20 @@ import {
   fetchFavoriteRecipes,
   toggleFavorite,
 } from '../../redux/recipes/operations.js';
-import { selectFavoriteRecipes } from '../../redux/recipes/selectors.js';
+import {
+  selectFavoriteRecipes,
+  selectFavoriteTotal,
+  selectRecipeIsLoading,
+} from '../../redux/recipes/selectors.js';
 import { useEffect, useState } from 'react';
+import s from './FavoriteRecipes.module.css';
+import Loader from '../Loader/Loader.jsx';
 
 export default function FavoriteRecipes() {
   const dispatch = useDispatch();
   const recipes = useSelector(selectFavoriteRecipes);
+  const totalSavedRecipes = useSelector(selectFavoriteTotal);
+  const isLoading = useSelector(selectRecipeIsLoading);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -34,6 +42,10 @@ export default function FavoriteRecipes() {
 
   return (
     <>
+      {recipes.length > 0 && (
+        <p className={s.totalItems}>{`${totalSavedRecipes} recipes`}</p>
+      )}
+      {isLoading && <Loader />}
       <RecipeList recipes={recipes} type="favorites" onRemove={handleRemove} />
       {hasMore && recipes.length > 0 && <LoadMoreBtn onClick={loadMore} />}
     </>
