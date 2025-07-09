@@ -1,7 +1,7 @@
 import { authReducer } from './auth/slice';
-import  recipeReducer  from "./recipes/slice.js"
+import { filtersReducer } from './filters/slice.js';
+import recipeReducer from './recipes/slice.js';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-
 import {
   persistStore,
   persistReducer,
@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import recipesReducer from './recipes/slice-all-recipes.js';
 
 import favoritesReducer from './recipes/slice';
 
@@ -24,6 +25,9 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
+
+  filters: filtersReducer,
+  recipes: recipesReducer,
   recipe: recipeReducer,
 });
 

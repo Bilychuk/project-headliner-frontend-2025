@@ -74,13 +74,16 @@ const RegisterPage = () => {
             validate={validateRegister}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, errors, touched }) => (
               <Form className={styles.form}>
                 <label className={styles.label} htmlFor="name">
                   Enter your name
                 </label>
                 <Field
-                  className={styles.input}
+                  className={
+                    styles.input +
+                    (errors.name && touched.name ? ' ' + styles.inputError : '')
+                  }
                   type="text"
                   id="name"
                   name="name"
@@ -96,7 +99,10 @@ const RegisterPage = () => {
                   Enter your email address
                 </label>
                 <Field
-                  className={styles.input}
+                  className={
+                    styles.input +
+                    (errors.email && touched.email ? ' ' + styles.inputError : '')
+                  }
                   type="email"
                   id="email"
                   name="email"
@@ -113,7 +119,10 @@ const RegisterPage = () => {
                 </label>
                 <div className={styles.passwordWrapper}>
                   <Field
-                    className={styles.input}
+                    className={
+                      styles.input +
+                      (errors.password && touched.password ? ' ' + styles.inputError : '')
+                    }
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
@@ -142,7 +151,10 @@ const RegisterPage = () => {
                 </label>
                 <div className={styles.passwordWrapper}>
                   <Field
-                    className={styles.input}
+                    className={
+                      styles.input +
+                      (errors.repeatPassword && touched.repeatPassword ? ' ' + styles.inputError : '')
+                    }
                     type={showRepeatPassword ? 'text' : 'password'}
                     id="repeatPassword"
                     name="repeatPassword"

@@ -1,9 +1,12 @@
 import styles from './LoadMoreBtn.module.css';
 
-const LoadMoreBtn = ({ onClick }) => (
-  <div className={`${styles.wrapper} ${styles.hidden}`}>
-    <button onClick={onClick} className={styles.button}>
-      Load More
+const LoadMoreBtn = ({ onClick, isLoading }) => (
+  <div className={styles.wrapper}>
+    <button 
+    onClick={onClick} 
+    className={`${styles.button} ${styles.hidden}`}
+    disabled={isLoading} >
+      {isLoading ? 'Loading...' : 'Load More'}
     </button>
   </div>
 );

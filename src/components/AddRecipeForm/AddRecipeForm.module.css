@@ -93,6 +93,10 @@
   color: #595d62;
 }
 
+.input:focus::placeholder {
+  color: transparent;
+}
+
 .textarea {
   resize: none;
   border: 1px solid #d9d9d9;
@@ -114,6 +118,10 @@
   font-weight: 400;
   font-size: 18px;
   color: #595d62;
+}
+
+.textarea:focus::placeholder {
+  color: transparent;
 }
 
 .rowGroup {

@@ -16,6 +16,14 @@
   width: 40px;
   height: 40px;
 }
+.pageBtn:hover {
+    background-color: #6d554b;
+    border-radius: 6px;
+}
+.pageBtn:focus {
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
+  background-color: #6d554b;
+}
 .arrow {
   background-color: #9b6c43;
   border: none;
@@ -30,10 +38,16 @@
   width: 40px;
   height: 40px;
 }
+.arrow:hover {
+    background-color: #6d554b;
+    border-radius: 6px;
+}
+
 .arrow:disabled {
-  opacity: 0.5; 
+  opacity: 0.3; 
   cursor: not-allowed;
   background-color: #9b6c43; 
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
 .active {
   background-color: #9b6c43;
