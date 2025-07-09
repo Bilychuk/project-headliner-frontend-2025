@@ -28,12 +28,16 @@ const validationSchema = Yup.object({
   category: Yup.string().required('Required'),
   newIngredient: Yup.object()
     .nullable()
-    .shape({
-      value: Yup.string().required(),
-      label: Yup.string().required(),
-    })
-    .required('Required'),
-  newIngredientMeasure: Yup.string().required('Required'),
+    .when('ingredients', {
+      is: ingredients => ingredients.length === 0,
+      then: schema => schema.required('Required'),
+      otherwise: schema => schema.notRequired(),
+    }),
+  newIngredientMeasure: Yup.string().when('ingredients', {
+    is: ingredients => ingredients.length === 0,
+    then: schema => schema.required('Required'),
+    otherwise: schema => schema.notRequired(),
+  }),
   ingredients: Yup.array()
     .of(
       Yup.object({
@@ -284,7 +288,7 @@ const AddRecipeForm = () => {
                         setFieldValue('newIngredient', option)
                       }
                       styles={selectStylesIngredients(
-                        Boolean(errors.ingredient && touched.ingredient)
+                        Boolean(errors.newIngredient && touched.newIngredient)
                       )}
                     />
                   </label>
