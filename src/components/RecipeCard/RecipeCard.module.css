@@ -117,20 +117,21 @@
 .learnMoreBtn:focus {
   border: 1px solid #d9d9d9;
   background-color: #d9d9d9;
-  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
 .learnMoreBtnOwn {
   max-width: 337px;
   height: 36px;
+  transition: background-color 0.3s ease;
 }
 .learnMoreBtnOwn:hover {
   border: 1px solid #d9d9d9;
-  background: #d9d9d9;
+  background-color: #d9d9d9;
 }
 .learnMoreBtnOwn:focus {
   border: 1px solid #d9d9d9;
-  background: #d9d9d9;
-  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
+  background-color: #d9d9d9;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
 .saveBtn {
   border: 1px solid #000;
@@ -142,12 +143,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease;
 }
-
+.saveBtn:hover {
+  border: 1px solid #d9d9d9;
+  background-color: #d9d9d9;
+}
+.favBtn {
+  background-color: #9b6c43;
+  border: none;
+  transition: background-color 0.3s ease;
+}
 .saveBtn.active {
   background-color: #9b6c43;
+  fill: #fff;
 }
-
+.favBtn:hover {
+  background-color: #6d554b;
+}
+.favBtn:focus {
+  box-shadow: 0 0 0 2px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
+}
 .iconFavorite {
   width: 24px;
   height: 24px;

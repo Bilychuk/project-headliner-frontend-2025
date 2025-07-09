@@ -84,12 +84,12 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
           </button>
           {type === 'favorites' ? (
             <button
-              className={styles.saveBtn}
+              className={`${styles.saveBtn} ${styles.favBtn}`}
               onClick={() => onRemove(recipe._id)}
               aria-label="Remove from favorites"
             >
               <svg className={styles.iconFavorite}>
-                <use href={`${sprite}#icon-favorites-black`} />
+                <use href={`${sprite}#icon-favorites-white`} />
               </svg>
             </button>
           ) : type === 'own' ? null : (

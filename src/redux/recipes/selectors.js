@@ -6,3 +6,4 @@ export const selectOwnRecipes = state => state.recipe.ownRecipes;
 export const selectHasNextPage = state => state.recipe.hasNextPage;
 export const selectOwnTotal = state => state.recipe.totalOwnRecipes;
 export const selectFavoriteRecipes = state => state.recipe.favoriteRecipes;
+export const selectFavoriteTotal = state => state.recipe.favoriteTotal;

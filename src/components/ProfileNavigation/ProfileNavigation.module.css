@@ -8,6 +8,10 @@
 .link {
   font-size: 16px;
   padding: 0px 0px 4px 0px;
+  transition: opacity 0.3s ease;
+}
+.link:hover {
+  opacity: 0.5;
 }
 .link.active {
   border-bottom: 1px solid #000000;
