@@ -206,6 +206,9 @@ const AddRecipeForm = () => {
                     name="title"
                     placeholder="Enter the name of your recipe"
                   />
+                  {errors.title && touched.title && (
+                    <div className={css.errorMessage}>{errors.title}</div>
+                  )}
                 </label>
 
                 <label className={css.label}>
@@ -220,6 +223,9 @@ const AddRecipeForm = () => {
                     name="description"
                     placeholder="Enter a brief description of your recipe"
                   />
+                  {errors.description && touched.description && (
+                    <div className={css.errorMessage}>{errors.description}</div>
+                  )}
                 </label>
 
                 <label className={css.label}>
@@ -234,6 +240,9 @@ const AddRecipeForm = () => {
                     name="time"
                     placeholder="10"
                   />
+                  {errors.time && touched.time && (
+                    <div className={css.errorMessage}>{errors.time}</div>
+                  )}
                 </label>
 
                 <div className={css.rowGroup}>
@@ -249,6 +258,9 @@ const AddRecipeForm = () => {
                       name="calories"
                       placeholder="150"
                     />
+                    {errors.calories && touched.calories && (
+                      <div className={css.errorMessage}>{errors.calories}</div>
+                    )}
                   </label>
 
                   <label className={`${css.label} ${css.category}`}>
@@ -291,6 +303,11 @@ const AddRecipeForm = () => {
                         Boolean(errors.newIngredient && touched.newIngredient)
                       )}
                     />
+                    {errors.newIngredient && touched.newIngredient && (
+                      <div className={css.errorMessage}>
+                        {errors.newIngredient.value || 'Required'}
+                      </div>
+                    )}
                   </label>
 
                   <div className={css.addWrapper}>
@@ -307,6 +324,12 @@ const AddRecipeForm = () => {
                         name="newIngredientMeasure"
                         placeholder="100g"
                       />
+                      {errors.newIngredientMeasure &&
+                        touched.newIngredientMeasure && (
+                          <div className={css.errorMessage}>
+                            {errors.newIngredientMeasure}
+                          </div>
+                        )}
                     </label>
 
                     <FieldArray name="ingredients">
@@ -398,6 +421,11 @@ const AddRecipeForm = () => {
                     name="instructions"
                     placeholder="Enter the step by step instructions for your recipe"
                   />
+                  {errors.instructions && touched.instructions && (
+                    <div className={css.errorMessage}>
+                      {errors.instructions}
+                    </div>
+                  )}
                 </label>
 
                 <button
