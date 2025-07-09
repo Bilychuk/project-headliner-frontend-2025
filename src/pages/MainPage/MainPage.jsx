@@ -160,11 +160,13 @@ export default function MainPage() {
             style={{ display: 'none' }}
           />
         )}
-        <Pagination
-          currentPage={page}
-          totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
-          onPageChange={setPage}
-        />
+        {recipes.length > 0 && (
+          <Pagination
+            currentPage={page}
+            totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
+            onPageChange={setPage}
+          />
+        )}
       </div>
     </section>
   );

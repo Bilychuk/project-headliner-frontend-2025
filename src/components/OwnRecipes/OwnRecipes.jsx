@@ -48,11 +48,13 @@ export default function OwnRecipes() {
       {isLoading && <Loader />}
       <RecipeList recipes={ownRecipes} type="own" />
       {/* {hasNextPage && <LoadMoreBtn onClick={handleLoadMore} />} */}
-      <Pagination
-        currentPage={page}
-        totalPages={Math.ceil(totalOwnRecipes / RECIPES_PER_PAGE)}
-        onPageChange={setPage}
-      />
+      {ownRecipes.length > 0 && (
+        <Pagination
+          currentPage={page}
+          totalPages={Math.ceil(totalOwnRecipes / RECIPES_PER_PAGE)}
+          onPageChange={setPage}
+        />
+      )}
     </>
   );
 }
