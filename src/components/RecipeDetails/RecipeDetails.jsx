@@ -8,6 +8,7 @@ import {
 } from '../../redux/auth/selectors.js';
 import sprite from '../../assets/icon/sprite.svg';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const RecipeDetails = ({ recipe, allIngredients = [] }) => {
   const {
@@ -27,6 +28,7 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
   };
   const favoriteIds = useSelector(selectFavoriteRecipeIds);
   const isFavorite = favoriteIds.includes(recipe._id);
+  const [isFavLoading, setIsFavLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +41,8 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
       return;
     }
 
+    setIsFavLoading(true);
+
     try {
       const resultAction = await dispatch(toggleFavorite(recipe._id));
 
@@ -47,7 +51,9 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
       }
     } catch (error) {
       toast.error('Something went wrong.');
-    }
+    } finally {
+    setIsFavLoading(false);
+  }
   };
 
   return (
@@ -90,11 +96,16 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
             )}
           </div>
 
-          <button onClick={handleFavorite} className={s.favoriteBtn}>
+          <button onClick={handleFavorite} className={s.favoriteBtn} disabled={isFavLoading}>
+            {isFavLoading ? 'Loading...' : 
+            (<>
             {isFavorite ? 'Remove' : 'Save'}
             <svg className={s.favIcon}>
               <use href={`${sprite}#icon-favorites-white`} />
             </svg>
+            </>)
+            }
+            
           </button>
         </div>
 
@@ -133,3 +144,4 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
 };
 
 export default RecipeDetails;
+
