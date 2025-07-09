@@ -108,7 +108,7 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
             >
               {isFavoriteLoading ? (
                 <svg className={styles.loaderIcon} width={24} height={24}>
-                  <use href={`${sprite}#icon-recycle-black`} />
+                  <use href={`${sprite}#icon-refresh-round`} />
                 </svg>
               ) : (
                 <svg
