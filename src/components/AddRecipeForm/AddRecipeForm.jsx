@@ -144,8 +144,6 @@ const AddRecipeForm = () => {
     }
   };
 
-  
-
   return (
     <>
       <Formik
@@ -278,14 +276,12 @@ const AddRecipeForm = () => {
                     <span className={css.labelTitle}>Name</span>
                     <Select
                       className={css.reactSelect}
-                      name="ingredient"
+                      name="newIngredient"
                       options={ingredientOptions}
                       placeholder="Egg"
-                      value={ingredientOptions.find(
-                        opt => opt.value === values.ingredient
-                      )}
+                      value={values.newIngredient}
                       onChange={option =>
-                        setFieldValue('ingredient', option?.value)
+                        setFieldValue('newIngredient', option)
                       }
                       styles={selectStylesIngredients(
                         Boolean(errors.ingredient && touched.ingredient)
