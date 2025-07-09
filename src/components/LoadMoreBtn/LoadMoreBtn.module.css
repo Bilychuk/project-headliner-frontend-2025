@@ -24,3 +24,9 @@
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
   background-color: #6d554b;
 }
+
+.hidden {
+  display: none;
+}
+
+

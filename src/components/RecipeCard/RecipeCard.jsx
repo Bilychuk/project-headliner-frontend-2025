@@ -8,6 +8,7 @@ import { toggleFavorite } from '../../redux/recipes/operations';
 import styles from './RecipeCard.module.css';
 import { toast } from 'react-toastify';
 import sprite from '../../assets/icon/sprite.svg';
+import defaultImage from '../../assets/img/default-recipe.webp';
 
 const RecipeCard = ({ recipe, type, onRemove }) => {
   const dispatch = useDispatch();
@@ -51,14 +52,14 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
 
   return (
     <article className={styles.card}>
-      {recipe.thumb && (
+      
         <img
-          src={recipe.thumb}
+          src={recipe.thumb || defaultImage}
           alt={recipe.title}
           loading="lazy"
           className={styles.image}
         />
-      )}
+      
       <div className={styles.content}>
         <div className={styles.headerRow}>
           <p className={styles.title}>{recipe.title}</p>

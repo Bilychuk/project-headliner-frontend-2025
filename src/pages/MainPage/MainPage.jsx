@@ -18,6 +18,8 @@ import Hero from '../../components/Hero/Hero.jsx';
 import styles from './MainPage.module.css';
 import { toast } from 'react-toastify';
 
+import Pagination from '../../components/Pagination/Pagination.jsx';
+
 const RECIPES_PER_PAGE = 12;
 
 export default function MainPage() {
@@ -152,9 +154,16 @@ export default function MainPage() {
           )}
         </div>
         {totalRecipes > recipes.length && !recipesLoading && (
-          <LoadMoreBtn onClick={handleLoadMore} isLoading={recipesLoading} />
+          <LoadMoreBtn onClick={handleLoadMore} isLoading={recipesLoading} style={{ display: 'none' }}/>
         )}
+        <Pagination
+         currentPage={page}
+         totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}
+         onPageChange={setPage}
+         />
       </div>
     </section>
   );
 }
+
+          
