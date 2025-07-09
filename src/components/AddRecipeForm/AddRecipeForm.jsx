@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useCustomSelectStyles } from '../../styles/customSelectStyles';
 import { useEffect, useState } from 'react';
-import { getCategories, getIngredients } from '../../api/api.js';
 import {
   selectAuthToken,
   selectIsAuthenticated,
@@ -16,6 +15,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import ModalErrorSaving from '../ModalErrorSaving/ModalErrorSaving.jsx';
 import sprite from '../../assets/icon/sprite.svg';
 import { fetchOwnRecipes } from '../../redux/recipes/operations.js';
+import {
+  selectCategories,
+  selectIngredients,
+} from '../../redux/filters/selectors.js';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -48,8 +51,6 @@ const initialValues = {
 };
 
 const AddRecipeForm = () => {
-  const [categoryOptions, setCategoryOptions] = useState([]);
-  const [ingredientOptions, setIngredientOptions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -57,28 +58,17 @@ const AddRecipeForm = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const categories = await getCategories();
-        const ingredients = await getIngredients();
+  const categoriesFromRedux = useSelector(selectCategories);
+  const ingredientsFromRedux = useSelector(selectIngredients);
 
-        setCategoryOptions(
-          categories.data.map(cat => ({ value: cat._id, label: cat.name }))
-        );
-
-        setIngredientOptions(
-          ingredients.data.map(ing => ({ value: ing._id, label: ing.name }))
-        );
-      } catch (error) {
-        const errorMessage =
-          error || 'Failed to fetch categories or ingredients';
-        toast.error(errorMessage, { position: 'top-right' });
-      }
-    };
-
-    fetchData();
-  }, []);
+  const categoryOptions = categoriesFromRedux.map(cat => ({
+    value: cat._id,
+    label: cat.name,
+  }));
+  const ingredientOptions = ingredientsFromRedux.map(ing => ({
+    value: ing._id,
+    label: ing.name,
+  }));
 
   const selectStylesDefault = useCustomSelectStyles('default');
   const selectStylesIngredients = useCustomSelectStyles('ingredients');

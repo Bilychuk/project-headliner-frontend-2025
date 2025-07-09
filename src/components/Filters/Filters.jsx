@@ -1,12 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   selectCategories,
   selectIngredients,
 } from '../../redux/filters/selectors.js';
-import {
-  fetchCategories,
-  fetchIngredients,
-} from '../../redux/filters/operations.js';
 import { useEffect, useState } from 'react';
 import s from './Filters.module.css';
 import sprite from '../../assets/icon/sprite.svg';
@@ -30,7 +26,6 @@ export default function Filters({
     window.innerWidth < 1440
   );
 
-  const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const ingredients = useSelector(selectIngredients);
 
@@ -48,7 +43,6 @@ export default function Filters({
     </components.DropdownIndicator>
   );
 
-  // Формування опцій для react-select (мають бути { value, label })
   const categoryOptions = [
     { value: '', label: 'Category' },
     ...categories.map(category => ({
@@ -73,11 +67,6 @@ export default function Filters({
   );
 
   const hasActiveFilters = selectedCategory !== '' || selectedIngredient !== '';
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   useEffect(() => {
     setSelectedCategory(currentFilters.category || '');
