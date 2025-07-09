@@ -64,7 +64,12 @@ const RecipeDetails = ({ recipe, allIngredients = [] }) => {
             <img src={thumb} alt={title} className={s.image} />
           </picture>
         ) : (
-          <div className={s.imagePlaceholder}>No image</div>
+          <div className={s.imagePlaceholder}>
+            <svg className={s.cameraIcon}>
+              <use href={`${sprite}#icon-photo`} />
+            </svg>
+            no photo available
+          </div>
         )}
       </div>
 

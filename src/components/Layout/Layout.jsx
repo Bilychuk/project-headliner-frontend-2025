@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import s from './Layout.module.css';
 import AppBar from '../AppBar/AppBar';
 import Footer from '../Footer/Footer';
-import { Suspense } from 'react';
 import Loader from '../Loader/Loader.jsx';
-import { ToastContainer } from 'react-toastify';
+
+const ToastContainer = lazy(() =>
+  import('react-toastify').then(mod => ({ default: mod.ToastContainer }))
+);
 
 export default function Layout() {
   return (
@@ -19,7 +22,9 @@ export default function Layout() {
       </main>
 
       <Footer />
-      <ToastContainer position="top-right" />
+      <Suspense fallback={null}>
+        <ToastContainer position="top-right" />
+      </Suspense>
     </div>
   );
 }

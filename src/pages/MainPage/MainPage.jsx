@@ -8,10 +8,7 @@ import {
   selectRecipesLoading,
   selectTotalRecipes,
 } from '../../redux/recipes/selectors-all-recipes.js';
-import {
-  selectFiltersError,
-  selectFiltersLoading,
-} from '../../redux/filters/selectors.js';
+import { selectFiltersError } from '../../redux/filters/selectors.js';
 import { fetchRecipes } from '../../redux/recipes/operations.js';
 import {
   fetchCategories,

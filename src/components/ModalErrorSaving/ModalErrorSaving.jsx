@@ -2,13 +2,20 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import s from './ModalErrorSaving.module.css';
 import sprite from '../../assets/icon/sprite.svg';
+import { api } from '../../api/api.js';
+import { useDispatch } from 'react-redux';
 
 Modal.setAppElement('#root');
 
 export default function ModalErrorSaving({ isOpen, onRequestClose }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
+    delete api.defaults.headers.common.Authorization;
     onRequestClose();
     navigate('/auth/login');
   };
@@ -37,10 +44,14 @@ export default function ModalErrorSaving({ isOpen, onRequestClose }) {
       </p>
 
       <div className={s.buttons}>
-        <button className={s.logInBtn} onClick={handleLogin}>
+        <button className={s.logInBtn} type="button" onClick={handleLogin}>
           Log in
         </button>
-        <button className={s.registerBrn} onClick={handleRegister}>
+        <button
+          className={s.registerBrn}
+          type="button"
+          onClick={handleRegister}
+        >
           Register
         </button>
       </div>

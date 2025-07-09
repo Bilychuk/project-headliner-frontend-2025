@@ -5,16 +5,24 @@
 }
 
 .button {
- background-color:  #9b6c43;
- border: transparent;
- border-radius: 8px;
- padding: 16px;
- width: 289px;
- height: 54px;
- margin-bottom: 48px;
- font-weight: 600;
- font-size: 18px;
- color: #fff;
+  background-color: #9b6c43;
+  border: transparent;
+  border-radius: 8px;
+  padding: 16px;
+  width: 289px;
+  height: 54px;
+  margin-bottom: 48px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+.button:hover {
+  background-color: #6d554b;
+}
+.button:focus {
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
+  background-color: #6d554b;
 }
 
 .hidden {

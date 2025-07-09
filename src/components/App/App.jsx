@@ -55,13 +55,19 @@ export default function App() {
         <Route
           path="/add-recipe"
           element={
-            <PrivateRoute component={<AddRecipePage />} redirectTo="/login" />
+            <PrivateRoute
+              component={<AddRecipePage />}
+              redirectTo="/auth/login"
+            />
           }
         />
         <Route
           path="/profile"
           element={
-            <PrivateRoute component={<ProfilePage />} redirectTo="/login" />
+            <PrivateRoute
+              component={<ProfilePage />}
+              redirectTo="/auth/login"
+            />
           }
         >
           {/* Вкладені маршрути */}

@@ -5,7 +5,6 @@ import {
   fetchFavoriteRecipes,
   fetchOwnRecipes,
   fetchRecipeById,
-  toggleFavorite,
 } from './operations.js';
 
 const recipeSlice = createSlice({
@@ -13,7 +12,10 @@ const recipeSlice = createSlice({
   initialState: {
     recipe: null,
     ownRecipes: [],
+    totalOwnRecipes: 0,
     favoriteRecipes: [],
+    favoriteTotal: 0,
+    favoriteHasNextPage: false,
     isLoading: false,
     error: null,
   },
@@ -33,23 +35,6 @@ const recipeSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
-      .addCase(toggleFavorite.fulfilled, (state, action) => {
-        if (state.recipe && state.recipe._id === action.payload.recipeId) {
-          state.recipe.isFavorite =
-            action.payload.action === 'add' ? true : false;
-        }
-      })
-      .addCase(toggleFavorite.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(toggleFavorite.rejected, (state, action) => {
-        state.recipe.isFavorite = null;
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-
       .addCase(fetchAllIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload;
         state.isLoading = false;
@@ -70,7 +55,17 @@ const recipeSlice = createSlice({
       })
       .addCase(fetchOwnRecipes.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.ownRecipes = action.payload;
+        state.error = null;
+        const { recipes, page, totalItems, hasNextPage } = action.payload;
+
+        if (page === 1) {
+          state.ownRecipes = recipes;
+        } else {
+          state.ownRecipes = [...state.ownRecipes, ...recipes];
+        }
+
+        state.totalOwnRecipes = totalItems;
+        state.hasNextPage = hasNextPage;
       })
       .addCase(fetchOwnRecipes.rejected, (state, action) => {
         state.isLoading = false;
@@ -82,7 +77,16 @@ const recipeSlice = createSlice({
       })
       .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.favoriteRecipes = action.payload;
+        const { recipes, page, hasNextPage, totalItems } = action.payload;
+
+        if (page === 1) {
+          state.favoriteRecipes = recipes;
+        } else {
+          state.favoriteRecipes = [...state.favoriteRecipes, ...recipes];
+        }
+
+        state.favoriteTotal = totalItems;
+        state.favoriteHasNextPage = hasNextPage;
       })
       .addCase(fetchFavoriteRecipes.rejected, (state, action) => {
         state.isLoading = false;

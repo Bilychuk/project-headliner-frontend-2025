@@ -12,8 +12,29 @@
 
 .image {
   max-height: 261px;
+  width: 361px;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.imagePlaceholder {
+  max-width: 361px;
+  width: 100%;
+  border-radius: 16px;
+  background-color: #9f9f9f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 1;
+}
+
+.cameraIcon {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke-width: 2.56px;
+  stroke: black;
 }
 
 .header {
@@ -58,7 +79,10 @@
   cursor: pointer;
 }
 
-.favoriteBtn:hover,
+.favoriteBtn:hover {
+  background-color: #6d554b;
+}
+
 .favoriteBtn:focus {
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #ffffff;
 }
@@ -119,6 +143,11 @@
 
   .image {
     max-height: 624px;
+    width: 704px;
+  }
+
+  .imagePlaceholder {
+    max-width: 704px;
   }
 
   .metaContainer {
@@ -145,10 +174,15 @@
     width: 1225px;
   }
 
+  .imagePlaceholder {
+    max-width: 1225px;
+  }
+
   .recipeBodyContainer {
     max-width: 1225px;
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-between;
     margin-top: 32px;
     gap: 24px;
   }

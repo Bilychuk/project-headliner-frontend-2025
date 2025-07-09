@@ -53,10 +53,12 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
   return (
     <article className={styles.card}>
       
-        <img 
-        src={recipe.thumb || defaultImage} 
-        alt={recipe.title} 
-        className={styles.image} />
+        <img
+          src={recipe.thumb || defaultImage}
+          alt={recipe.title}
+          loading="lazy"
+          className={styles.image}
+        />
       
       <div className={styles.content}>
         <div className={styles.headerRow}>
@@ -73,13 +75,18 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
         )}
         {calories && <p className={styles.calories}> {renderCalories()}</p>}
         <div className={styles.buttons}>
-          <button className={styles.learnMoreBtn} onClick={handleLoadMore}>
+          <button
+            className={`${styles.learnMoreBtn} ${
+              type === 'own' ? styles.learnMoreBtnOwn : ''
+            }`}
+            onClick={handleLoadMore}
+          >
             Learn more
           </button>
           {type === 'favorites' ? (
             <button
               className={styles.saveBtn}
-              onClick={handleRemove}
+              onClick={() => onRemove(recipe._id)}
               aria-label="Remove from favorites"
             >
               <svg className={styles.iconFavorite}>

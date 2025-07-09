@@ -19,10 +19,11 @@ export const getRecipes = async (page = 1, limit = 12) => {
   return res.data;
 };
 
-export const createRecipe = async formData => {
+export const createRecipe = async (formData, token) => {
   const res = await api.post('/api/recipes', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
     },
   });
   return res.data;

@@ -9,7 +9,7 @@
 }
 
 .image {
-  width: 337px;
+  max-width: 337px;
   height: 230px;
   border-radius: 16px;
   object-fit: cover;
@@ -28,7 +28,6 @@
   align-items: flex-start;
   margin-bottom: 8px;
   gap: 16px;
-  
 }
 
 .title {
@@ -59,9 +58,9 @@
 }
 
 .timeIcon {
- stroke-width: 0.50px;
- stroke: #000;
- fill: none;
+  stroke-width: 0.5px;
+  stroke: #000;
+  fill: none;
   stroke: currentColor;
   width: 25px;
   height: 24px;
@@ -73,7 +72,6 @@
   font-weight: 600;
   color: #000;
   white-space: nowrap;
-  
 }
 
 .description {
@@ -101,7 +99,8 @@
 .learnMoreBtn {
   border: 1px solid #000;
   border-radius: 8px;
-  width: 289px;
+  width: 100%;
+  max-width: 289px;
   height: 40px;
   padding: 6px 12px;
   cursor: pointer;
@@ -109,8 +108,30 @@
   font-size: 16px;
   color: #000;
   background-color: #faf3e0;
+  transition: background-color 0.3s ease;
 }
-
+.learnMoreBtn:hover {
+  border: 1px solid #d9d9d9;
+  background-color: #d9d9d9;
+}
+.learnMoreBtn:focus {
+  border: 1px solid #d9d9d9;
+  background-color: #d9d9d9;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
+}
+.learnMoreBtnOwn {
+  max-width: 337px;
+  height: 36px;
+}
+.learnMoreBtnOwn:hover {
+  border: 1px solid #d9d9d9;
+  background: #d9d9d9;
+}
+.learnMoreBtnOwn:focus {
+  border: 1px solid #d9d9d9;
+  background: #d9d9d9;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px white;
+}
 .saveBtn {
   border: 1px solid #000;
   border-radius: 8px;
@@ -124,7 +145,7 @@
 }
 
 .saveBtn.active {
-  background-color: #9b6c43;;
+  background-color: #9b6c43;
 }
 
 .iconFavorite {
@@ -132,7 +153,6 @@
   height: 24px;
   stroke: #000;
   fill: none;
-  
 }
 
 .activeIcon {
@@ -153,8 +173,13 @@
     max-width: 254px;
   }
   .learnMoreBtn {
+    max-width: none;
     width: 267px;
-    height: 40px; 
+    height: 40px;
+  }
+  .learnMoreBtnOwn {
+    max-width: none;
+    width: 315px;
   }
 }
 
@@ -172,5 +197,8 @@
   }
   .learnMoreBtn {
     width: 216px;
+  }
+  .learnMoreBtnOwn {
+    width: 264px;
   }
 }
