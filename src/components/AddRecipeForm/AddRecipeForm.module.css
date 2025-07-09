@@ -467,3 +467,16 @@
     width: 809px;
   }
 }
+
+.inputError {
+  border: 1px solid red ;
+}
+
+.textareaError {
+  border: 1px solid red ;
+}
+
+.selectError .react-select__control {
+  border-color: red ;
+  box-shadow: 0 0 0 1px red;
+}
