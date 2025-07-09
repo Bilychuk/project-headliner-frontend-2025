@@ -5,6 +5,10 @@ import Layout from '../Layout/Layout';
 import RestrictedRoute from '../RestrictedRoute/RestrictedRoute.jsx';
 import { useDispatch } from 'react-redux';
 import { autoLogin } from '../../redux/auth/operations';
+import {
+  fetchCategories,
+  fetchIngredients,
+} from '../../redux/filters/operations.js';
 
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage.jsx'));
 const RecipeViewPage = lazy(() =>
@@ -30,6 +34,8 @@ export default function App() {
 
   useEffect(() => {
     dispatch(autoLogin());
+    dispatch(fetchCategories());
+    dispatch(fetchIngredients());
   }, [dispatch]);
 
   return (

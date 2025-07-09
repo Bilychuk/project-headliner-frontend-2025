@@ -10,10 +10,6 @@ import {
 } from '../../redux/recipes/selectors-all-recipes.js';
 import { selectFiltersError } from '../../redux/filters/selectors.js';
 import { fetchRecipes } from '../../redux/recipes/operations.js';
-import {
-  fetchCategories,
-  fetchIngredients,
-} from '../../redux/filters/operations.js';
 import Filters from '../../components/Filters/Filters.jsx';
 import FiltersModal from '../../components/FiltersModal/FiltersModal.jsx';
 
@@ -64,7 +60,6 @@ export default function MainPage() {
   // обробник для кнопки "Load More"
   const handleLoadMore = () => setPage(prev => prev + 1);
 
-  // завантаження рецептів
   const loadRecipesRef = useRef();
   const loadRecipes = useCallback(() => {
     dispatch(
@@ -94,11 +89,6 @@ export default function MainPage() {
       loadRecipesRef.current();
     }
   }, [currentFilters.category, currentFilters.ingredient, searchQuery, page]);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   useEffect(() => {
     if (recipesError) {
