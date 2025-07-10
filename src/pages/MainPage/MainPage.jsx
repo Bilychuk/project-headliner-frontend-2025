@@ -168,7 +168,7 @@ export default function MainPage() {
             style={{ display: 'none' }}
           />
         )} */}
-          {recipes.length > 0 && (
+          {recipes.length > 0 && !recipesLoading && (
             <Pagination
               currentPage={page}
               totalPages={Math.ceil(totalRecipes / RECIPES_PER_PAGE)}

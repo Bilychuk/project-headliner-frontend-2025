@@ -55,7 +55,7 @@ export default function FavoriteRecipes() {
       {isLoading && <Loader />}
       <RecipeList recipes={recipes} type="favorites" onRemove={handleRemove} />
       {/* {hasMore && recipes.length > 0 && <LoadMoreBtn onClick={loadMore} />} */}
-      {recipes.length > 0 && (
+      {recipes.length > 0 && !isLoading && (
         <Pagination
           currentPage={page}
           totalPages={Math.ceil(totalSavedRecipes / RECIPES_PER_PAGE)}
