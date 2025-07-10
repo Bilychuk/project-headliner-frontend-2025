@@ -110,7 +110,7 @@ export default function Filters({
         >
           <span className={s.filterText}>Filters</span>
           <svg className={s.filterIcon}>
-            <use href={`${sprite}#icon-Icon-filters-new`} />{' '}
+            <use href={`${sprite}#icon-filters`} />
           </svg>
         </button>
       ) : (
