@@ -349,8 +349,6 @@ const AddRecipeForm = () => {
 
                               setFieldValue('newIngredient', null);
                               setFieldValue('newIngredientMeasure', '');
-                            } else {
-                              toast.error('Select ingredient and amount');
                             }
                           }}
                         >
@@ -440,7 +438,7 @@ const AddRecipeForm = () => {
                     submitForm();
                   }}
                 >
-                  Publish Recipe
+                  {isSubmitting ? 'Loading...' : 'Publish Recipe'}
                 </button>
               </div>
             </div>
