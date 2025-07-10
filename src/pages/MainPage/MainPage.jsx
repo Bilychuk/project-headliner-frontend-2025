@@ -82,6 +82,7 @@ export default function MainPage() {
     currentFilters.ingredient,
     searchQuery,
     page,
+    RECIPES_PER_PAGE,
   ]);
 
   useEffect(() => {
