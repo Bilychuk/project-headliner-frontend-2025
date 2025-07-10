@@ -30,6 +30,7 @@ export default function MainPage() {
   const recipesLoading = useSelector(selectRecipesLoading);
   const recipesError = useSelector(selectRecipesError);
   const filtersError = useSelector(selectFiltersError);
+  const isFirstRender = useRef(true);
 
   const [currentFilters, setCurrentFilters] = useState({
     category: '',
@@ -60,11 +61,6 @@ export default function MainPage() {
   };
 
   const sectionRef = useRef(null);
-  useEffect(() => {
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [page]);
 
   // обробник для кнопки "Load More"
   // const handleLoadMore = () => setPage(prev => prev + 1);
@@ -86,8 +82,18 @@ export default function MainPage() {
     currentFilters.ingredient,
     searchQuery,
     page,
-    RECIPES_PER_PAGE,
   ]);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page, currentFilters.category, currentFilters.ingredient, searchQuery]);
 
   useEffect(() => {
     loadRecipesRef.current = loadRecipes;
